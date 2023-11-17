@@ -9,63 +9,26 @@
 
 (See notice at the end of this document regarding copyright.)
 
-This site is for those who know nothing of R, and maybe even nothing of
-programming, and seek *QUICK, PAINLESS!* entree to the world of R.
+这个网站是为那些对R一无所知，甚至对编程一无所知的人而设的，他们寻求*快速、无痛!*踏入R世界。
 
-* **FAST**:  You'll already be doing good stuff in R -- useful data analysis
--- in your very first lesson.
+* **快速**:  你将在你的第一堂课中就开始做一些有用的R数据分析。
 
-* **For nonprogrammers:**  If you're comfortable with navigating
-the Web and viewing charts, you're fine.  This tutorial is aimed 
-at you, not experienced C or Python coders.
+* **面向非程序员**: 如果你熟悉浏览网页和查看图表，那就没问题了。这个教程是为你而设计的，而不是针对有经验的C或Python编程者。
 
-* **Motivating:**  Every lesson centers around a *real problem* to be
-solved, on *real data*.  The lessons do *not* consist of a few toy
-examples, unrelated to the real world.  The material is presented in a
-conversational, story-telling manner.
+* **激发兴趣**: 每一课都围绕着一个要解决的*真实问题*，基于*真实数据*。这些课程不是由一些与现实世界无关的玩具示例组成的。材料以一种对话式、叙事的方式呈现。
 
-* **Just the basics, no frills or polemics:** 
+* **只是基础知识，没有花哨或争论**:
 
-    - Notably, in the first few lessons, we do NOT use Integrated
-      Development Environments (IDEs).  RStudio, ESS etc. are great, but
-      you shouldn't be burdened with learning R *and* learning an IDE at the
-      same time, a distraction from the goal of becoming productive in R as
-      fast as possible.  
+    - 值得注意的是，在最初的几堂课中，我们不使用集成开发环境（IDEs）。 RStudio、ESS等是很好的工具，但您不应该同时学习R和学习IDE，这会分散注意力，阻碍您尽快在R中变得高效的目标。请注意，即使是由[R-Ladies Sydney](https://threadreaderapp.com/thread/1119025557830684673.html)提供的优秀课程，也在使用RStudio，但对RStudio的评价是**"过于庞大。"**因此，在最初的几堂课中，我们坚持使用R命令行，并专注于数据分析，而不是诸如IDE之类的工具，这将作为中级主题进行讲解。 （本教程的一些读者可能已经在使用RStudio或外部编辑器，这里的处理将在需要时为他们提供特别的说明。）
 
-      Note that even the excellent course by [R-Ladies
-      Sydney](https://threadreaderapp.com/thread/1119025557830684673.html),
-      which does start with RStudio, laments that RStudio can be
-      **"way too overwhelming."**  
+    - 覆盖范围主要限于基本的R。例如，自诩为“有主张”的Tidyverse并没有得到处理，部分原因是因为它具有争议性质（我是一个[Tidyverse怀疑者](http://github.com/matloff/TidyverseSkeptic)），但主要原因是它会阻碍你快速在R中变得高效。虽然你可以迅速学到一些简单的、"消毒过的"东西，认为你学到了很多，但这些东西的范围相当有限，Tidy学习者通常在将R应用于实际情况时会遇到困难。我们的教程是为那些目标是*在他们自己的数据分析中高效使用R系统*的学习者而设计的。
 
-      So, in the initial lessons,  we stick to the R command line, and
-      focus on data analysis, not tools such as IDEs, which we will cover as
-      an intermediate-level topic.  (Some readers of this tutorial may already
-      be using RStudio or an external editor, and the treatment here will
-      include special instructions for them when needed.)
 
-    - Coverage is mainly limited to base R. So for instance the popular
-      but self-described "opinionated" Tidyverse is not treated, partly
-      due to its controversial nature (I am a
-      [skeptic](http://github.com/matloff/TidyverseSkeptic)), but 
-      again mainly because it would be an obstacle to your 
-      becoming productive in R quickly. 
 
-      While you can learn a few simple, "sanitized" things in Tidy
-      quickly, thinking you are learning a lot, those things are quite
-      limited in scope, and Tidy learners often find difficulty in
-      applying R to real world situations.  Our tutorial here is aimed
-      at learners whose goal is to *use the R system productively in
-      their own data analysis.*
 
-* **Nonpassive approach:**  Passive learning, just watching the screen,
-  is NO learning.  Coding is not a "spectator sport"; you must try the
-  concepts yourself, nonpassively.  So there will be occasional **Your
-  Turn** sections, in which you the learner must devise and try your own
-  variants on what has been presented.  Sometimes the tutorial will be
-  give you some suggestions, but even then, you should cook up your own
-  variants to try.  <span style="color:red"> Remember:  You get out what
-  you put in!</span>  The more actively you work the **Your Turn**
-  sections, the more powerful you will be as an R coder.
+* **非被动学习方法:** 纯粹观看屏幕是无法学到东西的。编码不是一种"旁观者运动"；你必须以非被动的方式尝试这些概念。因此，会有偶尔出现**轮到你了**的部分，你作为学习者必须设计并尝试自己对所学内容的变体。有时教程会给你一些建议，但即使在这种情况下，你也应该想出自己的变体来尝试。 <span style="color:red">记住：你付出什么，就会得到什么！</span> 你在**轮到你了**部分积极参与的越多，你作为R编码者的能力就会越强大。
+
+
 
 ## Table of Contents
 
@@ -113,122 +76,75 @@ conversational, story-telling manner.
 * [Appendix: Installing and Using RStudio](#rstudio)
 
 
-## <a name="overview"> </a> Lesson 1:  Getting Started
+## <a name="overview"> </a> 第一课：入门
 
-For the time being, the main part of this online course will be this
-**README.md** file.  It is set up as a potential R package, though, and
-I may implement that later.
+目前，这个在线课程的主要部分将是这个**README.md**文件。尽管它设置成一个潜在的R包，但我可能会在以后实现这一点。
 
-The color figure at the top of this file was generated by our
-[**prVis** package](https://github.com/matloff/prVis/),
-run on a famous dataset called *Swiss Roll*.
+文件顶部的彩色图是由我们的[**prVis包**](https://github.com/matloff/prVis/)生成的，运行在一个名为*Swiss Roll*的著名数据集上。
 
 ### <a name="noteasy"> </a> 
-> 📘 Please note again, and KEEP IN MIND ALWAYS:  
+> 📘 请再次注意，并始终记住：  
 > 
-> * Nonpassive learning is absolutely key!  So even if the output of an R
->   command is shown here, run the command yourself in your R console, by
->   copy-and-pasting from this document into the R console.  Again, *you
->   will get out of this tutorial what you put in.*
+> * 非被动学习绝对关键！所以，即使在这里显示了一个R命令的输出，也请在你的R控制台中自己运行该命令，通过从本文档复制粘贴到R控制台。再次强调，*你将从这个教程中得到什么，取决于你投入了什么。*
 > 
-> * Similarly, the **Your Turn** sections are absolutely crucial.  Devise
->   your own little examples, and try them!  "When in doubt, Try it
-> out!" is a motto I devised for teaching.  If you are unclear or
-> curious about something, try it out!  Just devise a little experiment,
-> and type in the code.  Don't worry -- you won't "break" things.
+> * 同样，**轮到你了**部分是非常关键的。设计你自己的小例子，然后尝试它们！"当有疑问时，试一试！"是我为教学设计的座右铭。如果你对某些事情感到不清楚或好奇，试一试！只需设计一个小实验，然后输入代码。别担心——你不会"弄坏"东西的。
 > 
-> * I cannot *teach* you how to
-> program.  I can merely give you the tools, e.g. R vectors, and some
-> examples.  For a given desired programming task, then, you must
-> creatively put these tools together to attain the goal.  Treat it like a
-> puzzle!  I think you'll find that if you stick with it, you'll find
-> you're pretty good at it.  After all, we can all work puzzles.
+> * 我不能*教*你如何编程。我只能给你工具，比如R向量，以及一些例子。因此，对于给定的期望的编程任务，你必须创造性地将这些工具组合起来以达到目标。把它当作一个拼图！我认为你会发现，如果你坚持下去，你会发现自己在这方面相当擅长。毕竟，我们都能解决难题。
 > 
-> * And for such reasons, one must remember that *there is not always a
-> simple way to code a given task*.  As you progress through these
-> lessons, they will become increasingly complex.  The essence of becoming
-> a good programmer is to be patience and persistent.  You then WILL
-> complete those complex tasks!
+> * 出于这样的原因，人们必须记住*并不总是有一种简单的方式来编写给定的任务*。随着你在这些课程中的进展，它们会变得越来越复杂。成为一个好的程序员的本质是耐心和坚持。然后你就能完成那些复杂的任务！
 
-### Starting out:
 
-You'll need to [install
-R](https://www.datacamp.com/community/tutorials/installing-R-windows-mac-ubuntu),
-from [the R Project site](https://www.r-project.org).  Start up R,
-either by clicking an icon or typing `R` in a terminal window.  We are
-not requiring RStudio here, but if you already have it, start it; you'll
-be typing into the R console, the Console pane.
+### 开始：
 
-As noted, this tutorial will be "bare bones."  In particular, there is
-no script to type your command for you.  Instead, you will either
-copy-and-paste from the text here into the R console, or type them there
-by hand.  (Note that the code lines here will all begin with the R
-interactive prompt, `>`; that should not be typed.)
+您需要[安装R](https://www.datacamp.com/community/tutorials/installing-R-windows-mac-ubuntu)，可以从[R项目站点](https://www.r-project.org)下载。启动R，可以通过点击图标或在终端窗口中键入 `R` 来进行。在这里我们不要求使用RStudio，但如果你已经有了，启动它；你将在R控制台中键入，也就是Console窗格。
 
-This is a Markdown file.  You can read it right there on GitHub, which
-has its own Markdown renderer. Or you can download it to your own
-machine in Chrome and use the Markdown Reader extension to view it (be
-sure to enable Allow Access to File URLs).  
+正如上面提到的，这个教程将是"基础知识"。特别地，没有脚本来为您键入命令。相反，您将要么从这里的文本复制粘贴到R控制台中，要么手动在那里输入。 （请注意，这里的代码行都将以R交互提示符 `>` 开始；不应该输入它。）
 
-When you end your R session, exit by typing `quit()`.
+这是一个Markdown文件。您可以在GitHub上直接阅读它，它有自己的Markdown渲染器。或者您可以在Chrome中将其下载到自己的计算机上，并使用Markdown Reader扩展查看它（请确保启用“允许访问文件URL”）。
 
-Good luck!  And if you have any questions, feel free to e-mail me, at
-matloff@cs.ucdavis.edu
+当您结束R会话时，通过键入 `quit()` 退出。
 
-## <a name="firstr"> </a> Lesson 2: First R Steps
+祝你好运！如果有任何问题，请随时给我发送电子邮件，我的邮箱是matloff@cs.ucdavis.edu
 
-The R command prompt is `>`.  Again, it will be shown here, but you don't type
-it.  It is just there in your R window to let you know R is inviting you
-to submit a command.  (If you are using RStudio, you'll see it in the
-Console pane.) 
+## <a name="firstr"> </a> 第二课：R的第一步
 
-So, just type `1+1` then hit Enter.  Sure enough, it prints out 2 (you
-were expecting maybe 12108?):
+R命令提示符是 `>`。同样，它将在这里显示，但您不需要键入它。它只是在您的R窗口中，让您知道R正在邀请您提交一个命令。（如果您使用的是RStudio，您将在Console窗格中看到它。）
 
-``` r
+所以，只需输入 `1+1` 然后按Enter。确实，它输出了2（你可能期望的是12108吗？）：
+
+```r
 > 1 + 1
 [1] 2
 ```
-But what is that `[1]` here?  It's just a row label.  We'll go into that
-later, not needed quite yet.
 
-### Example: Nile River data
+但这里的 `[1]` 是什么呢？这只是一个行标签。我们稍后会讨论这个，目前还不需要。
 
-R includes a number of built-in datasets, mainly for illustration
-purposes.  One of them is **Nile**, 100 years of annual flow data on the
-Nile River.
+### 示例：尼罗河数据
 
-Let's find the mean flow:
+R包含许多内置数据集，主要用于说明目的。其中之一是**Nile**，涉及尼罗河100年的年度流量数据。
 
-``` r
+让我们找到平均流量：
+
+```r
 > mean(Nile)
 [1] 919.35
 ```
 
-Here **mean** is an example of an R *function*, and in this case Nile is
-an *argument* -- fancy way of saying "input" -- to that function.  That
-output, 919.35, is called the *return value* or simply *value*.  The act
-of running the function is termed *calling* the function.  (Remember
-these terms!)
+这里的**mean**是R的*函数*的一个示例，而在这种情况下，Nile是该函数的一个*参数*，这是一个说法，表示"输入"。输出的919.35被称为*返回值*或简称*值*。运行函数的行为被称为*调用*函数。 （记住这些术语！）
 
-Another point to note is that we didn't need to call R's **print**
-function; the mean flow just printed out automatically.  We will see the
-reason for that shortly, but we could have typed,
+另一个需要注意的地方是，我们不需要调用R的**print**函数；平均流量会自动打印出来。我们将很快看到这样做的原因，但我们也可以键入：
 
-``` r
+```r
 > print(mean(Nile))
 ```
 
-Function calls in R (and other languages) work "from the inside out."
-Here we are asking R to find the mean of the Nile data (our inner call),
-then print the result (the outer call, to the function **print**).
+R（和其他语言中的）中的函数调用是"从内而外"的。在这里，我们要求R找到尼罗数据的平均值（我们的内部调用），然后打印结果（对**print**函数的外部调用）。
 
-But whenever we are at the R `>` prompt, any expression we type will be
-printed out anyway, so there is no need to call **print**.
+但是，无论何时我们在R的 `>` 提示符处，我们键入的任何表达式都会被打印出来，因此不需要调用**print**。
 
-Since there are only 100 data points here, it's not unwieldy to print
-them out.  Again, all we have to do is type `Nile`, no need to call
-**print**:
+由于这里只有100个数据点，打印它们出来并不难。同样，我们只需键入`Nile`，无需调用**print**：
+
+
 
 ``` r
 > Nile
@@ -245,30 +161,19 @@ Frequency = 1
  [91] 1020  906  901 1170  912  746  919  718  714  740
 ```
 
-Now you can see how the row labels work.  There are 15 numbers per row
-here, so the second row starts with the 16th, indicated by `[16]`.  The
-third row starts with the 31st output number, hence the `[31]` and so
-on.  So, if we want to find, say, the 78th value, we look at the third
-number in the row labeled [76], obtaining 874.
+现在你可以看到行标签是如何工作的。每行有15个数字，所以第二行从第16个开始，用`[16]`表示。第三行从第31个输出数字开始，因此有`[31]`等等。因此，如果我们想找到，比如说，第78个值，我们看一下标记为[76]的第三行中的第三个数字，得到874。
 
-Note that a set of numbers such as **Nile** is called a *vector*.  This
-one is a special kind of vector, a *time series*, with each element of
-the vector recording a particular point in time, here consisting of the
-years 1871 through 1970.  We thus know that this vector has length 100
-elements.  But in general, we can find the length of any vector by
-calling the **length** function, e.g.
+请注意，像**Nile**这样的一组数字被称为*向量*。这个是一种特殊类型的向量，即*时间序列*，向量的每个元素记录了时间上的特定点，在这里由1871年到1970年的年份组成。因此，我们知道这个向量的长度是100个元素。但是一般来说，我们可以通过调用**length**函数来找到任何向量的长度，例如：
 
-``` r
+```r
 > length(Nile)
 [1] 100
-```  
+```
 
-If you are ever unsure of the arguments a function has, R provides the
-**args** function.  For instance, we will later use the **sort**
-function, which orders a set of numbers from lowest to highest (or vice
-versa).  
+ 
+如果您对函数的参数不确定，R提供了**args**函数。例如，我们稍后将使用**sort**函数，该函数将一组数字从最低到最高（或反之亦然）进行排序。
 
-For example:
+例如：
 
 ``` r
 > sort(Nile)
@@ -292,73 +197,46 @@ function (x, decreasing = FALSE, ...)
 NULL
 ```
 
-We see that the **sort** function has arguments named **x**
-and **decreasing** (and more, actually, but put that aside for now).
+我们看到**sort**函数有名为**x**和**decreasing**的参数（实际上还有更多，但暂时放在一边）。
 
+### 第一个图形
 
-### A first graph
+R具有出色的图形功能，不仅在基础R中，还在一些出色的用户贡献的包中，如**ggplot2**和**lattice**。但是我们现在将使用基础R图形，将更强大但更复杂的**ggplot2**留到以后的课程。
 
-R has great graphics, not only in base R but also in wonderful
-user-contributed packages, such as **ggplot2** and **lattice**.  But
-we'll stick with base-R graphics for now, and save the more powerful yet
-more complex **ggplot2** for a later lesson.
+我们将从一个非常简单、没有花哨的直方图开始：
 
-We'll start with a very simple, non-dazzling one, a no-frills histogram:
-
-``` r
+```r
 > hist(Nile)
 ```
 
-Like any function, **hist** has a return value, but in this case, it's
-been designed internally so that printing it produces a graph.
+像任何函数一样，**hist**有一个返回值，但在这种情况下，它被设计成在打印时产生一个图形。
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/Nile.png)
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> The *median* of a set of numbers is a value x such that half the
-> numbers are less than x and half are greater than x. (There are issues
-> with tied values, but not important here.) The median might be less
-> than the mean or larger than it.  Determine which of those two cases
-> holds for the **Nile`** data; the median function in R is of course
-> named **median**.
+> 一组数字的*中值*是一个值x，使得一半的数字小于x，另一半大于x（有一些关于相同值的问题，但在这里不重要）。中值可能小于均值，也可能大于均值。确定**Nile**数据的中值属于这两种情况中的哪一种；R中的中值函数当然被命名为**median**。
 >
-> The **hist** function draws 10 bins for this dataset
-> in the histogram by default, but you can choose other values, by
-> specifying an optional second argument to the function, named
-> **breaks**.  E.g.  
-> ``` r
+> **hist**函数在直方图中默认为这个数据集绘制了10个柱，但您可以通过为函数指定一个可选的第二个参数**breaks**来选择其他值。例如：
+> ```r
 > > hist(Nile,breaks=20)
 > ```
 > 
-> would draw the histogram with 20 bins.  Try plotting using several
-> different large and small values of the number of bins.
+> 将使用20个柱绘制直方图。尝试使用多个不同的大和小值绘制柱的数量。
 
-**Note:**  The **hist** function, as with many R functions, has many
-different options, specifiable via various arguments.  For now, we'll
-just keep things simple, and resist the temptation to explore them all,
-but R has lots of online help, which you can access via `?`.  E.g.
-typing
+**注意：**像**hist**函数这样的函数，就像许多R函数一样，有许多不同的选项，可以通过各种参数指定。现在，我们将保持简单，抵制探索它们的诱惑，但R有很多在线帮助，您可以通过 `?` 访问。例如，键入
 
-``` r
+```r
 > ?hist
 ```
 
-will tell you to full story on all the options available for the
-**hist** function.  Again, there are far too many for you to digest for
-now (most users don't ever find a need for the more esoteric ones), but
-it's a vital resource to know.
+将告诉您有关**hist**函数的所有选项的完整信息。再次强调，现在对于您来说有太多了（大多数用户从未发现有必要使用更奇特的选项），但这是一个非常重要的资源，值得知道。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> Many people like to designate functions by adding parentheses.  For
-> instance, instead of writing something like, "The **length** function
-> often comes in handy," they will write, "The **length()** function
-> often comes in handy," in order to make sure others know they are
-> talking about a function.  I do that myself sometimes, but it can lead
-> to trouble in some settings.  Consider:
+> 许多人喜欢通过添加括号来指定函数。例如，他们会写类似于“**length**函数经常很方便”的东西，而不是写“**length()**函数经常很方便”，以确保其他人知道他们正在谈论一个函数。我有时也这样做，但在某些情况下可能会导致麻烦。考虑以下例子：
 >
-> ``` r
+> ```r
 > > args(sort)
 > function (x, decreasing = FALSE, ...) 
 > NULL
@@ -366,56 +244,40 @@ it's a vital resource to know.
 > Error in sort.default() : argument "x" is missing, with no default
 > ```
 >
-> What went wrong?  In the first case, we asked **args** about an object
-> **sort** that happens to be of type 'function'.  In the second case, we
-> actually *called* **sort**.  And the latter function itself expected an
-> argument, which we did not supply.  (And one wouldn't have been
-> appropriate anyway.)
+> 出了什么问题？在第一种情况下，我们询问**args**关于一个类型为'function'的对象**sort**的信息。在第二种情况下，我们实际上*调用了* **sort**。而后者函数本身期望一个参数，我们没有提供。 （而且也不合适。）
 >
-> The problem here was rather obvious, but it can occur much more
-> subtly as well.
+> 这里的问题相当明显，但它可能更微妙地发生。
 > 
-> This illustrates the point that in coding, one must be extremely careful
-> in recognizing subtle differences, in this case between a *function* and
-> a *call* to that function.  In ordinary English, we might say, "That car
-> wants to turn left" instead of "The *driver* of that car wants to turn
-> left," but in coding we must be very picky.
+> 这说明了在编码中，我们必须非常小心地识别微妙的差异，在这种情况下是*函数*和对该函数的*调用*之间的差异。在普通英语中，我们可能会说，“那辆车想左转”而不是“那辆车的*司机*想左转”，但在编码中，我们必须非常挑剔。
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> Write code to sort the **Nile** data from largest value to smallest,
-> rather than vice versa.
+> 编写代码将**Nile**数据从最大值到最小值进行排序，而不是相反。
 
-## <a name="vecidxs"> </a> Lesson 3:  Vectors and Indices
 
-Say we want to find the mean river flow after year 1950.  
+## 第三课：向量与索引
 
-The above output said that the **Nile** series starts in 1871.  That
-means 1951 will be the 81st year, and the 100th will be 1970.  How do we
-designate the 81st through 100th elements in this data?
+假设我们想要找到1950年后的河流平均流量。
 
-Individual elements can be accessed using *subscripts* or *indices*
-(singular is *index*), which are specified using brackets, e.g. 
+上述输出表明**尼罗河**系列始于1871年。这意味着1951年将是第81年，而第100年将是1970年。我们如何指定数据中的第81到100个元素？
+
+可以使用*下标*或*索引*（单数为*索引*）来访问单个元素，使用方括号指定，例如
 
 ``` r
 > Nile[2]
 [1] 1160
 ```
 
-for the second element (the output we saw earlier shows that the second
-element is indeed 1160).  The value 2 here is the index.
+对于第二个元素（我们之前看到的输出确实显示第二个元素为1160）。这里的值2是索引。
 
-The **c** ("concatenate") function builds a vector, stringing several
-numbers together.  E.g. we can get the 2nd, 5th and 6th elements of
-**Nile**:
+**c**（"连接"）函数构建一个向量，将几个数字串在一起。例如，我们可以获取**尼罗河**的第2、第5和第6个元素：
 
 ``` r
 > Nile[c(2,5,6)]
 [1] 1160 1160 1160
 ```
 
-If we wish to build a vector of *consecutive* numbers, we can use the
-"colon" notation:
+如果我们希望构建一个包含*连续*数字的向量，可以使用“冒号”表示法：
 
 ``` r
 > Nile[c(2,3,4)]
@@ -424,36 +286,22 @@ If we wish to build a vector of *consecutive* numbers, we can use the
 [1] 1160  963 1210
 ```
 
-As you can see, 2:4 is shorter way to specify the vector c(2,3,4).
+正如你看到的，2:4是指定向量c(2,3,4)的简洁方式。
 
+因此，81:100表示从81到100的所有数字。因此**Nile[81:100]**指定了**Nile**向量中的第81到100个元素。
 
-So, 81:100 means all the numbers from 81 to 100.  Thus
-**Nile[81:100]** specifies the 81st through 100th elements in the **Nile**
-vector.
-
-Then to answer the above question on the mean flow during 1951-1971, we
-can do
+然后，为了回答关于1951-1971年平均流量的问题，我们可以执行以下操作：
 
 ``` r
 > mean(Nile[81:100])
 [1] 877.05
 ```
 
-> **NOTE:** Observe how the above reasoning process worked.  We had a
-> goal, to find the mean river flow after 1950.  We knew we had some tools
-> available to us, namely the **mean** function and R vector indices.  We
-> then had to figure out a way to combine these tools in a manner that
-> achieves our goal, which we did.  
-> 
-> This is how use of R works in general.  As you go through this tutorial,
-> you'll add more and more to your R "toolbox."  Then for any given goal,
-> you'll rummage around in that toolbox, and eventually figure out the
-> right set of tools for the goal at hand.  Sometimes this will require
-> some patience, but you'll find that the more you do, the more adept you
-> become.
+> **注意：**请注意上述推理过程的运作方式。我们有一个目标，即找到1950年后的平均河流流量。我们知道我们有一些可以使用的工具，即**mean**函数和R向量索引。然后，我们必须找出一种将这些工具结合在一起以实现我们目标的方法，我们成功做到了。
 
-If we plan to do more with that time period, we should make a copy of
-it:
+这就是R的一般工作方式。在浏览本教程时，您将为R的“工具箱”增加越来越多的内容。然后，对于任何给定的目标，您将在该工具箱中四处寻找，并最终找到适用于手头目标的正确工具集。有时这需要一些耐心，但您会发现，您所做的越多，您就变得越熟练。
+
+如果我们计划在这段时间内进行更多操作，我们应该制作一个副本：
 
 ``` r
 > n81100 <- Nile[81:100]
@@ -463,28 +311,17 @@ it:
 [1] 125.5583
 ```
 
-The function **sd** finds the standard deviation.  
+函数**sd**找到标准偏差。
 
-Note that we used R's *assignment operator* here to copy ("assign")
-those particular  **Nile** elements to **n81100**.  (In most situations,
-you can use `=` instead of `<-`, but why worry about what the exceptions
-might be?  They are arcane, so it's easier just to always use `<-`.
-And though "keyboard shortcuts" for this are possible, again let's just
-stick to the basics for now.)
+请注意，我们在这里使用了R的*赋值运算符*来将这些特定的**Nile**元素复制（“分配”）到**n81100**中。（在大多数情况下，您可以使用`=`而不是`<-`，但为什么要担心可能存在的例外情况呢？它们是深奥的，因此最好始终使用`<-`。虽然这里可以使用此操作的“键盘快捷键”，但我们现在还是坚持基础知识为好。）
 
-Note too that though we will speak of the above operation as having
-"extracted" the 81st through 100th elements of **Nile**, we have merely
-made a copy of those elements.  The original vector **Nile** remains
-intact.
+还要注意，尽管我们将上述操作称为“提取”**Nile**的第81到100个元素，但我们实际上只是制作了这些元素的副本。原始向量**Nile**保持不变。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> We can pretty much choose any name we want; "n81100" just was chosen
-> to easily remember this new vector's provenance.  (But names can't
-> include spaces, and must start with a letter.)
+> 我们几乎可以选择任何想要的名称；“n81100”只是为了方便记住这个新向量的来源而选择的名称。（但名称不能包含空格，并且必须以字母开头。）
 
-Note that **n81100** now is a 20-element vector.  Its first element is
-now element 81 of **Nile**:
+请注意，**n81100**现在是一个包含20个元素的向量。它的第一个元素现在是**Nile**的第81个元素：
 
 ``` r
 > n81100[1]
@@ -493,74 +330,62 @@ now element 81 of **Nile**:
 [1] 744
 ```
 
-Keep in mind that although **Nile** and **n81100** now have identical
-contents, they are *separate* vectors; if one changes, the other will
-not.
+请记住，尽管**Nile**和**n81100**现在具有相同的内容，它们是*独立*的向量；如果一个发生变化，另一个将不会发生变化。
 
-
-> ❄️  Your Turn
+> ❄️ 轮到你了
 >
-> Devise and try variants of the above, say finding the
-> mean over the years 1945-1960.
+> 想出并尝试上面的变体，比如找到1945年至1960年的平均值。
 
-
-Recall that another oft-used function is **length**, which gives the
-number of elements in the vector, e.g.
+请记住，另一个经常使用的函数是**length**，它给出向量的元素数，例如
 
 ``` r
 > length(Nile)
 [1] 100
 ```
 
-Can you guess the value of **length(n81100)**?  Type this expression in
-at the '>' prompt to check your answer.
+你能猜到**length(n81100)**的值吗？在'>'提示处键入此表达式以检查您的答案。
 
-Leave R by typing 'q()' or ctrl-d.  (Answer no to saving the workspace.)
+通过键入'q()'或ctrl-d离开R。 （回答否，不保存工作区。）
 
-### Recap: What have we learned in these first two lessons?
+### 小结：在这前两课中我们学到了什么？
 
-* Starting and existing R.
+* 启动和退出R。
 
-* Some R functions:  **mean**, **hist**, **length**.
+* 一些R函数：**mean**，**hist**，**length**。
 
-* R vectors, and vector indices.
+* R向量和向量索引。
 
-* Extracting vector subsets.
+* 提取向量子集。
 
-* Forming vectors, using the function **c** and ":".
+* 使用**c**和“:”函数形成向量。
 
-Not bad for Lesson 1!  And needless to say, you'll be using all of these
-frequently in the subsequent lessons and in your own usage of R.
+对于第一课来说，这还不错！毫无疑问，您将在随后的课程和您对R的使用中频繁使用所有这些。
 
-## <a name="less2"> </a> Lesson 4:  More on Vectors
+## 第四课：更多关于向量
 
-Continuing along the Nile, say we would like to know in how many years
-the level exceeded 1200.  Let's first introduce R's **sum** function:
+沿着尼罗河继续，假设我们想知道有多少年的水位超过了120
+
+0。让我们首先介绍R的**sum**函数：
 
 ``` r
 > sum(c(5,12,13))
 [1] 30
 ```
 
-Here the ***c*** function built a vector consisting of
-5, 12 and 13.  That vector was then fed into the **sum** function,
-returning 5+12+13 = 30.
+这里***c***函数构建了一个包含5、12和13的向量。然后，该向量被输入到**sum**函数中，返回5+12+13=30。
 
-By the way, the above is our first example of *function composition*,
-where the output of one function, ***c*** here, is fed as input into
-another, **sum** in this case.
+顺便说一下，上面是我们第一个*函数组合*的示例，其中一个函数的输出（在这里是***c***）被作为输入馈送到另一个函数中（在这种情况下是**sum**）。
 
-We can now use this to answer our question on the **Nile** data:
+现在我们可以使用这个来回答我们关于**Nile**数据的问题：
 
 ``` r
 > sum(Nile > 1200)
 [1] 7
 ```
 
-The river level exceeded 1200 in 7 years.
+河流水位在7年内超过了1200。
 
-**But how in the world did that work?**  Bear with me a bit here.  Let's
-look at a small example first:
+**但是这是如何运作的呢？**请耐心等待片刻。让我们首先看一个小例子：
 
 ``` r
 > x <- c(5,12,13)
@@ -572,48 +397,30 @@ look at a small example first:
 [1] 2
 ```
 
-First, notice something odd here, in the expression **x > 8**. Here
-**x** is a vector, 3 elements in length, but 8 is just a number.  It
-would seem that it's nnonsense to ask whether a vector is greater than a
-number; they're different animals.
+首先，请注意这里的表达式**x > 8**中的一些奇怪之处。这里**x**是一个向量，长度为3，但8只是一个数字。询问一个向量是否大于一个数字似乎是没有意义的；它们是不同的动物。
 
-But R makes them "the same kind" of animal, by extending that number 8
-to a 3-element vector 8,8,8.  This is called *recycling*.  This sets up
-an element-by-element comparison:  Then, the 5 in **x** is compared to
-the first 8, yielding FALSE i.e. 5 is NOT greater than 8.  Then 12 is
-compared to the second 8, yielding TRUE, and then the comparison of 13
-to the third 8 yields another TRUE.  So, we get the vector
-FALSE,TRUE,TRUE.
+但是R通过将该数字8扩展为一个3元素向量8,8,8，将它们变成“相同类型”的动物。这称为*循环*。这设置了逐个元素的比较：然后，**x**中的5与第一个8进行比较，产生FALSE，即5不大于8。然后，12与第二个8进行比较，产生TRUE，然后13与第三个8进行比较产生另一个TRUE。因此，我们得到了向量FALSE,TRUE,TRUE。
 
-Fine, but how will **sum** add up some TRUEs and FALSEs?  The
-answer is that R, like most computer languages, treats TRUE and FALSE as
-1 and 0, respectively.  So we summed the vector (0,1,1), yielding 2.
+好了，但是**sum**如何将一些TRUE和FALSE相加呢？答案是R，像大多数计算机语言一样，将TRUE和FALSE视为1和0，分别处理。因此，我们对向量（0,1,1）求和，得到2。
 
-Getting back to the question of the number of years in which the Nile
-flow exceeded 1200, let's look at that expression again:
+回到关于尼罗河流量超过1200年数的问题，让我们再次看看那个表达式：
 
 ``` r
 > sum(Nile > 1200)
 ```
 
-Since the vector **Nile** has length 100, that number 1200 will be
-recycled into a vector of one hundred copies of 1200.  The '>'
-comparison will then yield 100 TRUEs and FALSEs, so summing gives us the
-number of TRUEs, exactly what we want.
+由于向量**Nile**的长度为100，那个数字1200将被循环成一个包含一百个1200的向量。然后'>'比较将产生100个TRUE和FALSE，因此求和会给我们TRUE的数量，正是我们想要的。
 
-A question related to *how many* years had a flow above 1200 is *which*
-years had that property.  Well, R actually has a **which** function:
+与*有多少*年流量超过1200有关的问题是哪些年具有该特性。实际上，R实际上有一个**which**函数：
 
 ``` r
 > which(Nile > 1200)
 [1]  4  8  9 22 24 25 26
 ```
 
-So the 4th, 8th, 9th etc. elements in **Nile** had the queried property.
-(Note that those were years 1875, 1879 and so on.)
+因此，**Nile**中的第4、第8、第9等元素具有查询的特性。（请注意，这些是1875年，1879年等。）
 
-In fact, that gives us another way to get the count of the years with
-that trait:
+实际上，这为我们提供了另一种获得具有该特性的年份计数的方法：
 
 ``` r
 > which1200 <- which(Nile > 1200)
@@ -623,15 +430,11 @@ that trait:
 [1] 7
 ```
 
-Of course, as usual, my choice of the variable name "which1200" was
-arbirary, just something to help me remember what is stored in that
-variable.
+当然，像往常一样，我选择的变量名“which1200”是任意的，只是帮助我记住该变量中存储了什么的东西。
 
-R's **length** function does what it says, i.e. finding the length of a
-vector.  In our context, that gives us the count of years with flow
-above 1200.
+R的**length**函数做了它说的事情，即找到向量的长度。在我们的情境中，这给我们提供了流量超过1200的年份计数。
 
-And, what were the river flows in those 7 years?
+那么，在这7年中，河流的流量是多少？
 
 ``` r
 > which1200 <- which(Nile > 1200)
@@ -639,82 +442,57 @@ And, what were the river flows in those 7 years?
 [1] 1210 1230 1370 1210 1250 1260 1220
 ```
 
-
-Finally, something a little fancier.  We can combine steps above:
+最后，再来点复杂的。我们可以组合上面的步骤：
 
 ``` r
 > Nile[Nile > 1200]
 [1] 1210 1230 1370 1210 1250 1260 1220
 ```
 
-We just "eliminated the middle man," **which1200**.  The R interpreter
-saw our "Nile > 1200", and thus generated the corresponding TRUEs and
-FALSEs.  The R interpreter then treated those TRUEs and 
-FALSEs as subscripts in **Nile**, thus extracting the desired data.
+我们刚刚“消除了中间人”**which1200**。R解释器看到我们的“Nile > 1200”，然后生成相应的TRUE和FALSE。然后，R解释器将这些TRUE和FALSE视为**Nile**中的下标，从而提取所需的数据。
 
-Now, we might add here, "Don't try this at home, kids."  For
-beginners, it's really easier and more comfortable to break things into
-steps.  Once, you become experienced at R, you may wish to start
-skipping steps.  
+现在，我们可能要在这里补充一句，“孩子们，别在家里尝试这个。”对于初学者来说，将事情分成步骤确实更容易、更舒适。一旦您在R上有经验，您可能希望开始跳过一些步骤。
 
-> ❄️  Your Turn
+> ❄️ 该你了
 >
-> Say we are interested in years in which the Nile had under 950. Write
-> code to determine (a) how many such years there were, (b) which
-> specific years these were, and (c) the median height during those
-> years.
+> 假设我们对尼罗河在水位低于950时的年份感兴趣。编写代码来确定（a）有多少这样的年份，（b）这些具体是哪些年份，以及（c）这些年份的中位数。
 >
-> Try a few other experiments of your choice using **sum**.
-> I'd suggest starting with finding the sum of the first 25 elements in
-> **Nile**.  You may wish to start with experiments on a small vector, say
-> (2,1,1,6,8,5), so you will know that your answers are correct.
-> Remember, you'll learn best nonpassively.  Code away!
+> 尝试进行您选择的其他实验，使用**sum**开始可能是个不错的选择。我建议从小向量开始实验，比如（2,1,1,6,8,5），这样您就知道自己的答案是正确的。请记住，您将通过积极参与来更好地学习。开始写代码吧！
 
-Also very useful is the notion of negative indices, e.g.
 
-``` r
+非常有用的是负索引的概念，例如：
+
+```r
 > x <- c(5,12,13,8)
 > x[-1]  
 [1] 12 13  8
 ```
 
-Here we are asking for all of **x** *except* for **x[1]**.  Can you
-guess what **x[c(-1,-4)]** evaluates to?  Guess first, then try it out.
+在这里，我们要求获取所有**x**，*除了* **x[1]**。你能猜到**x[c(-1,-4)]**的结果吗？先猜一下，然后试一试。
 
-### Recap:  What have we learned in this lesson?
+### 小结：在这节课中我们学到了什么？
 
-Here you've refined your skillset for R vectors, learning R's recycling
-feature, and two tricks that R users employ for finding counts of things.
+在这里，你已经完善了你在R向量上的技能，学到了R的循环利用特性以及R用户用于查找数量的两个技巧。
 
-Once again, as you progress through this tutorial, you'll see that these
-things are used a lot in R.
+当你在本教程中继续学习时，你会发现这些东西在R中经常被使用。
 
-## <a name="less3"> </a> Lesson 5:  On to Data Frames!
+## <a name="less3"> </a> 第5课：进入数据框！
 
-Right after vectors, the next major workhorse of R is the *data frame*.
-It's a rectangular table consisting of one row for each data point.
+在向量之后，R的下一个主要工具是*数据框*。它是一个由每个数据点一行组成的矩形表格。
 
-Say we have height, weight and age on each of 100 people.  Our data
-frame would have 100 rows and 3 columns.  The entry in, e.g., the second
-row and third column would be the age of the second person in our data. 
-The second row as a whole would be all the data for that second person,
-i.e. the height, weight and age of that person.  
+假设我们有100个人的身高、体重和年龄。我们的数据框将有100行和3列。例如，在第二行和第三列中的条目将是我们数据中第二个人的年龄。整个第二行将是该第二个人的所有数据，即该人的身高、体重和年龄。
 
-**Note that that row would also be considered a vector.  The third column
-as a whole would be the vector of all ages in our dataset.**
+**注意该行也被视为一个向量。第三列整体将是我们数据集中所有年龄的向量。**
 
-As our first example, consider the **ToothGrowth** dataset built-in to
-R.  Again, you can read about it in the online help by typing
+作为我们第一个例子，考虑R内置的**ToothGrowth**数据集。同样，你可以通过键入以下命令来阅读它：
 
-``` r
+```r
 > ?ToothGrowth
-``` 
+```
 
-The data turn out to be on guinea pigs, with orange juice or
-Vitamin C as growth supplements.  Let's take a quick look 
-from the command line.
+数据实际上是关于豚鼠的，使用橙汁或维生素C作为生长补充剂。让我们从命令行快速查看。
 
-``` r
+```r
 > head(ToothGrowth)
    len supp dose
 1  4.2   VC  0.5
@@ -725,80 +503,60 @@ from the command line.
 6 10.0   VC  0.5
 ```
 
-R's **head** function displays (by default) the first 6 rows of the
-given dataframe.  We see there are length, supplement and dosage
-columns, which the curator of the data decided to name 'len', 'supp' and
-'dose'.  Each of column is an R vector, or in the case of the second
-column, a vector-like object called a *factor*, to be discussed
-shortly).  
+R的**head**函数（默认情况下）显示给定数据框的前6行。我们看到有长度、补充剂和剂量列，数据的管理员决定将它们命名为'len'、'supp'和'dose'。每一列都是一个R向量，或者在第二列的情况下，是一个称为*factor*的类似向量的对象，稍后将讨论）。  
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> To avoid writing out the long words repeatedly, it's handy to
-> make a copy with a shorter name.
+> 为了避免反复写出长单词，使用较短的名称制作副本是很方便的。
 
-``` r
+```r
 > tg <- ToothGrowth
 ```
 
-Dollar signs are used to denote the individual columns, e.g.
-**ToothGrowth$dose** for the dose column.  So for instance, we can print
-out the mean tooth length: 
+美元符号用于表示各个列，例如**ToothGrowth$dose**表示剂量列。因此，例如，我们可以打印出牙齿长度的平均值：
 
-``` r
+```r
 > mean(tg$len)
 [1] 18.81333
 ```
 
-Subscripts/indices in data frames are pairs, specifying row and column
-numbers.  To get the element in row 3, column 1:
+数据框中的下标/索引是一对，指定行和列号。要获取第3行第1列的元素：
 
-``` r
+```r
 > tg[3,1]
 [1] 7.3
 ```
-which matches what we saw above in our **head** example.  Or, use the 
-fact that **tg$len** is a vector:
+这与我们在**head**示例中看到的相符。或者，使用**tg$len**是一个向量的事实：
 
-``` r
+```r
 > tg$len[3]
 [1] 7.3
 ```
 
-The element in row 3, column 1 in the *data frame* **tg** is element 3
-in the *vector* **tg$len**.  This duality between data frames and
-vectors is often exploited in R.
+在*数据框* **tg** 中的第3行第1列的元素对应于 *向量* **tg$len** 中的第3个元素。R经常在数据框和向量之间的这种二元性上进行操作。
 
-> ❄️  Your Turn
+> ❄️  你的回合
 >
-> The above examples are fundamental to R, so you should
-> conduct a few small experiments on your own this time, little variants
-> of the above.  The more you do, the better!
+> 上面的例子对于R来说是基础的，因此这次你应该自己进行一些小实验，稍微变换一下上面的例子。你做得越多，就越好！
 
-For any subset of a data frame **d**, we can extract whatever rows and
-columns we want using the format
+对于数据框**d**的任何子集，我们都可以使用以下格式提取我们想要的行和列：
 
-``` r
-d[the rows we want, the columns we want]
+```r
+d[我们想要的行，我们想要的列]
 ```
 
-Some data frames don't have column names, but that is no obstacle.  We
-can use column numbers, e.g.
+有些数据框没有列名，但这不是问题。我们可以使用列号，例如：
 
-``` r
+```r
 > mean(tg[,1])
 [1] 18.81333
 ```
 
-Note the expression '[,1]'.  Since there is a 1 in the second position,
-we are talking about column 1.  And since the first position, before the
-comma, is empty, no rows are specified -- so *all* rows are included.
-That boils down to: all of column 1.
+注意表达式'[,1]'。由于第二个位置上有个1，我们正在谈论第1列。由于逗号前的第一个位置是空的，没有指定行，因此*所有*行都包括在内。这归结为：所有的第1列。
 
-A key feature of R is that one can extract subsets of data frames, 
-just as we extracted subsets of vectors earlier.  For instance,
+R的一个关键特性是可以提取数据框的子集，就像我们之前提取向量的子集一样。例如，
 
-``` r
+```r
 > z <- tg[2:5,c(1,3)]
 > z
    len dose
@@ -808,30 +566,28 @@ just as we extracted subsets of vectors earlier.  For instance,
 5  6.4  0.5
 ```
 
-Here we extracted rows 2 through 5, and columns 1 and 3, assigning the
-result to **z**.  To extract those columns but keep all rows, do
+在这里，我们提取了第2到第5行和第1到第3列，将结果赋给了**z**。要提取这些列但保留所有行，可以执行：
 
-``` r
+```r
 > y <- tg[ ,c(1,3)]
 ```
 
-i.e. leave the row specification field empty.
+即留下行规范字段为空。
 
-By the way, note that the three columns are all of the same length, a
-requirement for data frames.  And what is that common length in this
-case?  R's **nrow** function tells us the number of rows in any data
-frame:
+顺便说一下，注意这三列的长度都是相同的，这是数据框的要求。在这种情况下，这个共同的长度是多少？R的**nrow**函数告诉我们任何数据框中的行数：
 
-``` r
+```r
 > nrow(ToothGrowth)
 [1] 60
 ```
 
-Ah, 60 rows (60 guinea pigs, 3 measurements each).
+啊，60行（60只
 
-Or, alternatively:
+豚鼠，每只测量3次）。
 
-``` r
+或者，也可以这样：
+
+```r
 > tg <- ToothGrowth
 > length(tg$len)
 [1] 60
@@ -841,31 +597,25 @@ Or, alternatively:
 [1] 60
 ```
 
-So now you know four ways to do the same thing.  But isn't one enough?
-Of course.  But in this get-acquainted period, reading all four will
-help reinforce the knowledge you are now accumulating about R.  So,
-*make sure you understand how each of those four approaches produced the
-number 60.*
+所以现在你知道四种做同样事情的方法。但一个不够吗？当然。但在这个熟悉阶段，阅读所有四种方法将有助于强化你现在对R知识的累积。所以，请确保你理解这四种方法是如何产生数字60的。
 
-The **head** function works on vectors too:
+**head**函数也适用于向量：
 
-``` r
+```r
 >  head(ToothGrowth$len)
 [1]  4.2 11.5  7.3  5.8  6.4 10.0
 ```
 
-Like many R functions, **head** has an optional second argument,
-specifying how many elements to print:
+像许多R函数一样，**head**有一个可选的第二个参数，指定要打印多少元素：
 
-``` r
+```r
 > head(ToothGrowth$len,10)
  [1]  4.2 11.5  7.3  5.8  6.4 10.0 11.2 11.2  5.2  7.0
 ```
 
-You can create your own data frames -- good for devising little tests of
-your understanding -- as follows:
+你可以创建自己的数据框——这对于测试你的理解非常有用——方法如下：
 
-``` r
+```r
 > x <- c(5,12,13)
 > y <- c('abc','de','z')
 > d <- data.frame(x,y)
@@ -876,24 +626,19 @@ your understanding -- as follows:
 3 13   z
 ```
 
-Look at that second line!  Instead of vectors consisting of numbers,
-one can form vectors of character strings, complete with indexing
-capability, e.g.
+看看第二行！可以形成由字符字符串组成的向量，具有完整的索引功能，例如
 
-``` r
+```r
 > y <- c('abc','de','z')
 > y[2]
 [1] "de"
 ```
 
-As noted, all the columns in a data frame must be of the same length.
-Here **x** consists of 3 numbers, and **y** consists of 3 character
-strings.  (The string is the unit in the latter.  The number of
-characters in each string is irrelevant.)
+正如前面提到的，数据框中的所有列必须具有相同的长度。在这里**x**由3个数字组成，而**y**由3个字符字符串组成。（后者的单位是字符串。每个字符串中的字符数是无关紧要的。）
 
-One can use negative indices for rows and columns as well, e.g.
+对于行和列，也可以使用负索引，例如
 
-``` r
+```r
 > z <- tg[,-2]
 > head(z)
    len dose
@@ -905,31 +650,19 @@ One can use negative indices for rows and columns as well, e.g.
 6 10.0  0.5
 ```
 
-> ❄️  Your Turn
+> ❄️  你的回合
 >
-> Devise your own little examples with the **ToothGrowth** data.  For
-> instance, write code that finds the number of cases in which the tooth
-> length was less than 16, and which rows had the VC supplement..  
-> 
-> Also, try some examples with another built-in R dataset, **faithful**.
-> This one involves the Old Faithful geyser in Yellowstone National Park
-> in the US.  The first column gives duration of the eruption, and the
-> second has the waiting time since the last eruption.  As mentioned,
-> these operations are key features of R, so devise and run as many
-> examples as possible; err on the side of doing too many!
+> 想出一些关于**ToothGrowth**数据的小例子。例如，编写代码查找牙齿长度小于16的情况数量，以及VC补充剂所在的行是哪些。 
+>
+> 此外，尝试使用另一个内置的R数据集**faithful**进行一些示例。这个数据集涉及美国黄石国家公园的老忠实间歇泉。第一列给出了喷发的持续时间，第二列是距上次喷发的等待时间。正如前面提到的，这些操作是R的关键特性，因此尽可能设计并运行尽可能多的示例；最好是偏向做得多一些！
 
-### Recap:  What have we learned in this lesson?
+### 小结：在这节课中我们学到了什么？
 
-As mentioned, the data frame is the fundamental workhorse of R.  It is
-made up of columns of vectors (of equal lengths), a fact that often
-comes in handy.  
+如前所述，数据框是R的基本工具。它由向量（长度相等）的列组成，这一事实经常很方便。
 
-Unlike the single-number indices of vectors, each element in a data
-frame has 2 indices, a row number and a column number.  One can specify
-sets of rows and columns to extra subframes.
+与向量的单一数字索引不同，数据框中的每个元素都有两个索引，一个是行号，一个是列号。我们可以指定要提取的行和列的集合以提取子框。
 
-One can use the R **nrow** function to query the number of rows in a
-data frame; **ncol** does the same for the number of columns.
+可以使用R的**nrow**函数查询数据框中的行数；**ncol**对于列数也是如此。
 
 ## <a name="less4"> </a> Lesson 6:  R Factor Class
 
