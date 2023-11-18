@@ -30,51 +30,50 @@
 
 
 
-## Table of Contents
+## 目录
 
-**PART I**
-* [Lesson 1: Getting Started](#overview)
-* [Lesson 2: First R Steps](#firstr)
-* [Lesson 3: Vectors and Indices](#vecidxs)
-* [Lesson 4: More on Vectors](#less2)
-* [Lesson 5: On to Data Frames!](#less3)
-* [Lesson 6: The R Factor Class](#less4)
-* [Lesson 7: Extracting Rows/Columns from Data Frames](#extractdf)
-* [Lesson 8: More Examples of Extracting Rows, Columns](#moreextract)
-* [Lesson 9: The tapply Function](#tapply)
-* [Lesson 10: Data Cleaning](#less5)
-* [Lesson 11: The R List Class](#less6)
-* [Lesson 12: Another Look at the Nile Data](#less7)
-* [Lesson 13: Pause to Reflect](#pause1)
-* [Lesson 14: Introduction to Base R Graphics ](#less8)
-* [Lesson 15: More on Base Graphics ](#less9)
-* [Lesson 16: Writing Your Own Functions](#less10)
-* [Lesson 17: `For` Loops](#less11)
-* [Lesson 18: Functions with Blocks](#ftnbl)
-* [Lesson 19: Text Editing and IDes](#edt)
-* [Lesson 20: If, Else, Ifelse](#ifelse)
-* [Lesson 21: Do Pro Athletes Keep Fit?](#keepfit)
-* [Lesson 22: Linear Regression Analysis, I](#linreg1)
-* [Lesson 23: S3 Classes](#s3)
-* [Lesson 24: Baseball Player Analysis (cont'd.)](#less15)
-* [Lesson 25: R Packages, CRAN, Etc.](#cran)
+**第 I 部分**
+* [第 1 课：入门](#overview)
+* [第 2 课：首次使用R](#firstr)
+* [第 3 课：向量和索引](#vecidxs)
+* [第 4 课：更多关于向量](#less2)
+* [第 5 课：进入数据框！](#less3)
+* [第 6 课：R因子类](#less4)
+* [第 7 课：从数据框提取行/列](#extractdf)
+* [第 8 课：提取行、列的更多示例](#moreextract)
+* [第 9 课：tapply函数](#tapply)
+* [第 10 课：数据清理](#less5)
+* [第 11 课：R列表类](#less6)
+* [第 12 课：对尼罗河数据的另一种看法](#less7)
+* [第 13 课：暂停反思](#pause1)
+* [第 14 课：基础R图形简介](#less8)
+* [第 15 课：更多关于基础图形](#less9)
+* [第 16 课：编写自己的函数](#less10)
+* [第 17 课：`For`循环](#less11)
+* [第 18 课：带块的函数](#ftnbl)
+* [第 19 课：文本编辑和IDE](#edt)
+* [第 20 课：If、Else、Ifelse](#ifelse)
+* [第 21 课：职业运动员保持健康吗？](#keepfit)
+* [第 22 课：线性回归分析，I](#linreg1)
+* [第 23 课：S3类](#s3)
+* [第 24 课：棒球球员分析（续）](#less15)
+* [第 25 课：R包、CRAN等](#cran)
 
-**PART II**
-* [Lesson 26: A Pause, Before Going on to Advanced Topics](#advanced)
-* [Lesson 27: A First Look at ggplot2](#gg2first)
-* [Lesson 28: Should You Use Functional Programming?](#appfam)
-* [Lesson 29 Simple Text Processing, I](#txt)
-* [Lesson 30: Simple Text Processing, II](#txt1)
-* [Lesson 31: Linear Regression Analysis, II](#linreg2)
-* [Lesson 32: Working with the R Date Class](#dates)
-* [Lesson 33: Tips on R Coding Style and Strategy](#style)
-* [Lesson 34: The Logistic Model](#logit)
-* [Lesson 35: Files and Directories](#fd)
-* [Lesson 36: R `while` Loops](#whl)
-* [To Learn More](#forMore)
-* [Thanks](#thanks)
-* [Appendix: Installing and Using RStudio](#rstudio)
-
+**第 II 部分**
+* [第 26 课：在继续深入研究之前的暂停](#advanced)
+* [第 27 课：初探ggplot2](#gg2first)
+* [第 28 课：应该使用函数式编程吗？](#appfam)
+* [第 29 课：简单文本处理，I](#txt)
+* [第 30 课：简单文本处理，II](#txt1)
+* [第 31 课：线性回归分析，II](#linreg2)
+* [第 32 课：使用R日期类](#dates)
+* [第 33 课：有关R编码风格和策略的技巧](#style)
+* [第 34 课：逻辑模型](#logit)
+* [第 35 课：文件和目录](#fd)
+* [第 36 课：R `while` 循环](#whl)
+* [了解更多](#forMore)
+* [感谢](#thanks)
+* [附录：安装和使用RStudio](#rstudio)
 
 ## <a name="overview"> </a> 第一课：入门
 
@@ -664,90 +663,59 @@ R的一个关键特性是可以提取数据框的子集，就像我们之前提�
 
 可以使用R的**nrow**函数查询数据框中的行数；**ncol**对于列数也是如此。
 
-## <a name="less4"> </a> Lesson 6:  R Factor Class
+## <a name="less4"> </a> 第 6 课：R因子类
 
-Each object in R has a *class*. The number 3 is of the **'numeric'**
-class, the character string 'abc' is of the **'character'** class, and
-so on.  (In R, class names are quoted; one can use single or double
-quotation marks.) Note that vectors of numbers are of  **'numeric'**
-class too; actually, a single number is considered to be a vector of
-length 1.  So, **c('abc','xw')**, for instance, is  **'character'**
-as well.
+在R中，每个对象都有一个*类*。数字3的类是**'numeric'**，字符字符串'abc'的类是**'character'**等等。 （在R中，类名需要引号；可以使用单引号或双引号。）请注意，数字向量也是**'numeric'**类；实际上，单个数字被认为是长度为1的向量。因此，例如**c('abc','xw')**也是**'character'**。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> Computers require one to be very, very careful and very, very precise.
-> In that expression **c('abc','xw')** above, one might wonder why it does
-> not evaluate to 'abcxw'.  After all, didn't I say that the 'c' stands
-> for "concatenate"?  Yes, but the **c** function concatenates *vectors*.
-> Here 'abc' is a vector of length 1 -- we have *one* character string,
-> and the fact that it consists of 3 characters is irrelevant -- and
-> likewise 'xw' is one character string.  So, we are concatenating a
-> 1-element vector with another 1-element vector, resulting in a 2-element
-> vector.
+> 计算机要求人非常小心，非常精确。在上面的**c('abc','xw')**表达式中，人们可能会想知道为什么它没有评估为'abcxw'。毕竟，我不是说过'c'代表"连接"吗？是的，但是**c**函数连接*向量*。这里'abc'是长度为1的向量——我们有*一个*字符字符串，它由3个字符组成是无关紧要的——同样，'xw'也是一个字符字符串。因此，我们正在连接一个包含1个元素的向量与另一个包含1个元素的向量，结果是一个包含2个元素的向量。
 
-What about **tg** and **tg$supp** in the Vitamin C example above?  What
-are their classes?
+那么在上面的维生素C的例子中**tg**和**tg$supp**的类是什么？
 
-``` r
+```r
 > class(tg)
 [1] "data.frame"
 > class(tg$supp)
 [1] "factor"
 ```
 
-R factors are used when we have *categorical* variables.  If in a
-genetics study, say, we have a variable for hair color, that might
-comprise four categories:  black, brown, red, blond.  We can find the
-list of categories for **tg$supp** as follows:
+当我们有*分类*变量时，R因子就会派上用场。例如，在一项基因研究中，我们可能有一个关于头发颜色的变量，它可能包括四个类别：黑色、棕色、红色、金色。我们可以通过以下方式找到**tg$supp**的类别列表：
 
-``` r
+```r
 > levels(tg$supp)
 [1] "OJ" "VC"
 ```
 
-The categorical variable here is **supp**, the name the creator of this 
-dataset chose for the supplement column.  We see that there are two categories
-(*levels*), either orange juice or Vitamin C.
+这里的分类变量是**supp**，这是数据集创建者为补充列选择的名称。我们看到有两个类别（*levels*），即橙汁或维生素C。
 
-Note carefully that the values of an R factor must be quoted. Either
-single or double quote marks is fine (though the marks don't show
-up when we use **head**).
+请注意，R因子的值必须用引号括起来。可以使用单引号或双引号都可以（尽管在使用**head**时不显示引号）。
 
-> 📘 Pro Tip
-> 
-> The R **factor** class is one of the most powerful aspects of R.  We
-> will acquire this skill gradually in the coming lessons.  Make sure to
-> really become skilled in it.
-
-> ❄️  Your Turn
+> 📘 专业提示
 >
-> As mentioned, R includes many built-in datasets, a list of which you
-> may obtain via the call **data()**.  Look through some of the
-> datasets, and find one that you think will have a factor column; then
-> verify.
+> R的**factor**类是R中最强大的方面之一。在接下来的课程中，我们将逐渐掌握这项技能。确保真正熟练掌握它。
 
-## <a name="extractdf"> </a> Lesson 7:  Extracting Rows/Columns from Data Frames
+> ❄️  你的回合
+>
+> 如前所述，R包含许多内置数据集，可以通过调用**data()**获取列表。浏览其中一些数据集，并找到一个你认为将包含一个因子列的数据集；然后进行验证。
 
-(The reader should cover this lesson especially slowly and carefully.
-The concepts are simple, but putting them together requires careful
-inspection.)
+## <a name="extractdf"> </a> 第 7 课：从数据框中提取行/列
 
-First, let's review what we saw in a previous lesson:
+（读者应该特别慢慢而仔细地阅读这一课程。概念很简单，但将它们组合起来需要仔细检查。）
 
-``` r
+首先，让我们回顾一下前面一课中看到的内容：
+
+```r
 > which1200 <- which(Nile > 1200)
 > Nile[which1200]
 [1] 1210 1230 1370 1210 1250 1260 1220
 ```
 
-There, we saw how to extract *vector elements*.  We can do something
-similar to extract *data frame rows or columns*.  Here is how:
+在这里，我们学习了如何提取*向量元素*。我们可以类似地提取*数据框的行或列*。以下是方法：
 
-Continuing the Vitamin C example, let's compare mean tooth length for
-the two types of supplements.  Here is the code:
+继续使用维生素C的例子，让我们比较两种补充剂类型的平均牙齿长度。以下是代码：
 
-``` r
+```r
 > whichOJ <- which(tg$supp == 'OJ')
 > whichVC <- which(tg$supp == 'VC')
 > mean(tg[whichOJ,1])
@@ -756,25 +724,19 @@ the two types of supplements.  Here is the code:
 [1] 16.96333
 ```
 
-In the first two lines above, we found which rows in **tg** (or
-equivalently, which elements in **tg$supp**) had the OJ supplement, and
-recorded those row numbers in **whichOJ**.  Then we did the same for VC.
+在上述的前两行中，我们找到了**tg**（或等效地，**tg$supp**）中具有OJ补充剂的行，将这些行号记录在**whichOJ**中。然后我们对VC做了同样的事情。
 
-Now, look at the expression **tg[whichOJ,1]**.  Remember, data frames
-are accessed with two subscript expressions, one for rows, one for
-colums, in the format
+现在，看一下表达式**tg[whichOJ,1]**。记住，数据框是用两个下标表达式访问的，一个是用于行，一个是用于列，格式如下：
 
-``` r
+```r
 d[the rows we want, the columns we want]
 ```
 
-So, **tg[whichOJ,1]** says to restrict attention to the OJ rows, and
-only column 1, tooth length.  We then find the mean of those restricted
-numberss.  This turned out to be 20.66333.  Then do the same for VC.
+因此，**tg[whichOJ,1]** 表示只关注OJ行，而且只有第1列，即牙齿长度。然后我们找到这些受限制的数字的平均值。结果是20.66333。然后对VC进行同样的操作。
 
-Again, if we are pretty experienced, we can skip steps:
+同样，如果我们经验丰富，我们可以跳过一些步骤：
 
-``` r
+```r
 > tgoj <- tg[tg$supp == 'OJ',]
 > tgvc <- tg[tg$supp == 'VC',]
 > mean(tgoj$len)
@@ -783,51 +745,38 @@ Again, if we are pretty experienced, we can skip steps:
 [1] 16.96333
 ```
 
-Either way, we have the answer to our original question:  Orange juice appeared
-to produce more growth than Vitamin C.  (Of course, one might form a
-confidence interval for the difference etc.)
+无论哪种方式，我们都得到了我们最初问题的答案：橙汁似乎比维生素C产生更多的生长。 （当然，可以为差异等形成置信区间。）
 
-### Recap: What have we learned in this lesson?
+### 小结：在这节课中我们学到了什么？
 
-Just as we learned earlier how to use a sequence of TRUE and FALSE
-values to extract a parts of a vector, we now see how to do the
-analogous thing for data frames:  **We can use a sequence of TRUE and FALSE
-values to extract a certain rows or columns from a data frame.**
+正如我们之前学习如何使用TRUE和FALSE值序列提取向量的部分一样，我们现在看到了如何对数据框进行类似的操作：**我们可以使用TRUE和FALSE值序列从数据框
 
-It is imperative that the reader fully understand this lesson before
-continuing, trying some variations of the above example on his/her own.
-We'll be using this technique often in this tutorial, and it is central
-to R usage in the real world.
+中提取某些行或列。**
 
-> ❄️  Your Turn
+在继续之前，读者必须充分理解这一课程，在自己进行一些上述示例的变化之前。我们将在本教程中经常使用这项技术，它对于在实际世界中使用R是至关重要的。
+
+> ❄️  你的回合
 >
-> Try some of these operations on R's built-in
-> **faithful** dataset.  For instance, find the number of eruptions for
-> which the waiting time was more than 80 minutes.
+> 尝试在R的内置**faithful**数据集上进行一些操作。例如，找出等待时间超过80分钟的喷发次数。
 
-## <a name="moreextract"> </a> Lesson 8:  More Examples of Extracting Rows, Columns
 
-Often we need to extract rows or columns from a data frame, subject to
-more than one condition.  For instance, say we wish to extract from
-**tg** the sub-data frame consisting of OJ and length less than 8.8.  
+## <a name="moreextract"> </a> 第 8 课：更多提取行和列的例子
 
-We could do this, using the ampersand symbol '&', which means a logical
-AND operation:
+通常，我们需要根据多个条件提取数据框的行或列。例如，假设我们希望从**tg**中提取由OJ和长度小于8.8组成的子数据框。
 
-``` r
+我们可以使用与符号'&'，它表示逻辑AND操作：
+
+```r
 > tg[tg$supp=='OJ' & tg$len < 8.8,]
    len supp dose
 37 8.2   OJ  0.5
 ```
 
-Ah, it turns out that only one case satisfied both conditions.  
+啊，结果表明只有一个案例同时满足两个条件。
 
-If we want all rows that satisfy at least one of the conditions, not
-necessarily both, then we use the OR operator, '|'.  Say we want to
-obtain all rows in which either **len** is greater than 28 or the
-treatment dose was 1.0 or both:
+如果我们想要满足至少一个条件的所有行，而不一定是两者，那么我们使用OR运算符'|'。例如，我们想要获取所有长度大于28或治疗剂剂量为1.0或两者的行：
 
-``` r
+```r
 > tg[tg$len > 28 | tg$dose == 1.0,]
     len supp dose
 11 16.5   VC    1
@@ -857,25 +806,19 @@ treatment dose was 1.0 or both:
 59 29.4   OJ    2
 ```
 
-By the way, note that the original row numbers are displayed too.  For
-example, the first case satisfying the conditions was row number 11 in
-the original data frame **tg**.
+顺便说一下，原始的行号也被显示了。例如，满足条件的第一个案例在原始数据框**tg**中是第11行。
 
-Typically we want not only to extract part of the data frame, but also
-save the results:
+通常，我们不仅想提取数据框的一部分，还想保存结果：
 
-``` r
+```r
 > w <- tg[tg$len > 28 | tg$dose == 1.0,]
 ```
 
-Again, I chose the name 'w' arbitrarily.  Names must begin with a
-letter, and consist only of letters, digits and a few special
-characters such as '-' or '.'
+再次强调，我随意选择了名字'w'。名称必须以字母开头，并且只能由字母，数字和一些特殊字符（例如'-'或'_'）组成。
 
-Note that **w** is a new data frame, on which we can perform the usual
-operations, e.g.
+请注意，**w**是一个新的数据框，我们可以对其执行通常的操作，例如
 
-``` r
+```r
 > head(w)
     len supp dose
 11 16.5   VC    1
@@ -888,14 +831,11 @@ operations, e.g.
 [1] 25
 ```
 
-We may only be interested in say, *how many* cases satisfied the given
-conditions.  As before, we can use **nrow** for that, as seen here.
+我们可能只对例如满足给定条件的*数量*感兴趣。与之前一样，我们可以使用**nrow**来实现，如下所示。
 
-As seen early, we can also extract columns.  Say our analysis will use
-only tooth length and dose.  We write 'c(1,3)' in the "what columns we
-want" place, indicating columns 1 and 3:
+正如前面所看到的，我们还可以提取列。例如，我们的分析将仅使用牙齿长度和剂量。我们在“要提取的列是什么”位置写入'c(1,3)'，表示列1和3：
 
-``` r
+```r
 > lendose <- tg[,c(1,3)]
 > head(lendose)
    len dose
@@ -907,12 +847,11 @@ want" place, indicating columns 1 and 3:
 6 10.0  0.5
 ```
 
-From now on, we would work with **lendose** instead of **tg**.
+从现在开始，我们将使用**lendose**而不是**tg**。
 
-It's a little nicer, though, the specify the columns by name instead of
-number:
+不过，使用列名而不是数字指定列会更好一些：
 
-``` r
+```r
 > lendose <- tg[,c('len','dose')]
 > head(lendose)
    len dose
@@ -924,11 +863,9 @@ number:
 6 10.0  0.5
 ```
 
-The logical operations work on vectors too.  For example, say in the
-**Nile** data we wish to know how many years had flows in the extremes,
-say below 800 or above 1300:
+逻辑操作也适用于向量。例如，在**Nile**数据中，假设我们想知道有多少年的流量在极端值以下，例如低于800或高于1300：
 
-``` r
+```r
 > exts <- Nile[Nile < 800 | Nile > 1300]
 > head(exts)
 [1] 1370  799  774  694  701  692
@@ -936,76 +873,50 @@ say below 800 or above 1300:
 [1] 27
 ```
 
-By the way, if this count were our only interest, i.e. we have no
-further use for **exts**, we can skip assigning to **exts**, and do
-things directly:
+顺便说一下，如果这个计数是我们唯一关心的，即我们对**exts**没有进一步的用途，我们可以跳过对**exts**的分配，直接进行操作：
 
-``` r
+```r
 > length(Nile[Nile < 800 | Nile > 1300])
 [1] 27
 ```
 
-This is fine for advanced, experienced R users, but really, "one step at
-a time" is better for beginners.  It's clearer, and most important,
-easier to debug if something goes wrong.
+这对于经验丰富的R用户来说是可以的
 
-### Recap:  What we've learned in this lesson
+，但实际上，“一步一步”对于初学者来说更好。它更清晰，最重要的是，如果发生错误，调试起来更容易。
 
-Here we got more practice in manipulating data frames, and were
-introduced to the logical operators '&' and '|'.  We also saw another
-example of using **nrow** as a means of counting how many rows satisfy
-given conditions.
+### 小结：在本课中我们学到了什么？
 
-Again, these are all "bread and butter" operations that arise quite
-freqently in real world R usage.
+在这里，我们有更多的练习操作数据框，并介绍了逻辑运算符'&'和'|'的另一个示例。我们还看到了使用**nrow**作为计算满足给定条件的行数的一种方法的另一个示例。
 
-By the way, note how the essence of R is "combining little things in
-order to do big things," e.g. combining the subsetting operation, the
-'&' operator, and **nrow** to get a count of rows satisfying given
-conditions.  This too is the "bread and butter" of R.  It's up to you,
-the R user, to creatively combine R's little operations (and later, some
-big ones) to achieve whatever goals you have for your data.  *Programming
-is a creative process*.  It's like a grocery store and cooking:  The
-store has lots of different potential ingredients, and you decide which
-ones to buy and combine into a meal.
+这些都是实际世界中R使用中经常遇到的“基本”操作。
 
+顺便说一下，要注意R的本质是“将小事物组合起来以完成大事物”，例如将子集操作、'&'运算符和**nrow**结合起来以获取满足给定条件的行数。这也是R的“基本”之一。由你作为R用户创造性地组合R的小操作（以后还有一些大操作）以实现你对数据的任何目标的能力。*编程是一个创造性的过程*。就像杂货店和烹饪一样：商店有很多不同的潜在配料，你决定购买哪些并将它们组合成一顿饭。
 
-> ❄️  Your Turn
+> ❄️ 你的回合
 
-> Try some of these operations on R's built-in **faithful** dataset.
-> For instance, find the number of rows for which the **eruptions**
-> column was greater than 3 and waiting time was more than 80 minutes.
-> Also, write code to print out the row numbers of these cases.
+> 尝试在 R 内置的 "faithful" 数据集上执行一些操作。例如，查找其中喷发时间大于 3 分钟且等待时间超过 80 分钟的行数。同时，编写代码打印出这些满足条件的行的行号。
 
-## <a name="tapply"> </a> Lesson 9:  The tapply Function
+# 第9课：`tapply` 函数
 
-> 📘 Pro Tip
-> 
-> Often in R there is a shorter, more
-> compact way of doing things.  That's the case here; we can use the
-> magical **tapply** function in the above example.  In fact, we can do it
-> in just one line.
+**专业提示：**
+在R中，通常有一种更短、更紧凑的做法。这在这里也是适用的；我们可以在上面的例子中使用神奇的 **tapply** 函数。实际上，我们可以在一行中完成。
 
-The general form of a call to **tapply** is
+调用 **tapply** 的一般形式为：
 
 ``` r
-tapply(what to split, what criterion to use for splitting, 
-   what to do with the resulting grouped data)
+tapply(要拆分的内容, 用于拆分的标准, 对结果进行分组的操作)
 ```
 
 ``` r
-> tapply(tg$len,tg$supp,mean)
+> tapply(tg$len, tg$supp, mean)
       OJ       VC 
 20.66333 16.96333 
 ```
 
-In English:  "Split the vector **tg$len** into two groups, according to
-the value of **tg$supp**, then apply **mean** to each group."  Note that
-the result was returned as a vector, which we could save by assigning it
-to, say **z**:
+简单来说：“根据 **tg$supp** 的值，将向量 **tg$len** 分为两组，然后对每组应用 **mean**。” 请注意，结果被返回为一个向量，我们可以通过将其赋值给比如 **z** 来保存：
 
 ``` r
-> z <- tapply(tg$len,tg$supp,mean)
+> z <- tapply(tg$len, tg$supp, mean)
 > z[1]
       OJ 
 20.66333 
@@ -1014,77 +925,51 @@ to, say **z**:
 16.96333 
 ```
 
-By the way, **z** is not only a vector, but also a *named* vector,
-meaning that its elements have names, in this case 'OJ' and 'VC'.
+顺便说一下，**z** 不仅是一个向量，还是一个具有名称的向量，这意味着它的元素有名称，此处为'OJ'和'VC'。
 
-Saving can be quite handy, because we can use that result in subsequent
-code.
+保存对于后续的代码很有用。
 
-To make sure it is clear how this works, let's look at a small
-artificial example:
+为了确保这是如何工作的，让我们看一个小的人造示例：
 
 ``` r
-> x <- c(8,5,12,13)
-> g <- c('M',"F",'M','M')
+> x <- c(8, 5, 12, 13)
+> g <- c('M', "F", 'M', 'M')
 ```
 
-Suppose **x** is the ages of some kids, who are a boy, a girl, then two more
-boys, as indicated in **g**.  For instance, the 5-year-old is a girl.
+假设 **x** 是一些儿童的年龄，一个男孩，一个女孩，然后是两个男孩，如 **g** 中所示。例如，5岁的是一个女孩。
 
-Let's call **tapply**:
+让我们调用 **tapply**：
 
 ``` r
-> tapply(x,g,mean)
+> tapply(x, g, mean)
  F  M 
  5 11 
 ``` 
 
-That call said, "Split **x** into two piles, according to the
-corresponding elements of **g**, and then find the mean in each pile.
+这个调用表示：“根据 **g** 中相应元素的值，将 **x** 分成两组，然后在每组中找到平均值。
 
-Note that it is no accident that **x** and **g** had the same number of
-elements above, 4 each.  If on the contrary, **g** had 5 elements, that
-fifth element would be useless -- the gender of a nonexistent fifth
-child's age in **x**.  Similarly, it wouldn't be right if **g** had had
-only 3 elements, apparently leaving the fourth child without a specified
-gender.
+请注意，**x** 和 **g** 上面的元素数量相同，各为4。相反，如果 **g** 有5个元素，那么第五个元素将是无用的——在 **x** 中不存在的第五个孩子的年龄的性别。类似地，如果 **g** 只有3个元素，似乎第四个孩子没有指定性别也是不对的。
 
+**专业提示：**
+如果 **g** 的长度不对，我们会得到一个错误，"Arguments must be of the same length." 这是R代码中的常见错误，因此要注意它，要知道为什么长度必须相同。
 
-> 📘 Pro Tip
-> 
-> If **g** had been of the wrong length, we would have gotten an error,
-> "Arguments must be of the same length."  This is a common error in R
-> code, so watch out for it, keeping in mind WHY the lengths must be the
-> same.
-
-Instead of **mean**, we can use any function as that third argument in
-**tapply**.  Here is another example, using the built-in dataset
-**PlantGrowth**:
+除了 **mean**，我们可以在 **tapply** 中的第三个参数使用任何函数。这里是另一个示例，使用内置数据集 **PlantGrowth**：
 
 ``` r
-> tapply(PlantGrowth$weight,PlantGrowth$group,length)
+> tapply(PlantGrowth$weight, PlantGrowth$group, length)
 ctrl trt1 trt2 
   10   10   10 
 ```
 
-Here **tapply** split the **weight** vector into subsets according to
-the **group** variable, then called the **length** function on each
-subset.  We see that each subset had length 10, i.e. the experiment had
-assigned 10 plants to the control, 10 to treatment 1 and 10 to treatment
-2.
+这里，**tapply** 将 **weight** 向量根据 **group** 变量拆分为子集，然后在每个子集上调用 **length** 函数。我们看到每个子集的长度都为10，即实验为对照组分配了10个植物，对待疗法1分配了10个植物，对待疗法2分配了10个植物。
 
-> ❄️  Your Turn
+> ❄️  你的机会
 >
-> One of the most famous built-in R datasets is
-> **mtcars**, which has various measurements on cars from the 60s and 70s.
-> Lots of opportunties for you to cook up little experiments here!  
+> R中最著名的内置数据集之一是 **mtcars**，其中包含60年代和70年代汽车的各种测量数据。在这里，你有很多机会来尝试一些小实验！
 >
-> You may wish to start by comparing the mean miles-per-gallon values
-> for 4-, 6- and 8-cylinder cars.  Another suggestion would be to find
-> how many cars there are in each cylinder category, using **table**.
-> As usual, the more examples you cook up here, the better!
+> 你可能希望从比较4缸、6缸和8缸汽车的平均每加仑英里数开始。另一个建议是使用 **table** 找出每个气缸类别中有多少辆汽车。像往常一样，你在这里尝试的示例越多，越好！
 
-By the way, the **mtcars** data frame has a "phantom" column.  
+顺便说一下，**mtcars** 数据框有一列是“幻影”列。
 
 ``` r
 > head(mtcars)
@@ -1097,18 +982,14 @@ Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 ```
 
-That first column seems to give the make (brand) and model of the car.
-Yes, it does -- but it's not a column.  Behold:
+这第一列似乎给出了汽车的制造商和型号。是的，它确实是——但它不是一列。瞧：
 
 ``` r
 > head(mtcars[,1])
 [1] 21.0 21.0 22.8 21.4 18.7 18.1
 ```
 
-Sure enough, column 1 is the mpg data, not the car names.  But we see
-the names there on the far left!  The resolution of this seeming
-contradiction is that those car names are the *row names* of this data
-frame:
+确实，第一列是mpg数据，而不是汽车名称。但我们在最左边看到了名称！这个看似矛盾的解决之道是，这些汽车名称是此数据框的 *行名称*：
 
 ``` r
 > row.names(mtcars)
@@ -1125,14 +1006,11 @@ frame:
 [31] "Maserati Bora"       "Volvo 142E"         
 ```
 
-So 'Mazda RX4' was the *name* of row 1, but not part of the row.
+因此，'Mazda RX4'是第1行的 *名称*，但不是行的一部分。
 
-As with everything else, **row.names** is a function, and as you can see
-above, its return value here is a 32-element vector (the data frame had
-32 rows, thus 32 row names).  The elements of that vector are of class
-**'character'**, as is the vector itself.
+与其他一切一样，**row.names** 是一个函数，正如你在上面看到的那样，它在这里的返回值是一个32元素的向量（数据框有32行，因此有32个行名称）。该向量的元素是 **'character'** 类型的，就像向量本身一样。
 
-You can even assign to that vector:
+你甚至可以对该向量进行赋值：
 
 ``` r
 > row.names(mtcars)[7]
@@ -1142,23 +1020,13 @@ You can even assign to that vector:
 [1] "Dustpan"
 ```
 
-Inside joke, by the way.  Yes, the example is real and significant, but
-the "Dustpan" thing came from a funny TV commercial at the time.
+顺便说一下，这是一个内部玩笑。是的，这个例子是真实而重要的，但 "Dustpan" 的梗来源于当时一则有趣的电视广告。
 
-(If you have some background in programming, it may appear odd to you to
-have a function call on the *left* side of an assignment.  This is
-actually common in R.  It stems from the fact that '<-' is actually a
-function!  But this is not the place to go into that.)
+（如果你在编程方面有一些背景，可能会觉得在赋值的左侧使用函数调用有些奇怪。这实际上在R中很常见。这源自于 '<-' 实际上是一个函数！但这不是深入讨论的地方。）
 
-> 📘 Pro Tip
->
-> As a beginner (and for that matter later on), you should NOT be obsessed
-> with always writing code in the "optimal" way, including in terms of
-> compactness of the code.  It's much more important
-> to write something that works and is clear; one can always tweak it
-> later.  In this case, though, **tapply** actually aids clarity, and it
-> is so ubiquitously useful that we have introduced it early in this
-> tutorial.  We'll be using it more in later lessons.
+**专业提示：**
+> 作为一个初学者（实际上是在以后的学习中），你不应该过于追求总是以 "最佳" 方式编写代码，包括代码的紧凑性。更重要的是，写出可行且清晰的代码；可以随时稍作调整。在这种情况下，**tapply** 实际上有助于提高清晰度，并且它非常普遍有用，因此我们在本教程的早期引入了它。我们将在以后的课程中更多地使用它。
+
 
 ## <a name="less5"> </a> Lesson 10:  Data Cleaning
 
