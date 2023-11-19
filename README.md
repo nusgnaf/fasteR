@@ -1024,50 +1024,31 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 
 （如果你在编程方面有一些背景，可能会觉得在赋值的左侧使用函数调用有些奇怪。这实际上在R中很常见。这源自于 '<-' 实际上是一个函数！但这不是深入讨论的地方。）
 
-**专业提示：**
+> 📘 专业提示
 > 作为一个初学者（实际上是在以后的学习中），你不应该过于追求总是以 "最佳" 方式编写代码，包括代码的紧凑性。更重要的是，写出可行且清晰的代码；可以随时稍作调整。在这种情况下，**tapply** 实际上有助于提高清晰度，并且它非常普遍有用，因此我们在本教程的早期引入了它。我们将在以后的课程中更多地使用它。
 
 
-## <a name="less5"> </a> Lesson 10:  Data Cleaning
+## <a name="less5"> </a> 第10课：数据清理
 
-Most real-world data is "dirty," i.e. filled with errors.  The famous
-[New York taxi trip
-dataset](https://data.cityofnewyork.us/Transportation/2017-Yellow-Taxi-Trip-Data/biws-g3hs),
-for instance, has one trip destination whose lattitude and longitude
-place it in Antartica! The impact of such erroneous data on one's statistical
-analysis can be anywhere from mild to disabling.  Let's see below how one
-might ferret out bad data.  And along the way, we'll cover several new R
-concepts.
+大多数现实世界的数据都是“脏的”，即充满了错误。例如，著名的[纽约出租车行程数据集](https://data.cityofnewyork.us/Transportation/2017-Yellow-Taxi-Trip-Data/biws-g3hs)中有一次行程的目的地的纬度和经度将其放在了南极洲！这类错误数据对统计分析的影响可能从轻微到致命。让我们看看如何找出不良数据。在此过程中，我们将涵盖一些新的R概念。
 
-We'll use the famous Pima Diabetes dataset.  Various versions exist, but
-we'll use the one included in **faraway**, an R package compiled
-by Julian Faraway, author of several popular books on statistical
-regression analysis in R.
+我们将使用著名的Pima糖尿病数据集。有各种版本，但我们将使用**faraway**中包含的版本，这是由Julian Faraway编写的R软件包，他是关于R中统计回归分析的几本流行书籍的作者。
 
-I've placed the data file, **Pima.csv**, on
-[my Web site](http://heather.cs.ucdavis.edu/FasteR/data/Pima.csv). Here
-is how you can read it into R:
+我已经将数据文件**Pima.csv**放在[我的网站](http://heather.cs.ucdavis.edu/FasteR/data/Pima.csv)上。以下是如何在R中读取它的方法：
 
-``` r
-> pima <- read.csv('http://heather.cs.ucdavis.edu/FasteR/data/Pima.csv',header=TRUE)
+```r
+> pima <- read.csv('http://heather.cs.ucdavis.edu/FasteR/data/Pima.csv', header=TRUE)
 ```
 
-The dataset is in a CSV ("comma-separated values") file.  Here we read
-it, and assigned the resulting data frame to a variable we chose to name
-**pima**.
+数据集位于一个CSV（逗号分隔值）文件中。在这里，我们读取它，并将结果的数据框分配给我们选择命名为**pima**的变量。
 
-Note that second argument, **header=TRUE**.  A header in a file, if one
-exists, is in the first line in the file.  It states what names the
-columns in the data frame are to have.  If the file doesn't have one,
-set **header** to FALSE.  You can always add names to your data frame
-later (future lesson).
+注意第二个参数，**header=TRUE**。文件中的标题（如果存在）在文件的第一行中。它说明数据框中的列应该有什么名字。如果文件没有标题，则将**header**设置为FALSE。您随时可以稍后将名称添加到数据框中（在将来的课程中）。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> It's always good to take a quick look at a newly loaded or construced
-> data frame:
+> 查看新加载或构建的数据框总是一个好习惯：
 
-``` r
+```r
 > head(pima)
   pregnant glucose diastolic triceps insulin  bmi diabetes age test
 1        6     148        72      35       0 33.6    0.627  50    1
@@ -1080,14 +1061,11 @@ later (future lesson).
 [1] 768   9
 ```
 
-The **dim** function tells us that there are
-768 people in the study, 9 variables measured on each, i.e. the data has
-768 rows and 9 columns.
+**dim**函数告诉我们在这项研究中有768人，每个人测量了9个变量，即数据有768行和9列。
 
-Since this is a study of diabetes, let's take a look at the glucose
-variable.  R's **table** function is quite handy.
+由于这是一项糖尿病研究，让我们看一下葡萄糖变量。R的**table**函数非常方便。
 
-``` r
+```r
 > table(pima$glucose)
 
   0  44  56  57  61  62  65  67  68  71  72  73  74  75  76  77  78  79  80  81 
@@ -1103,129 +1081,99 @@ variable.  R's **table** function is quite handy.
 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 
   6   3   3   4   3   3   4   1   2   3   1   6   2   2   2   1   1   5   5   5 
 182 183 184 186 187 188 189 190 191 193 194 195 196 197 198 199 
-  1   3   3   1   4   2   4   1   1   2   3   2   3   4   1   1 
+  1   3   3   1   
+
+ 4   2   4   1   1   2   3   2   3   4   1   1 
 ```
 
-Be careful here; the first, third, fifth and so on lines are the glucose
-values, while the second, fourth, sixth and so on lines are the counts
-of women having those values.  For instance, 3 women had glucose = 68.
+在这里要小心; 第一、三、五等行是葡萄糖的值，而第二、四、六等行是具有这些值的女性的计数。例如，有3名女性的葡萄糖为68。
 
-Uh, oh!  5 women in the study had glucose level 0.  And 1 had level 44,
-etc.  Presumably 0 is not physiologically possible, and maybe not 44
-either.
+哎呀！在研究中，有5名女性的葡萄糖水平为0。还有1名水平为44，等等。可能0在生理上是不可能的，也许44也是不可能的。
 
-Let's consider a version of the glucose data that at least excludes these 0s.
+让我们考虑一个葡萄糖数据的版本，至少排除了这些0。
 
-``` r
+```r
 > pg <- pima$glucose
 > pg1 <- pg[pg > 0]
 > length(pg1)
 [1] 763
 ```
 
-As before, the expression **pg > 0** creates a vector of TRUEs and FALSEs.
-The filtering **pg[pg > 0]** will only pick up the TRUE cases, and sure
-enough, we see that **pg1** has only 763 cases, as opposed to the
-original 768; the 5 with glucose = 0 are now gone.
+与以前一样，表达式**pg > 0**创建了一个包含TRUE和FALSE的向量。过滤**pg[pg > 0]**将仅捕获TRUE的情况，确实，我们看到**pg1**仅有763个案例，而不是最初的768个; 葡萄糖为0的5个已经消失了。
 
-Did removing the 0s make much difference?  Turns out it doesn't:
+删除0是否有很大的影响？结果证明并没有：
 
-``` r
+```r
 > mean(pg)
 [1] 120.8945
 > mean(pg1)
 [1] 121.6868
 ```
 
-But still, these things can in fact have  major impact in many
-statistical analyses.
+但是，实际上，这些事情确实可能对许多统计分析产生重大影响。
 
-R has a special code for missing values, NA, for situations like this.
-Rather than removing the 0s, it's better to recode them as NAs.  Let's
-do this, back in the original dataset so we keep all the data in
-one object:
+R具有用于缺失值的特殊代码，NA，用于这种情况。与其删除0，不如将它们重新编码为NA。让我们在原始数据集中执行此操作，以便将所有数据保留在一个对象中：
 
-``` r
+```r
 > pima$glucose[pima$glucose == 0] <- NA
 ```
 
-This is a bit complicated.  Here is the same action, but broken into
-smaller steps:
+这有点复杂。以下是相同的操作，但分解为更小的步骤：
 
-``` r
+```r
 > glc <- pima$glucose
 > z <- glc == 0
 > glc[z] <- NA
 > pima$glucose <- glc
 ```
 
-Here is what the code does:
+这是代码的工作原理：
 
-- That first line just makes a copy of the original vector, to avoid
-clutter in the code.  
-- The second line determines which elements of **glc**
-are 0s, resulting in **z** being a vector of TRUEs and FALSEs.  
-- The third line then assigns NA to those elements in **glc** corresponding to
-the TRUEs. (Note the recycling of NA.)
-- Finally, we need to have the changes in the original data, so we copy
-  **glc** to it.
+- 第一行只是复制原始向量，以避免代码中的混乱。
+- 第二行确定**glc**的哪些元素为0，导致**z**成为TRUE和FALSE的向量。
+- 第三行然后将**glc**中对应于TRUE的元素分配为NA。（请注意NA的循环使用。）
+- 最后，我们需要在原始数据中进行更改，因此我们将**glc**复制到它。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> We broke our original 1 line of code into 4 simpler lines.
-> This is MUCH clearer, and by the way, easier to debug. 
-> I recommend this especially for beginners, but also for everyone, and
-> I use this approach a lot in my own code.
+> 我们将原始1行代码拆分成了4行更简单的代码。
+> 这样更清晰，而且顺便说一句，更容易调试。
+> 我特别建议初学者使用这种方法，但对于所有人，我在自己的代码中经常使用这种方法。
 >
-> There is an advanced R concept, *pipes*, that also breaks longer
-> computations into smaller steps.  I do not use pipes (either the
-> Tidyverse version or the newer base-R pipes), as I believe they are
-> less clear and, very important, hard to debug.  You may find you like
-> them, which of course is fine, but we will not use them here.
+> 有一个高级的R概念，*管道*，它也将较长的计算拆分为较小的步骤。我不使用管道（无论是Tidyverse版本还是较新的基本R管道），因为我认为它们不够清晰，而且非常重要的是，很难调试。您可能会发现您喜欢它们，这当然是可以的，但我们将在这里不使用它们。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> Note again the double-equal sign in the above code!  If we wish to
-> test whether, say, ***a*** and ***b*** are equal, the expression must
-> be "a == b", not "a = b"; the latter would do "a <- b".  This is a
-> famous beginning programmer's error.
+> 再次注意上述代码中的双等号！如果我们想测试，例如，***a***和***b***是否相等，表达式必须是"a == b"，而不是"a = b"；后者会执行"a <- b"。这是一个著名的初学者错误。
 
-As a check, let's verify that we now have 5 NAs in the glucose variable:
+作为检查，让我们验证葡萄糖变量现在有5个NA：
 
-``` r
+```r
 > sum(is.na(pima$glucose))
 [1] 5
 ```
 
-Here the built-in R function **is.na** will return a vector of TRUEs and
-FALSEs.  Recall that those values can always be treated as 1s and 0s,
-thus summable.  Thus we got our count, 5.
+这里内置的R函数**is.na**将返回一个TRUE和FALSE的向量。请记住，这些值始终可以视为1和0，因此可相加。因此，我们得到了我们的计数，为5。
 
-Let's also check that the mean comes out right:
+让我们还验证均值是否正确：
 
-``` r
+```r
 > mean(pima$glucose)
 [1] NA
 ```
 
-What went wrong?  By default, the **mean** function will *not* skip over
-NA values; thus the mean was reported as NA too.  But we can instruct
-the function to skip the NAs:
+出了什么问题？默认情况下，**mean**函数将*不*跳过NA值；因此，均值也报告为NA。但是我们可以指示该函数跳过NA：
 
-``` r
-> mean(pima$glucose,na.rm=TRUE)
+```r
+> mean(pima$glucose, na.rm=TRUE)
 [1] 121.6868
 ```
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> Determine which other columns in **pima** have
-> suspicious 0s, and replace them with NA values.  
+> 确定**pima**中还有哪些列存在可疑的0，并用NA值替换它们。
 > 
-> Now, look again at the plot we made earlier of the Nile flow histogram.
-> There seems to be a gap between the numbers at the low end and the rest.
-> What years did these correspond to?  Find the mean of the data,
-> excluding these cases.
+> 现在，再次查看我们之前绘制的尼罗河流量直方图。低端的数字似乎存在间隙，并且其余的数字。这些对应于哪些年份？找出数据的均值，不包括这些情况。
 
 ## <a name="less6"> </a> Lesson 11:  The R List Class
 
