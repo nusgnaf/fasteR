@@ -1236,39 +1236,32 @@ $`8`
 > class(mtl)
 [1] "list"
 ```
+英文中对 **split** 的调用说：“将 **mtmpg** 分割成多个向量，分割准则是 **mtcars$cyl** 中对应的值。” 
 
-In English, the call to **split** said, "Split **mtmpg** into multiple
-vectors, with the splitting criterion being the correspond
-values in **mtcars$cyl**."
-
-
-Now **mtl**, an object of R class **"list"**, contains the 3 vectors.
-We can access them individually with the dollar sign notation:
+现在 **mtl** 是一个R类为 **"list"** 的对象，包含了3个向量。我们可以使用美元符号符号来单独访问它们：
 
 ``` r
 > mtl$`4`
  [1] 22.8 24.4 22.8 32.4 30.4 33.9 21.5 27.3 26.0 30.4 21.4
 ```
 
-Or, we can use indices, though now with double brackets:
+或者，我们可以使用索引，但现在要用双括号：
 
 ``` r
 > mtl[[1]]
  [1] 22.8 24.4 22.8 32.4 30.4 33.9 21.5 27.3 26.0 30.4 21.4
 ```
 
-Looking a little closer:
+再仔细看一下：
 
 ``` r
 > head(mtcars$cyl)
 [1] 6 6 4 6 8 6 
 ``` 
 
-We see that the first car had 6 cylinders, so the
-first element of **mtmpg**, 21.0, was thrown into the `6` pile, i.e.
-**mtl[[2]]** (see above printout of **mtl**), and so on.
+我们看到第一辆车有6缸，因此 **mtmpg** 的第一个元素21.0 被放入了 `6` 这一组中，即 **mtl[[2]]**（请参见上面的 **mtl** 打印输出），以此类推。
 
-And of course we can make copies for later convenience:
+当然，我们也可以为以后方便做副本：
 
 ``` r
 > m4 <- mtl[[1]]
@@ -1276,7 +1269,7 @@ And of course we can make copies for later convenience:
 > m8 <- mtl[[3]]
 ```
 
-Lists are especially good for mixing types together in one package:
+列表特别适合在一个包中混合各种类型：
 
 ``` r
 > l <- list(a = c(2,5), b = 'sky')
@@ -1288,13 +1281,9 @@ $b
 [1] "sky"
 ```
 
-Note that here we can give names to the list elements, 'a' and 'b'.  In
-forming **mtl** using **split** above, the names were assigned
-according to the values of the vector beiing split.  (In that earlier
-case, we also needed backquotes ``   ``, since the names were numbers.)
+注意，这里我们可以给列表元素命名为 'a' 和 'b'。在使用上面的 **split** 形成 **mtl** 时，名称是根据被分割的向量的值分配的。（在之前的情况中，我们还需要使用反引号 `` ` ``，因为名称是数字。）
 
-
-If we don't like those default names, we can change them:
+如果我们不喜欢这些默认名称，我们可以更改它们：
 
 ``` r
 > names(mtl) <- c('four','six','eight')
@@ -1310,27 +1299,23 @@ $eight
 15.0
 ```
 
-What if we want, say, the MPG for the third car in the 6-cylinder
-category?
+如果我们想要在6缸类别中的第三辆车的每加仑英里数（MPG）怎么办？
 
 ``` r
 > mtl[[2]][3]
 [1] 21.4
 ```
 
-The point is that **mtl[[2]]** is a vector, so if we want element 3 of
-that vector, we tack on [3].
+关键是 **mtl[[2]]** 是一个向量，所以如果我们想要该向量的第三个元素，我们就加上 [3]。
 
-Or,
+或者，
 
 ``` r
 > mtl$six[3]
 [1] 21.4
 ``` 
 
-By the way, it's no coincidence that a dollar sign is used for
-delineation in both data frames and lists; data frames *are* lists.
-Each column is one element of the list.  So for instance,
+顺便说一句，在数据框和列表中都使用美元符号作为分隔符并不是巧合；数据框 *就是* 列表。每一列都是列表的一个元素。所以，例如，
 
 ``` r
 > mtcars[[1]]
@@ -1339,22 +1324,19 @@ Each column is one element of the list.  So for instance,
 [31] 15.0 21.4
 ```
 
-Here we used the double-brackets list notation to get the first element
-of the list, which is the first column of the data frame.
+这里我们使用双括号列表符号来获取列表的第一个元素，即数据框的第一列。
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> Try using **split** on the ToothGrowth data, say splitting
-> into groups according to the supplement, and finding various quantities.
+> 尝试在 ToothGrowth 数据上使用 **split**，比如按照补充剂分组，并找出各种数量。
 
-## <a name="less7"> </a> Lesson 12:  Another Look at the Nile Data
 
-Here we'll learn several new concepts, using the **Nile** data as our
-starting point.
 
-If you look again at the histogram of the Nile we generated, you'll see
-a gap between the lowest numbers and the rest.  In what year(s) did
-those really low values occur?  Let's plot the data against time:
+## <a name="less7"> </a> 第12课：再看尼罗河数据
+
+在这里，我们将学习几个新概念，以我们的起点 **Nile** 数据为例。
+
+如果你再次看一下我们生成的尼罗河直方图，你会发现最低值和其他值之间有一个间隙。这些非常低的值出现在哪一年？让我们将数据按时间绘制出来：
 
 ``` r
 > plot(Nile)
@@ -1362,74 +1344,46 @@ those really low values occur?  Let's plot the data against time:
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/NileOverTime.png)
 
-Looks like maybe 1912 or so was much lower than the rest.  Is this an
-error?  Or was there some big historical event then?  This would require
-more than R to track down, but at least R can tell us which exact year or
-years correspond to the unusually low flow.  Here is how:
+看起来大概是1912年左右比其他年份低得多。这是错误吗？还是当时发生了一些重大历史事件？这需要更多的资料来查明，但至少R可以告诉我们哪一年或哪些年对应于异常低的水流。以下是方法：
 
-We see from the graph that the unusually low value was below 600.  We
-can use R's **which** function to see when that occurred:
+我们从图中看到异常低值低于600。我们可以使用R的 **which** 函数来查看何时发生了这种情况：
 
 ``` r
 > which(Nile < 600)       
 [1] 43
 ```
 
-As before, make sure to understand what happened in this code.  The
-expression **Nile < 600** yields 100 TRUEs and FALSEs.  The **which**
-then tells us which of those were TRUEs.
+和以前一样，请确保理解了这段代码中发生了什么。表达式 **Nile < 600** 产生了100个TRUE和FALSE。然后 **which** 告诉我们其中哪些是TRUE。
 
-So, element 43 is the culprit here, corresponding to year 1871+42=1913.
-Again, we would have to find supplementary information in order to
-decide whether this is a genuine value or an error, but at least now we
-know the exact year.
+所以，这里的元素43是罪魁祸首，对应于年份1871+42=1913。再次强调，我们必须找到补充信息，以决定这是否是一个真实的值还是一个错误，但至少现在我们知道了确切的年份。
 
-Of course, since this is a small dataset, we could have just printed out the
-entire data and visually scanned it for a low number.  But what if the
-length of the data vector had been 100,000 instead of 100?  Then the
-visual approach wouldn't work.  
+当然，由于这是一个小数据集，我们可以只打印出整个数据并目测一下是否有低值。但是如果数据向量的长度是100,000而不是100呢？那么视觉方法就行不通了。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> Remember, a goal of programming is to automate tasks, rather 
-> than doing them by hand.
+> 记住，编程的目标是自动化任务，而不是手工完成。
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> There appear to be some unusually high values as well,
-> e.g. one around 1875.  Determine which year this was, using the
-> techniques presented here.  
+> 看起来也有一些异常高的值，比如大约在1875年左右。使用这里介绍的技术确定这是哪一年。
 >
-> Also, try some similar analysis on the
-> built-in **AirPassengers** data.  Can you guess why those peaks are
-> occurring?
+> 另外，尝试对内置的 **AirPassengers** 数据进行类似的分析。你能猜到为什么会出现这些高峰吗？
 
-Here is another point:  That function **plot** is not quite so innocuous
-as it may seem.  Let's run the same function, **plot**, but with two
-arguments instead of one:
+这里还有一点：那个 **plot** 函数并不像看起来那么无害。让我们用两个参数而不是一个来运行相同的函数 **plot**：
 
 ``` r
-> plot(mtcars$wt,mtcars$mpg)
+> plot(mtcars$wt, mtcars$mpg)
 ```
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/MTCarsWtMPG.png)
 
-In contrast to the previous plot, in which our data were on the vertical
-axis and time was on the horizontal, now we are plotting *two* vectors,
-against each other.  This enables us to explore the relation between
-car weight and gas mileage.  
+与之前的图相比，其中我们的数据在垂直轴上，时间在水平轴上，现在我们要绘制*两个*向量相对于彼此的图。这使我们能够探索车重和油耗之间的关系。
 
-There are a couple of important points here.  First, as we might guess,
-we see that the heavier cars tended to get poorer gas mileage.  But
-here's more:  That **plot** function is pretty smart!
+这里有几个重要的观点。首先，正如我们可能猜到的那样，我们看到较重的车倾向于油耗较高。但是这里还有更多：那个 **plot** 函数相当聪明！
 
-Why?  Well, **plot** knew to take different actions for different input
-types.  When we fed it a single vector, it plotted those numbers against
-time (or, against index).  When we fed it two vectors, it knew to do a scatter plot.
+为什么？嗯，**plot** 知道针对不同的输入类型采取不同的操作。当我们给它一个单一的向量时，它会将这些数字绘制成时间（或索引）的函数图。当我们给它两个向量时，它知道要做散点图。
 
-In fact, **plot** was even smarter than that.  It noticed that **Nile**
-is not just of **'numeric'** type, but also of another class, **'ts'**
-("time series"):
+事实上，**plot** 甚至比这更聪明。它注意到 **Nile** 不仅是 **'numeric'** 类型，还是另一个类别 **'ts'**（"时间序列"）：
 
 ``` r
 > is.numeric(Nile)
@@ -1438,257 +1392,168 @@ is not just of **'numeric'** type, but also of another class, **'ts'**
 [1] "ts"
 ```
 
-So, **plot** put years on the horizontal axis, instead of indices 1,2,3,...
+所以，**plot** 将年份放在水平轴上，而不是索引1,2,3,...
 
-And one more thing:  Say we wanted to know the flow in the year 1925.
-The data start at 1871, so 1925 is 1925 - 1871 = 54 years later.  Since
-the 1871 number is in element 1 of the vector, that means the flow for
-the year 1925 is in element 1+54 = 55.
+还有一件事：假设我们想知道1925年的水流量。数据从1871年开始，所以1925年比1871年晚了1925 - 1871 = 54年。由于向量的第一个元素是1871年的数据，这意味着1925年的流量在元素1 + 54 = 55处。
+
 ``` r
 > Nile[55]
 [1] 698
 ```
 
-OK, but why did we do this arithmetic ourselves?  We should have R do
-it:
+好吧，但为什么我们要自己做这个算术？我们应该让R来做：
 
 ``` r
 > Nile[1 + 1925 - 1871]
 [1] 698
 ```
 
-R did the computation 1925 - 1871 + 1 itself, yielding 55, then looked
-up the value of **Nile[55]**.  This is the start of your path to
-programming -- we try to automate things as much as possible, doing
-things by hand as little as possible.
+R计算了 1925 - 1871 + 1，得到了55，然后查找了 **Nile[55]** 的值。这是你开始编程之路的一部分--我们尽可能地自动化任务，尽可能少地手工操作。
 
-## <a name="pause1"> </a> Lesson 13:  Pause to Reflect
 
-> 📘 Pro Tip
+## <a name="pause1"> </a> 第13课：停下来反思
+
+> 📘 专业提示
 >
-> Repeating an earlier point:
-> How does one build a house?  There of course is no set formula.  One has
-> various tools and materials, and the goal is to put these together in a
-> creative way to produce the end result, the house.
+> 重申之前的一点：
+> 如何建造一座房子？当然没有固定的公式。人们有各种工具和材料，目标是将它们以创造性的方式组合起来，生产出最终的结果，即房子。
 > 
-> It's the same with R.  The tools here are the various functions, e.g.
-> **mean** and **which**, and the materials are one's data.  One then must
-> creatively put them together to achieve one's goal, say ferreting out
-> patterns in ridership in a public transportation system.  Again, it is a
-> creative process; there is no formula for anything.  But that is what
-> makes it fun, like solving a puzzle.
+> 在R中也是如此。这里的工具是各种函数，例如 **mean** 和 **which**，而材料则是数据。然后，人们必须创造性地将它们组合起来，以实现目标，比如挖掘公共交通系统中乘客数量的模式。再次强调，这是一个创造性的过程；没有任何公式可循。但这就是让它变得有趣的地方，就像解决一个谜题一样。
 > 
-> And...we can combine various functions in order to build *our own*
-> functions.  This will come in future lessons.
+> 而且...我们可以结合各种函数来构建*自己的*函数。这将在未来的课程中介绍。
 
-## <a name="less8"> </a> Lesson 14:  Introduction to Base R Graphics
+## <a name="less8"> </a> 第14课：基础R图形介绍
 
-One of the greatest things about R is its graphics capabilities.  There
-are excellent graphics features in base R, and then many contributed
-packages, with the best known being **ggplot2** and **lattice**.  These
-latter two are quite powerful, and will be the subjects of future
-lessons, but for now we'll concentrate on the base.
+R最伟大的特点之一就是其图形能力。在基础R中有出色的图形功能，还有许多贡献的包，其中最知名的是 **ggplot2** 和 **lattice**。这两者都非常强大，将是未来课程的主题，但现在我们将集中在基础上。
 
-As our example here, we'll use a dataset I compiled on Silicon Valley 
-programmers and engineers, from the US 2000 census.  Let's read 
-in the data and take a look at the first records:
+作为我们的示例，我们将使用我从2000年美国人口普查中编制的有关硅谷程序员和工程师的数据集。让我们读取数据并查看前几条记录：
+
+在这里，我们使用 **load** 函数来导入数据，该数据以R的压缩形式存储。这个函数将在[第16课](#less10)中解释，但现在重点是这是必要的，以保留某些变量的R因子结构。
+
+这里 **educ** 和 **occ** 是代码，代表教育水平和不同职业的级别。现在，让我们不去担心具体的代码。（你可以在[人口普查局文件](https://www.census.gov/prod/cen2000/doc/pums.pdf)中找到它们。例如，搜索 "Educational Attainment" 来获取 **educ** 变量的信息。）
+
+让我们从 wage vs. age 的散点图开始：
 
 ``` r
-> load(url('https://github.com/matloff/fasteR/blob/master/data/prgeng.RData?raw=true'))
-> head(prgeng)
-       age educ occ sex wageinc wkswrkd
-1 50.30082   13 102   2   75000      52
-2 41.10139    9 101   1   12300      20
-3 24.67374    9 102   2   15400      52
-4 50.19951   11 100   1       0      52
-5 51.18112   11 100   2     160       1
-6 57.70413   11 100   1       0       0
-```
-
-Here we use **load** to input the data, which was stored in R's
-compressed form.  This a function will be explained in [Lesson
-16](#less10), but for now, the point is that this was necessary to
-preserve the R factor structure of some of the variables.
-
-Here **educ** and **occ** are codes, for levels of education and
-different occupations.  For now, let's not worry about the specific
-codes.  (You can find them in the
-[Census Bureau document](https://www.census.gov/prod/cen2000/doc/pums.pdf).
-For instance, search for "Educational Attainment" for the **educ**
-variable.)
-
-Let's start with a scatter plot of wage vs. age:
-
-``` r
-> plot(prgeng$age,prgeng$wageinc)
+> plot(prgeng$age, prgeng$wageinc)
 ```
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/WageVsAge1.png)
 
-Oh no, the dreaded Black Screen Problem!  There are about 20,000 data
-points, thus filling certain parts of the screen.  So, let's just plot a
-random sample, say 2500.  (There are other ways of handling the problem,
-say with smaller dots or *alpha blending*.)
+噢，不好了，可怕的黑屏问题！有大约20000个数据点，填充了屏幕的某些部分。因此，让我们只绘制一个随机样本，比如2500个。（还有其他处理此问题的方法，比如使用更小的点或*alpha混合*。）
 
 ``` r
-> rowNumbers <- sample(1:nrow(prgeng),2500)
+> rowNumbers <- sample(1:nrow(prgeng), 2500)
 > prgeng2500 <- prgeng[rowNumbers,]
 ```
 
-Recall that the **nrow** function returns the number of rows in the
-argument, which in this case is 20090, the number of rows in **prgeng**.
+回想一下，**nrow** 函数返回参数中的行数，本例中为20090，即 **prgeng** 中的行数。
 
-R's **sample** function does what its name implies.  Here it randomly
-samples 2500 of the numbers from 1 to 20090.  We then extracted those
-rows of **prgeng**, in a new data frame **prgeng2500**.  
+R的 **sample** 函数就像其名称所暗示的那样。在这里，它随机抽样了1到20090的数字中的2500个。然后我们从 **prgeng** 中提取了这些行，形成一个新的数据框 **prgeng2500**。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> Note again that it's usually clearer to break complex operations into 
-> simpler, smaller ones.  I could have written the more compact
-> 
+> 再次注意，通常将复杂的操作分解为简单的、较小的操作更清晰。我可以写得更紧凑一些
+>
 > ``` r
-> > prgeng2500 <- prgeng[sample(1:nrow(prgeng),2500),]
+> > prgeng2500 <- prgeng[sample(1:nrow(prgeng), 2500),]
 > ```
-> 
-> but it would be hard to read that way.  I also use direct function
-> composition sparingly, preferring to break
-> 
+>
+> 但这样写起来很难读。我也尽量少使用直接函数组合，更喜欢将
+>
 > ``` r
 > h(g(f(x),3)
 > ```
-> 
-> into
-> 
+>
+> 拆分为
+>
 > ``` r
-> y <- f(x) 
-> z <- g(y,3) 
-> h(z) 
+> y <- f(x)
+> z <- g(y,3)
+> h(z)
 > ```
-> 
-> (As noted earlier, my personal view is that pipes, though also breaking
-> complex statements into smaller ones, is less clear and harder to debug,
-> so I don't use them.)
+>
+> （正如前面提到的，我个人认为管道虽然也将复杂的语句分解为较小的语句，但不够清晰，也更难调试，所以我不使用它们。）
 
-So, here is the new plot:
+所以，这是新的绘图：
 
 ``` r
-> plot(prgeng2500$age,prgeng2500$wageinc)
+> plot(prgeng2500$age, prgeng2500$wageinc)
 ```
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/WageVsAge2.png)
 
-Note that since I plotted a random sample of rows, the ones you get may
-differ from the ones I got.  The resulting graph will be largely similar
-but probably  not identical.  
+请注意，由于我绘制了随机样本行，你得到的可能与我得到的不同。生成的图形大部分相似，但可能不完全相同。
 
-OK, now we are in business.  A few things worth noting:
+好了，现在我们可以开始了。值得注意的几点：
 
-* The relation between wage and age is not linear, indeed not even
-monotonic.  After the early 40s, one's wage tends to decrease.  As with
-any observational dataset, the underlying factors are complex, but it
-does seem there is an age discrimination problem in Silicon Valley.
-(And it is well documented in various studies and litigation.)
+-  wage 和 age 之间的关系不是线性的，实际上甚至不是单调的。在40岁后，一个人的工资往往会下降。与任何观察性数据集一样，其潜在因素是复杂的，但在硅谷似乎存在年龄歧视问题。（这在各种研究和诉讼中都有很好的文档记录。）
 
-* Note the horizontal streaks at the very top and very bottom of the
-  picture.  Some people in the census had 0 income (or close to it), as
-they were not working.  And the census imposed a top wage limit of
-$350,000 (probably out of privacy concerns), so that higher numbers were
-truncated to that value.
+- 请注意图像顶部和底部的水平条纹。人口普查中有些人没有收入（或接近于没有），因为他们没有工作。人口普查对工资设定了最高限额为35万美元（可能是出于隐私考虑），因此更高的数字被截断为该值。
 
-We can break things down by gender, via color coding:
+我们可以通过颜色编码来按性别分析：
 
 ``` r
-> plot(prgeng2500$age,prgeng2500$wageinc,col=prgeng2500$sex)
+> plot(prgeng2500$age, prgeng2500$wageinc, col=prgeng2500$sex)
 ```
 
-The **col** argument indicates we wish to color code, in this case by
-gender.  It is required to be an R factor. 
+**col** 参数指示我们希望按性别进行颜色编码，在本例中是按性别。它必须是一个R因子。
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/WageVsAge3.png)
 
-The red dots are the women.  (Details below.) Are they generally paid
-less than men?  There seems to be a hint of that, but detailed
-statistical analysis is needed (a future lesson).  
+红色的点是女性。（以下是详细信息。）她们的工资通常比男性低吗？似乎有这种迹象，但需要进行详细的统计分析（未来课程）。
 
-It would be good to have better labels on the axes, and maybe smaller
-dots:
+希望在轴上有更好的标签，也许点更小一些会更好：
 
 ``` r
-> plot(pe2500$age,pe2500$wageinc,col=as.factor(pe2500$sex),xlab='age',ylab='wage',cex=0.6)
+> plot(pe2500$age, pe2500$wageinc, col=as.factor(pe2500$sex), xlab='age', ylab='wage', cex=0.6)
 ```
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/WageVsAge4.png)
 
-Here 'xlab' meant "X label" and similarly for 'ylab'.  The argument 'cex
-= 0.6' means "Draw the dots at 60% of default size."
+这里的 'xlab' 意思是 "X标签"，'ylab' 类似。参数 'cex = 0.6' 的意思是 "以默认大小的60%绘制点"。
 
-Now, how did the men's dots come out black and the women's red?  The men
-were coded 1, the women 2.  So men got color 1 in the default palette,
-black, and the women color 2, red.
+那么，为什么男性的点变成黑色，女性的点变成红色呢？男性编码为1，女性编码为2。所以男性在默认调色板中得到了颜色1，即黑色，而女性得到了颜色2，即红色。
 
-There are many, many other features.  More in a future lesson.
+还有许多其他特性。将在未来的课程中介绍更多内容。
 
-> ❄️  Your Turn
+> ❄️  该你了
 >
-> Try some scatter plots on various datasets.  I suggest
-> first using the above data with wage against age again, but this time
-> color-coding by education level.  (By the way, 1-9 codes no college;
-> 10-12 means some college; 13 is a bachelor's degree, 14 a master's, 15 a
-> professional degree and 16 is a doctorate.)
+> 尝试在不同的数据集上做一些散点图。我建议首先再次使用上述数据，将工资与年龄进行比较，但这次按教育水平进行颜色编码。（顺便说一句，1-9代码表示没有大学学历；10-12表示一些大学课程；13表示学士学位，14表示硕士学位，15表示专业学位，16表示博士学位。）
 
-## <a name="less9"> </a> Lesson 15:  More on Base Graphics
 
-We can also plot multiple histograms on the same graph.  But the
-pictures are more effective using a smoothed version of histograms,
-available in R's **density** function.  Let's compare men's and women's
-wages in the census data.
+## <a name="less9"> </a> 第15课：更多关于基本图形的内容
 
-First we use **split** to separate the data by gender:
+我们还可以在同一张图上绘制多个直方图。但是使用 R 中的 **density** 函数提供的直方图的平滑版本会使图像更有效。让我们比较人口普查数据中男性和女性的工资。
+
+首先我们使用 **split** 函数按性别将数据分开：
 
 ``` r
-> wageByGender <- split(prgeng$wageinc,prgeng$sex)
+> wageByGender <- split(prgeng$wageinc, prgeng$sex)
 > dm <- density(wageByGender[[1]])
 > dw <- density(wageByGender[[2]])
 ```
 
-So, **wageByGender[[1]]** will now be the vector of men's wages,
-and similarly **wageByGender[[2]]** will have the women's wages.
+因此，**wageByGender[[1]]** 现在将是男性工资的向量，类似地 **wageByGender[[2]]** 将包含女性的工资。
 
-The **density** function does not automatically draw a plot; it has the
-plot information in a return value, which we've assigned to **dm** and
-**dw** here.  We can now plot the graph:
+**density** 函数不会自动绘制图形；它将绘图信息作为返回值，我们在这里将其赋值给了 **dm** 和 **dw**。我们现在可以绘制图形了：
 
 ``` r
-> plot(dw,col='red')
-> points(dm,cex=0.2)
+> plot(dw, col='red')
+> points(dm, cex=0.2)
 ```
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/MWWages.png)
 
-Why did we call the **points** function instead of **plot** in that
-second line?  The issue is that calling **plot** again would destroy the
-first plot; we merely want to *add points* to the existing graph.
+为什么我们在第二行调用了 **points** 函数而不是 **plot** 函数呢？问题在于再次调用 **plot** 会破坏第一个图形；我们只想在现有图形上*添加点*。
 
-And why did we plot the women's data first?  As you can see, the women's
-curve is taller, so if we plotted the men first, part of the women's
-curve would be cut off.  Of course, we didn't know that ahead of time,
-but graphics often is a matter of trial-and-error to get to the picture
-we really want.  (In the case of **ggplot2**, this is handled
-automatically by the software.)
+为什么我们先绘制了女性的数据？正如你所见，女性的曲线更高，因此如果我们先绘制男性的曲线，女性的曲线的一部分将被切掉。当然，我们事先不知道这一点，但是通常图形的绘制是一个反复试验的过程，以获得我们真正想要的图像。（在 **ggplot2** 中，这由软件自动处理。）
 
-Well, then, what does the graph tell us?  The peak for women, occurring
-at a little less than $50,000, seems to be at a lower wage than that for
-men, at something like $60,000.  At salaries around, say, $125,000,
-there seem to be more men than women.  (Black curve higher than red
-curve.  Remember, the curves are just smoothed histograms, so, if a
-curve is really high at, say 168.0, that means that 168.0 is a very
-frequently-occurring value.)
+那么，这张图告诉我们什么呢？女性的峰值出现在略低于50000美元的地方，似乎比男性的峰值低，大约在60000美元左右。在大约125000美元的薪资水平上，男性似乎比女性更多。（黑色曲线高于红色曲线。请记住，曲线只是平滑的直方图，因此，如果一条曲线在，比如168.0，非常频繁出现，那么168.0就是一个非常常见的值。）
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> Try plotting multiple such curves on the same graph, for other
-> data.
+> 尝试在同一张图上绘制多个类似的曲线，用其他数据。
 
 ## <a name="less10"> </a> Lesson 16:  Writing Your Own Functions
 
