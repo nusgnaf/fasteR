@@ -1728,25 +1728,17 @@ function(x,d) mean(x[x > d])
 [1] 1250
 ```
 
-## <a name="less11"> </a> Lesson 17:  'For' Loops
+## <a name="less11"> </a> 第17课：'For' 循环
 
-Recall that earlier we found that there were several columns in the
-Pima dataset that contained values of 0, which were physiologically
-impossible.  These should be coded NA.  We saw how to do that recoding
-for the glucose variable:
+回想一下，之前我们发现 Pima 数据集中有几列包含值为0的数据，这在生理上是不可能的。这些应该被编码为 NA。我们已经看到了如何对葡萄糖变量进行重新编码：
 
 ``` r
 > pima$glucose[pima$glucose == 0] <- NA
 ```
 
-But there are several columns like this, and we'd like to avoid doing
-this all repeatedly by hand.  (What if there were several *hundred* such
-columns?) Instead, we'd like to do this *programmatically*.  This can be
-done with R's **for** loop construct (which by the way most programming
-languages have as well).
+但是还有几列类似的情况，我们希望避免手动重复这样做。（如果有几百列呢？）相反，我们希望以*程序化*的方式做到这一点。这可以通过 R 的 **for** 循环结构来实现（顺便说一句，大多数编程语言也有这个结构）。
 
-Let's first check which columns seem appropriate for recoding.  Recall
-that there are 9 columns in this data frame.
+首先让我们检查哪些列似乎适合进行重新编码。回想一下，这个数据框中有 9 列。
 
 ``` r
 > for (i in 1:9) print(sum(pima[,i] == 0))
@@ -1761,13 +1753,11 @@ that there are 9 columns in this data frame.
 [1] 500
 ```
 
-This is known in the programming world as a *'for' loop*.  
+在编程世界中，这被称为*'for' 循环*。
 
-The 'print(etc.)' is called the *body* of the loop.  The 'for (i in
-1:9)' part says, "Execute the body of the loop with i = 1, then execute
-it with i = 2, then i = 3, etc. up through i = 9."
+'print(etc.)' 被称为循环的*主体*。'for (i in 1:9)' 部分表示：“以 i = 1 执行循环的主体，然后以 i = 2 执行，然后以 i = 3 等等，一直到 i = 9”。
 
-In other words, the above code instructs R to do the following:
+换句话说，上面的代码指示 R 执行以下操作：
 
 ``` r
 i <- 1
@@ -1790,7 +1780,7 @@ i <- 9
 print(sum(pima[,i] == 0))
 ```
 
-And this amounts to doing
+这相当于执行
 
 ``` r
 print(sum(pima[,1] == 0))
@@ -1804,26 +1794,15 @@ print(sum(pima[,8] == 0))
 print(sum(pima[,9] == 0))
 ```
 
-Now, it's worth reviewing what those statements do, say the first.  Once
-again, **pima[,1] == 0** yields a vector of TRUEs and FALSEs, each
-indicating whether the corresponding element of column 1 is 0.  When we
-call **sum**, TRUEs and FALSEs are treated as 1s and 0s, so we get the
-total number of TRUEs -- which is a count of the number of elements in that
-column that are 0, exactly what we wanted.
+现在，值得回顾一下这些语句的作用，以第一个语句为例。再一次地，**pima[,1] == 0** 生成一个由 TRUE 和 FALSE 组成的向量，每个元素指示第一列对应的元素是否为0。当我们调用 **sum** 时，TRUE 和 FALSE 被视为 1 和 0，因此我们得到了 TRUE 的总数 —— 这是该列中为0的元素的计数，正是我们想要的。
 
-The variable **i** in "for (i in 1:9)..." is known as the *index* of the
-loop.  It's just an ordinary R variable, so name it what you wish.
-Instead of **i**, we might name it, say, **colNumber**.
+在“for (i in 1:9)...”中的变量 **i** 被称为循环的*索引*。它只是一个普通的 R 变量，所以你可以随意命名它。我们可以将其命名为，比如，**colNumber**。
 
 ``` r
 for (colNumber in 1:9) print(sum(pima[,colNumber] == 0))
 ```
 
-A technical point:  Why did we need the explicit call to **print**?
-Didn't we say earlier that just typing an expression at the R '>' prompt
-will automatically print out the value of the expression?  Ah yes -- but
-we are not at the R prompt here!  Yes, in the expanded form we see
-above,
+一个技术性的问题：为什么我们需要显式调用 **print**？之前不是说在 R 的 '>' 提示符下，只需键入一个表达式，就会自动打印出表达式的值吗？啊是的——但是我们不在 R 提示符下！是的，在上面展开的形式中，
 
 ``` r
 print(sum(pima[,1] == 0))
@@ -1837,65 +1816,125 @@ print(sum(pima[,8] == 0))
 print(sum(pima[,9] == 0))
 ```
 
-each command would be issued at the prompt.  But in the 
-**for** loop version
+每个命令都将在提示符处发出。但在 **for** 循环版本中
 
 ``` r
 for (i in 1:9) print(sum(pima[,i] == 0))
 ```
 
-we are calling **print** from *within the loop*, not at the prompt.
-So, the explicit call to **print** is needed.
+我们是从*循环内部*调用 **print**，而不是在提示符下。所以，需要显式调用 **print**。
 
-We see in the output of the loop that there are a lot of erroneous 0s in
-this dataset, e.g. 35 of them in column 3.  We probably have forgotten
-which column is which, so let's see, using yet another built-R function:
+从循环的输出中我们可以看到，在这个数据集中有许多错误的0，比如在第3列中有35个。我们可能已经忘记了哪一列是哪一列，所以让我们使用另一个内置的 R 函数来看看：
 
- 
-``` r
+
+
+**翻译结果中出现了一些错误，我将其修正如下：**
+
+这被称为在编程世界中的*'for' 循环*。
+
+'print(etc.)' 被称为循环的*主体*。'for (i in 1:9)' 部分表示：“执行循环的主体时，i = 1，然后 i = 2，接着 i = 3，依此类推，直到 i = 9”。
+
+换句话说，上面的代码指示 R 执行以下操作：
+
+```r
+i <- 1
+print(sum(pima[,i] == 0))
+i <- 2
+print(sum(pima[,i] == 0))
+i <- 3
+print(sum(pima[,i] == 0))
+i <- 4
+print(sum(pima[,i] == 0))
+i <- 5
+print(sum(pima[,i] == 0))
+i <- 6
+print(sum(pima[,i] == 0))
+i <- 7
+print(sum(pima[,i] == 0))
+i <- 8
+print(sum(pima[,i] == 0))
+i <- 9
+print(sum(pima[,i] == 0))
+```
+
+这相当于执行
+
+```r
+print(sum(pima[,1] == 0))
+print(sum(pima[,2] == 0))
+print(sum(pima[,3] == 0))
+print(sum(pima[,4] == 0))
+print(sum(pima[,5] == 0))
+print(sum(pima[,6] == 0))
+print(sum(pima[,7] == 0))
+print(sum(pima[,8] == 0))
+print(sum(pima[,9] == 0))
+```
+
+现在，值得回顾一下这些语句的作用，以第一个语句为例。再一次地，**pima[,1] == 0** 生成一个由 TRUE 和 FALSE 组成的向量，每个元素指示第一列对应的元素是否为0。当我们调用 **sum** 时，TRUE 和 FALSE 被视为 1 和 0，因此我们得到了 TRUE 的总数 —— 这是该列中为0的元素的计数，正是我们想要的。
+
+在“for (i in 1:9)...”中的变量 **i** 被称为循环的*索引*。它只是一个普通的 R 变量，所以你可以随意命名它。我们可以将其命名为，比如，**colNumber**。
+
+```r
+for (colNumber in 1:9) print(sum(pima[,colNumber] == 0))
+```
+
+一个技术性的问题：为什么我们需要显式调用 **print**？之前不是说在 R 的 '>' 提示符下，只需键入一个表达式，就会自动打印出表达式的值吗？啊是的——但是我们不在 R 提示符下！是的，在上面展开的形式中，
+
+```r
+print(sum(pima[,1] == 0))
+print(sum(pima[,2] == 0))
+print(sum(pima[,3] == 0))
+print(sum(pima[,4] == 0))
+print(sum(pima[,5] == 0))
+print(sum(pima[,6] == 0))
+print(sum(pima[,7] == 0))
+print(sum(pima[,8] == 0))
+print(sum(pima[,9] == 0))
+```
+
+每个命令都将在提示符处发出。但在 **for** 循环版本中
+
+```r
+for (i in 1:9) print(sum(pima[,i] == 0))
+```
+
+我们是从*循环内部*调用 **print**，而不是在提示符下。所以，需要显式调用 **print**。
+
+从循环的输出中我们可以看到，在这个数据集中有许多错误的0，比如在第3列中有35个。我们可能已经忘记了哪一列是哪一列，所以让我们使用另一个内置的 R 函数来看看：
+
+```r
 > colnames(pima)
 [1] "pregnant"  "glucose"   "diastolic" "triceps"   "insulin"   "bmi"      
 [7] "diabetes"  "age"       "test"     
 ```
 
-Ah, so column 3 was 'diastolic'.
+啊，所以第3列是 'diastolic'。
 
-Since some women will indeed have had 0 pregnancies, that column should
-not be recoded.  And the last column states whether the test for
-diabetes came out positive, 1 for yes, 0 for no, so those 0s are
-legitimate too.  
+由于有些女性确实没有怀孕过，所以该列不应该重新编码。而最后一列表示糖尿病检测结果是否阳性，1 代表是，0 代表否，因此这些0也是合法的。
 
-But 0s in columns 2 through 6 ought to be recoded as NAs.  And the fact
-that it's a repetitive action suggests that a **for** loop can be used
-there too:
+但是第 2 到第 6 列中的0应该被重新编码为 NA。由于这是一个重复性操作，建议也使用 **for** 循环：
 
-``` r
+```r
 > for (i in 2:6) pima[pima[,i] == 0,i] <- NA
 ```
 
-You'll probably find this line quite challenging, but be patient and, as
-with everything in R, you'll find you can master it.  Here goes:
+你可能会觉得这行代码有些挑战性，但请耐心一点，和 R 中的其他内容一样，你会发现自己能够掌握它。下面是代码：
 
-First, let's write it in more easily digestible form:
+首先，让我们以更容易理解的形式写出它：
 
-``` r
+```r
 > for (i in 2:6) {
 +    zeroIndices <- which(pima[,i] == 0)
 +    pima[zeroIndices,i] <- NA
 + }
 ```
 
-You can enter the code for a loop or function etc. line by line at the
-prompt, as we've done here.  R helpfully uses its '+' prompt (which I
-did *not* type) to remind me that I am still in the midst of typing the
-code. (After the '}' I simply hit Enter to tell R that I'm done.)
+你可以逐行在提示符下输入循环或函数等代码，就像我们在这里所做的一样。R 会使用它的 '+' 提示符（我没有键入它）来提醒我，我仍然在输入代码中。（在 '}' 后面，我只需按 Enter 键告诉 R 我已经完成了。）
 
-Here I intended the body of the loop to consist of a *block* of two
-statements, not one, so I needed to tell R that, by enclosing them with
-'{' and '}.
+在这里，我打算将循环的主体定义为一个包含两条语句的 *块*，因此我需要使用 '{' 和 '}' 将它们括起来。
 
-For your convenience, below is the code itself, no '+' symbols.  You can
-copy-and-paste into R, with the result as above.
+为了方便起见，下面是代码本身，没有 '+' 符号。你可以将其复制粘贴到 R 中，结果与上面一样。
 
 ```
 for (i in 2:6) {
@@ -1904,33 +1943,27 @@ for (i in 2:6) {
 }
 ```
 
-So, the block (two lines here) will be executed with **i** = 2, then 3,
-4, 5 and 6.  The line 
+所以，该块（这里有两行）将在 **i** = 2，然后是 3、4、5 和 6 时执行。下面这行代码：
 
-``` r
+```r
 zeroIndices <- which(pima[,i] == 0)
 ```
 
-determines where the 0s are in column **i**, and then the line
+确定第 **i** 列中的 0 所在的位置，然后这行代码：
 
-``` r
+```r
  pima[zeroIndices,i] <- NA
 ```
 
-replaces those 0s by NAs.
+将这些 0 替换为 NA。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> Note that I have indented the two lines in the block.  This is not
-> required but is considered good for clear code, in order to easily
-> spot the block when you or others read the code. 
+> 注意，我对块中的两行进行了缩进。这不是必需的，但是在编写清晰的代码时是很好的做法，因为这样可以很容易地识别出块，无论是你还是其他人阅读代码。
 
-Sometimes our code needs to leave a loop early, which we can do using
-the R **break** construct.  Say we are adding cubes of numbers
-1,2,3,..., and for some reason want to determine which sum--if any-- is
-the first to exceed **s**:
+有时我们的代码需要提前退出循环，我们可以使用 R 的 **break** 结构来实现。比如，我们正在计算 1、2、3、... 的数字的立方和，并且出于某种原因想要确定哪个和 —— 如果有的话 —— 是首次超过 **s** 的：
 
-``` r
+```r
 > f
 function(n,s) 
 {
@@ -1951,61 +1984,30 @@ function(n,s)
 
 ```
 
-If our accumulated total meets our goal, we leave the loop.
+如果我们的累积总数达到目标，我们就离开循环。
 
-A better approach is to use 'while' loops, covered later in this
-tutorial.
+更好的方法是使用 'while' 循环，稍后在本教程中介绍。
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> There is a school of thought among some R enthusiasts that one should
-> avoid writing loops, using something called *functional programming*.
-> We will cover this in Lesson 28, but I do not recommend it for R
-> beginners.  
+> 在一些 R 爱好者中有这样一种观点，即应该避免编写循环，而使用一种称为 *函数式编程* 的东西。我们将在第28课中介绍这个，但我不建议初学者使用它。
 >
-> As the name implies, functional programming uses functions, and it
-> takes a while for most R beginners to master writing functions.  It
-> makes no sense to force beginners to use functional programming before
-> they really can write function code well.  I myself, with my several
-> decades as a coder, write some code with loops and some with
-> functional programming.  
+> 正如其名，函数式编程使用函数，大多数 R 初学者需要一段时间才能掌握写函数代码的技能。在他们真正能够很好地编写函数代码之前，强迫他们使用函数式编程是没有意义的。我自己，作为一个有几十年编程经验的人，有时会使用循环编程，有时会使用函数式编程。
 >
-> I've seen some beginning R coders actually apologize on Twitter for
-> using a loop!  Write in whatever style you feel comfortable
-> with, rather than being a "slave to fashion."
+> 我看到一些初学者在 Twitter 上实际上为使用循环而道歉！请按照你自己感觉舒服的方式编写代码，而不要成为“时尚的奴隶”。
 
-## <a name="ftnbl"> </a> Lesson 18:  Functions with Blocks 
 
-Blocks are usually key in defining functions.  Let's generalize the
-above code in the Loops lesson, writing a function that replaces 0s by
-NAs in specified columns in general data frames, not just **pima** as
-before.
+## <a name="ftnbl"> </a> 第18课：带有块的函数
 
-``` r
-     1	zerosToNAs <- function(d,cols)
-     2	{
-     3	   for (j in cols) {
-     4	      NArows <- which(d[,j] == 0)
-     5	      d[NArows,j] <- NA
-     6	   }
-     7	   d
-     8	}
-```
+在定义函数时，块通常起着关键作用。让我们将 Loops 课程中的上述代码概括起来，编写一个函数，在通用数据框中替换指定列中的0为NA，而不仅仅是像之前那样只针对 **pima**。
 
-(We've added line numbers to this display for convenence.)
+（我们在此显示了行号以方便阅读。）
 
-Here the formal argument **d** is the data frame to be worked on, and
-**cols** specifies the columns in which 0s are to be replaced.
+这里的形式参数 **d** 是要处理的数据框，**cols** 指定要替换0的列。
 
-The loop goes through **d**, one column at a time.  Since **d[,j]**
-means all of column **j** of **d**, then **which(d[,j] == 0)** will give
-us the indices in that column of elements that are 0s.  Those indices in
-turn are row numbers in **d**.  In other words, **NArows** is a vector
-cntaining the row numbers of the 0s in column **j**.  In line 5, then,
-we replace the 0s we've found in column **j** by NAs.  Before
-continuing, work through this little example in your mind:
+循环逐列遍历 **d**。因为 **d[,j]** 表示 **d** 的第 **j** 列的所有内容，所以 **which(d[,j] == 0)** 将给出在该列中元素为0的索引。这些索引反过来又是 **d** 中的行号。换句话说，**NArows** 是一个包含列 **j** 中0行的行号的向量。然后，在第5行，我们用NA替换了列 **j** 中找到的0。在继续之前，请在脑海中思考一下这个小例子：
 
-``` r
+```r
 > d <- data.frame(x=c(1,0,3),y=c(0,0,13)) 
 > d
   x  y
@@ -2013,163 +2015,94 @@ continuing, work through this little example in your mind:
 2 0  0
 3 3 13
 > which(d[,2] == 0)
-[1] 1 2  # ah yes; the 0 elements in column 2 are at indices 1 and 2
+[1] 1 2  # 是的，列2中的0元素位于索引1和2处
 ```
 
-Returning to the above loop code, note that when we reach line 7, we've
-already finished the loop, and exited from it.  So, we are ready to
-return the new value of **d**.  Recall that we could do this via the
-expression **return(d)**, but we can save ourselves some typing by
-simply writing 'd'.  That value becomes the last value computed, and R
-automatically returns that last value.
+回到上面的循环代码，注意当我们到达第7行时，我们已经完成了循环，并退出了循环。所以，我们准备好返回 **d** 的新值了。回想一下，我们可以通过表达式 **return(d)** 来实现这一点，但是我们可以节省一些输入时间，只需写 'd' 即可。这个值成为了最后计算的值，并且 R 会自动返回最后的值。
 
-We could use this in the Pima data:
+我们可以在 Pima 数据上使用这个函数：
 
-``` r
+```r
 > pima <- zerosToNAs(pima,2:6)
 ```
 
-There is an important subtlety here.  All of this will produce a new
-data frame, rather than changing **pima** itself.  That does look odd;
-isn't **d** changing, and isn't **d** the same as **pima**?  Well, no;
-**d** is only a *separate copy* of **pima**. So, when **d** changes,
-**pima** does not.  So, if we want **pima** to change, we must reassign
-the output of the function back to **pima**, as we did above.
+这里有一个重要的微妙之处。所有这些将产生一个新的数据框，而不是改变 **pima** 本身。这看起来很奇怪；**d** 不是在改变吗，而且 **d** 不是和 **pima** 相同吗？嗯，并不是；**d** 只是 **pima** 的一个 *独立副本*。所以，当 **d** 改变时，**pima** 并没有改变。因此，如果我们希望 **pima** 改变，我们必须将函数的输出重新分配给 **pima**，就像我们上面所做的那样。
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> Write a function with call form **countNAs(dfr)**,
-> which prints the numbers of NAs in each column of the data frame
-> **dfr**.  You'll need to use the built-in **is.na** functon; execute
-> **is.na(c(5,NA,13,28,NA))** at the R command prompt to see what it
-> does.  Test it on a small artificial dataset that you create.
+> 编写一个调用形式为 **countNAs(dfr)** 的函数，它打印数据框 **dfr** 中每列的NA数目。您需要使用内置的 **is.na** 函数；在 R 命令提示符下执行 **is.na(c(5,NA,13,28,NA))** 来查看它的功能。在一个你创建的小型人工数据集上测试它。
 
-## <a name="edt"> </a> Lesson 19:  Text Editing and IDEs
+## <a name="edt"> </a> 第19课：文本编辑和集成开发环境（IDE）
 
-In trying out our function **zeroToNAs** above, you probably used your
-computer's mouse to copy-and-paste from this tutorial into your machine.
-Your screen would then look like this:
+在尝试上面的 **zeroToNAs** 函数时，您可能使用了计算机的鼠标将本教程中的内容复制粘贴到您的机器上。然后，您的屏幕将如下所示：
 
-```
-> zerosToNAs <- function(d,cols) 
-+ {
-+    zeroIndices <- which(d[,cols] == 0)
-+    d[zeroIndices,cols] <- NA
-+    d
-+ }
-```
+但这是笨拙的。逐行输入是费时且容易出错的。如果我们要更改代码怎么办？难道我们必须重新输入整个代码吗？我们真的需要一个*文本编辑器*来解决这个问题。就像我们编辑报告一样，我们也可以编辑代码。
 
-But this is unwieldy.  Typing it in line by line is laborious and
-error-prone.  And what if we were to change the code?  Must we type in
-the whole thing again?  We really need a *text editor* for this.  Just
-as we edit, say, reports, we do the same for code.  
+这里有几种选择：
 
-Here are your choices:
+1. 如果您已经在使用一个集成开发环境（IDE），比如 RStudio，您可以直接在指定的窗格中进行编辑。
 
-1. If you are already using an IDE, say RStudio, you simply edit
-in the designated pane.
+2. 如果您使用的是外部编辑器，比如 vim 或 emacs，只需打开一个新文件并使用该工作区即可。
 
-2.  If you are using an external editor, say vim or emacs,
-just open a new file and use that workspace.
+3. 对于不使用这些的人，我们将使用 R 的内置 **edit** 函数。
 
-3.  For  those not using these, we'll just use R's built-in **edit**
-    function.  
+对于现在来说，选项3是可以接受的，但最终您会想要使用选项1或2。您可能希望现在开始使用其中之一，然后再继续前进。
 
-Option 3 is fine for now, but eventually you'll want to use either
-Option 1 or 2.  You may wish to start with one of those options now,
-before going further. 
+在本文档末尾的<a href="#ide">附录</a>中，我们有关于如何开始使用 RStudio 的详细信息。**警告：** 正如之前所指出的，一个主要的 R 用户组将 RStudio 描述为“令人不知所措”。但如果您抵制（或他人的力劝）一次学会所有内容的诱惑，它其实很容易。只要您在附录中坚持基础知识，您会发现使用起来非常容易；稍后您可以学习高级技巧。
 
-We have details on getting start with RStudio in the <a
-href="#ide">Appendix</a> at the end of this document.  **Warning:** 
-As noted earlier, one major R Users Group described RStudio as
-"overwhelming." But it is quite easy if you resist the temptation (or
-the exhortations of others) to learn it all at once.  As long as you
-stick to the basics in the Appendix, you'll find it quite easy; you can
-learn the advanced tricks later.
+考虑以下玩具例子：
 
-Consider the following toy example:
+它找到输入的和与差，并将它们作为一个两元素向量返回。
 
-``` r
-f <- function(x,y)
-{
-   s <- x + y
-   d <- x - y
-   c(s,d)
-}
-```
+如果您正在使用 RStudio 或外部编辑器，请将上述代码复制粘贴到一个空文件的工作区中。
 
-It finds the sum and difference of the inputs, and returns them as a
-two-element vector.
+或者，要使用 **edit** 创建 **f**，我们将执行以下操作：
 
-If you are using RStudio or an external editor, copy-and-paste the above
-code into the workspace of an empty file.  
+这会调用文本编辑器，这取决于您的机器。它会在您的 R 窗口中直接打开您的文本编辑器。在编辑器中键入函数代码，然后使用编辑器的保存命令保存。
 
-Or, to create **f** using **edit**, we would do the following:
 
-``` r
-> f <- edit()
-```
+**重要提示：** 即使您不使用 **edit**，了解上述命令的工作原理也很重要。
 
-This would invoke the text editor, which will depend on your machine.
-It will open your text editor right there in your R window.  Type the
-function code, then save it, using the editor's Save command.  
+a. **edit** 本身是一个函数。它的返回值是您键入的代码！
 
-**IMPORTANT:** Even if you are not using **edit**, it's important to
-know what is happening in that command above.
+b. 该代码然后被分配给 **f**，然后您现在可以调用它
 
-a.  **edit** itself is a function.  Its return value is the code you
-typed in!  
+如果您想要更改函数，在使用 RStudio/外部编辑器的情况下，只需在那里编辑它。在使用 **edit** 的情况下，输入以下内容：
 
-b.  That code is then assigned to **f**, which you can now call
-
-If you want to change the function, in the RStudio/external editor case,
-just edit it there.  In the **edit** case, type
-
-``` r
+```r
 > f <- edit(f)
 ```
 
-This again opens the text editor, but this time with the current **f**
-code showing.  You edit the code as desired, then as before, the result
-is reassigned to **f**.
+这将再次打开文本编辑器，但这次会显示当前 **f** 的代码。您可以按照需要编辑代码，然后像以前一样，结果会重新分配给 **f**。
 
-How do you then run the code, say for computing **f(5,2)**?
+然后如何运行代码，比如计算 **f(5,2)**？
 
-* If you had created **f** using **edit**, then execute as usual:
+* 如果您是使用 **edit** 创建 **f**，那么执行如下：
 
-
-``` r
+```r
 > f(5,2)
 ```
 
-* If you had used an external text editor, say saving the code into the
-  file **a.R**, then
+* 如果您使用了外部文本编辑器，比如将代码保存到文件 **a.R** 中，那么执行以下操作：
 
-``` r
+```r
 > source('a.R')
-``` 
+```
 
-loads file, and then you run as above.
+加载文件，然后您就可以像上面那样运行。
 
-* In RStudio, click on Source, then run as above.
+* 在 RStudio 中，点击“Source”，然后像上面那样运行。
 
-## <a name="ifelse"> </a> Lesson 20:  If, Else, Ifelse
 
-In our Census data example above, it was stated that education codes 0-9
-all corresponded to having no college education at all.  For instance, 9
-means high school graduate, while 6 means schooling through the 10th
-grade.  (Of course, few if any programmers and engineers have
-educational attainment level below college, but this dataset was
-extracted from the general data.)  13 means a bachelor's degree.
+## <a name="ifelse"> </a> 第20课：If、Else、Ifelse
 
-Suppose we wish to color-code the wage-age graph in an earlier lesson by
-educational attainment. Let's amalgamate all codes under 13, giving them
-the code 12.
+在上面的人口普查数据示例中，曾经说明教育代码0-9都对应于根本没有大学教育。例如，9表示高中毕业，而6表示受教育程度到10年级。（当然，几乎没有程序员和工程师的教育程度低于大学，但这个数据集是从普通数据中提取出来的。）13表示学士学位。
 
-The straightforward but overly complicated, potentially slower way would
-be this:
+假设我们希望按照受教育程度对前面课程中的工资-年龄图进行颜色编码。让我们将所有代码合并到13以下，将它们都归为代码12。
 
-``` r
+直截了当但过于复杂、潜在速度较慢的方法如下：
+
+```r
 > head(pe$educ,15)
  [1] 13  9  9 11 11 11 12 11 14  9 12 13 12 13  6
 > for (i in 1:nrow(pe)) {
@@ -2179,123 +2112,81 @@ be this:
  [1] 13 12 12 12 12 12 12 12 14 12 12 13 12 13 12
 ```
 
-For pedagogical clarity, I've inserted "before and after" code, using
-**head**, to show the **educ** did indeed change where it should.
+为了教学上的清晰，我插入了“之前和之后”的代码，使用 **head** 来显示 **educ** 确实在应该更改的地方发生了更改。
 
-The **if** statement works pretty much like the word "if" in English.
-First **i** will be set to 1 in the loop, so R will test whether
-**pe$educ[1]** is less than 13.  If so, it will reset that element to
-12; otherwise, do nothing.  Then it will do the same for **i** equal to
-2, and so on.  You can see above that, for instance, **pe$educ[2]** did
-indeed change from 9 to 12.
+**if** 语句的工作方式几乎就像英语中的单词“if”一样。首先，**i** 在循环中被设置为1，所以 R 将测试 **pe$educ[1]** 是否小于13。如果是，它将重新设置该元素为12；否则，不做任何操作。然后对 **i** 等于2，以此类推。您可以看到上面的例子中，例如，**pe$educ[2]** 确实从9更改为12。
 
-But there is a slicker (and actually more standard) way to do this
-(re-read the data file before running this, so as to be sure the code
-worked):
+但是有一种更聪明（而且实际上更标准）的方法可以做到这一点（重新阅读数据文件以确保代码运行正常）：
 
-``` r
+```r
 > edu <- pe$educ
-> pe$educ <- ifelse(edu < 13,12,edu)
+> pe$educ <- ifelse(edu < 13, 12, edu)
 ```
 
-(Once again, we've broken what could have been one line into two, for
-clarity.)
+（再次，为了清晰起见，我们将本来可以是一行的代码分成了两行。）
 
-Now how did that work?  As you see above, R's **ifelse** function
-has three arguments, and its return value is a new vector, that in this
-case we've reassigned to **pe$educ**.  Here, **edu < 12** produces a vector
-of TRUEs and FALSEs.  For each TRUE, we set the corresponding element of
-the output to 12; for each FALSE, we set the corresponding element of
-the output to the corresponding element of **edu**.  That's exactly what
-we want to happen.
+那么这是如何工作的呢？如上所示，R 的 **ifelse** 函数有三个参数，其返回值是一个新的向量，在这种情况下，我们重新分配给了 **pe$educ**。这里，**edu < 12** 生成一个由 TRUE 和 FALSE 组成的向量。对于每个 TRUE，我们将输出的相应元素设置为12；对于每个 FALSE，我们将输出的相应元素设置为 **edu** 中的相应元素。这正是我们希望发生的事情。
 
-So, we can now produce the desired graph:
+所以，我们现在可以绘制所需的图形：
 
-``` r
-> plot(pe$age,pe$wageinc,col=edu)
+```r
+> plot(pe$age, pe$wageinc, col = edu)
 ```
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/WageAgeEdu.png)
 
-By the way, an ordinary **if** can be paired with **else** too.  For
-example, say we need to set **y** to either -1 or 1, depending on
-whether **x** is less than 3.  We could write
+顺便说一句，普通的 **if** 也可以与 **else** 配对使用。例如，假设我们需要根据 **x** 是否小于3 来将 **y** 设置为-1 或 1。我们可以写成：
 
-``` r
+```r
 if (x < 3) y <- -1 else y <- 1
 ```
 
-One more important point:  Using **ifelse** instead of a loop in the
-above example is termed *vectorization*.  The name comes from the fact
-that **ifelse** operates on vectors, while in the loop we operate on one
-individual element at a time.
+还有一个重要的点：在上面的示例中使用 **ifelse** 而不是循环称为*向量化*。这个名字来自于 **ifelse** 在向量上操作，而在循环中，我们逐个处理一个个单独的元素。
 
-Vectorized code is typically much more compact than loop-based code, as
-was the case here.  In some cases, though certainly not all, the
-vectorized version will be much faster.
+向量化的代码通常比基于循环的代码要紧凑得多，就像这里的情况一样。在某些情况下，尽管当然不是所有情况，向量化版本会快得多。
 
-By the way, note the remark above, "**ifelse** operates on vectors."
-Let's revisit the above statement with this point in mind.
+顺便说一下，注意上面的注释：“**ifelse** 在向量上操作”。让我们以这一点为前提重新审视上面的声明。
 
-``` r
-> pe$educ <- ifelse(edu < 13,12,edu)
+```r
+> pe$educ <- ifelse(edu < 13, 12, edu)
 ```
 
-It would be helpful to keep in mind that both the 13 and the 12 will be
-recycled, as expained before.  The **edu** vector is 20090 elements
-long, so in order to be compared on an element-to-element basis, the 13
-has to be recycled to a vector consisting of 20090 elements that are
-each 13.  The same holds for the 12.
+有一个重要的点需要记住，即13和12都会被重复使用，正如之前解释的一样。 **edu** 向量长度为20090个元素，所以为了逐个元素地进行比较，13必须被重复为一个由20090个值为13的元素组成的向量。对于12也是一样的。
 
-Here's another example.  Say we wish to recode the **Nile** data to a
-new vector **nile**, with values 1, 2 and 3, for the cases in which the
-value is less than 800, between 800 and 1150 inclusive, or greater than
-1150.  We could do this:
+这里有另一个例子。假设我们希望将 **Nile** 数据重新编码为一个新的向量 **nile**，其值为1、2和3，分别表示小于800、在800到1150之间（包括1150）、大于1150的情况。我们可以这样做：
 
-``` r
-> nile <- ifelse(Nile > 1150,3,2)
-> nile <- ifelse(Nile < 800,1,nile)
-# check it 
+```r
+> nile <- ifelse(Nile > 1150, 3, 2)
+> nile <- ifelse(Nile < 800, 1, nile)
+# 检查一下
 > table(nile)
 nile
  1  2  3 
 26 62 12 
 ```
 
-After the first call to **ifelse**, the vector **nile** (not **Nile**;
-variable names etc. are case-sensitive) consists of 2s and 3s.  The 3s
-are right, but the 2s need further work, hence the second call.  
+在第一次调用 **ifelse** 后，向量 **nile**（不是 **Nile**；变量名等是区分大小写的）由2和3组成。3是正确的，但2需要进一步处理，因此是第二次调用。
 
-But let's look closely at the second call, to review some things we've
-seen before:
+但是让我们仔细看看第二次调用，以复习我们之前看到的一些内容：
 
-1. The expression **Nile > 1150** evaluates to a vector of 100 TRUEs and
-   FALSEs.  
+1. 表达式 **Nile > 1150** 评估为一个由100个 TRUE 和 FALSE 组成的向量。
 
-2. The singleton value 800 is then recycled to one hundred
-800s, to set up the '<'.  Let's call the result of that '<' operation w.
+2. 然后，单一值 800 被重复为一百个 800，以建立 '<'。让我们将该 '<' 操作的结果称为 w。
 
-3. Then **ifelse(Nile < 800,1,nile)** says, "For each element in the vector
-w that is TRUE, write down a 1; for each element that is FALSE, write
-down whatever the corresponding value is in **nile**."
+3. 接着，**ifelse(Nile < 800, 1, nile)** 的意思是：“对于向量 w 中的每个为 TRUE 的元素，写下一个 1；对于每个为 FALSE 的元素，写下 **nile** 中相应的值。”
 
-Well, congratulations!  With **for** and now **ifelse**, you've really
-gotten into the programming business.  We'll be using them a lot in the
-coming lessons.
+恭喜！通过使用 **for** 和现在的 **ifelse**，你真正开始了编程业务。在接下来的课程中，我们将经常使用它们。
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> Write a **for** loop version of the **Nile** example
-> above.
+> 写一个 **for** 循环版本的上面的 **Nile** 示例。
 
-## <a name="keepfit"> </a> Lesson 21:  Do Professional Athletes Keep Fit?
 
-Many people gain weight as they age.  But what about professional
-athletes?  They are supposed to keep fit, after all.  Let's explore this
-using data on professional baseball players.  (Dataset courtesy of the
-UCLA Statistics Dept.)
+## <a name="keepfit"> </a> 第21课：专业运动员保持健康吗？
 
-``` r
+许多人随着年龄增长而增加体重。但是专业运动员呢？毕竟他们应该保持健康。让我们使用专业棒球运动员的数据来探讨这个问题。（数据集由 UCLA 统计系提供。）
+
+```r
 > load(url('https://github.com/matloff/fasteR/blob/master/data/mlb.RData?raw=true'))
 > head(mlb)
              Name Team       Position Height Weight   Age PosCategory
@@ -2311,17 +2202,13 @@ UCLA Statistics Dept.)
 [1] "factor"
 ```
 
-(As usual, after reading in the data, we took a look around, glancing at
-the first few records, and looking at a couple of data types.)
+（和往常一样，在读入数据后，我们环顾四周，浏览了前几条记录，并查看了几种数据类型。）
 
-Now, as a first try in assessing the question of weight gain over time,
-let's look at the mean weight for each age group.  In order to have
-groups, we'll round the ages to the nearest integer first, using the R
-function, **round**, so that e.g.  21.8 becomes 22 and 35.1 becomes 35.
+现在，作为评估随着时间增长体重增加问题的第一次尝试，让我们查看每个年龄组的平均体重。为了进行分组，我们首先将年龄四舍五入到最近的整数，使用 R 函数 **round**，这样例如 21.8 就会变为 22，35.1 就会变为 35。
 
-Let's explore the data using R's **table** function.
+让我们使用 R 的 **table** 函数来探索数据。
 
-``` r
+```r
 > age <- round(mlb$Age)
 > table(age)
 age
@@ -2331,15 +2218,12 @@ age
   9   2   2   1   1 
 ```
 
-Not surprisingly, there are few players of extreme age -- e.g. only two of
-age 21 and one of age 49.  So we don't have a good sampling at those age
-levels, and may wish to exclude them (which we will do shortly).
+毫不奇怪，极端年龄的球员很少 —— 例如只有两个 21 岁和一个 49 岁的。因此，我们在这些年龄水平上没有很好的抽样，可能希望将它们排除在外（我们很快就会这样做）。
 
-Now, how do we find group means?  It's a perfect job for the **tapply**
-function, in the same way we used it before:
+那么，我们如何找到组平均值呢？这是 **tapply** 函数的完美应用，就像我们之前使用它一样：
 
-``` r
-> taout <- tapply(mlb$Weight,age,mean)
+```r
+> taout <- tapply(mlb$Weight, age, mean)
 > taout
       21       22       23       24       25       26       27       28 
 215.0000 192.8500 196.2241 194.4500 200.2427 200.4327 199.2925 203.9643 
@@ -2351,94 +2235,54 @@ function, in the same way we used it before:
 188.0000 
 ```
 
-To review:  The call to **tapply** instructed R to split the
-**mlb$Weight** vector according to the corresponding elements in the
-**age** vector, and then find the mean in each resulting group.  This
-gives us exactly what we want, the mean weight in each age group.
 
-So, do we see a time trend above?  Again, we should dismiss the extreme
-low and high ages, and we cannot expect a fully consistent upward trend over
-time, because each mean value is subject to sampling variation.  (We
-view the data as a sample from the population of all professional
-baseball players, past, present and future.)  That said, it does seem
-there is a slight upward trend; older players tend to be heavier!
+总结一下：对 **tapply** 的调用指示 R 根据 **age** 向量中的相应元素拆分 **mlb$Weight** 向量，然后在每个结果组中找到平均值。这给了我们我们想要的，即每个年龄组的平均体重。
 
-By the way, note that **taout** is vector, but with additional
-information, in that the elements have names, in this case the ages.  In
-fact, we can extract the names into its own vector if needed:
+那么，上面是否看到了时间趋势呢？再次强调，我们应该排除极端低龄和高龄，我们不能期望随着时间的推移出现完全一致的上升趋势，因为每个平均值都受到抽样变异的影响。（我们将数据视为所有专业棒球运动员，包括过去、现在和未来的人口的样本。）尽管如此，似乎确实存在轻微的上升趋势；年龄较大的球员往往体重更重！
 
-``` r
+顺便提一下，**taout** 是一个向量，但是带有附加信息，即元素有名称，在这种情况下是年龄。实际上，如果需要，我们可以将这些名称提取到它自己的向量中：
+
+```r
 > names(taout)
  [1] "21" "22" "23" "24" "25" "26" "27" "28" "29" "30" "31" "32" "33"
 "34" "35"
 [16] "36" "37" "38" "39" "40" "41" "42" "43" "44" "49"
 ```
 
-Let's plot the means against age.  We'll just plot the means that are
-based on larger amounts of data.  So we'll restrict it to, say, ages 23
-through 35, all of whose means were based on at least 30 players.  That
-age range corresponded to elements 3 through 15 of **taout**, so here is
-the code for plotting:
+让我们根据年龄绘制平均值。我们将仅绘制基于更大数据量的平均值。因此，我们将其限制为，例如，年龄为 23 到 35 岁之间的年龄组，所有这些年龄组的平均值都是基于至少 30 名球员的。该年龄范围对应于 **taout** 的第 3 到第 15 个元素，所以这里是绘图的代码：
 
-``` r
-> plot(23:35,taout[3:15])
+```r
+> plot(23:35, taout[3:15])
 ```
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/MLB.png)
 
-There does indeed seem to be an upward trend in time.  Ballplayers
-should be more careful!  
+的确，看起来存在随时间增长的趋势。球员们应该更加小心！
 
-(Though it is far beyond the scope of this tutorial, which is on R
-rather than statistics, it should be pointed out that interpretation of
-the regression coefficients must be done with care.  It may be, for
-instance, that heavier players tend to have longer careers.  If so,
-fitting our linear form to data that has many older, heavier players may
-misleadingly imply that most individual players gain weight as they age.
-And of course, they would insist the gained weight
-is all muscle. :-) )
+（尽管这远远超出了本教程的范围，本教程是关于 R 而不是统计学的，但应该指出需要谨慎解释回归系数。例如，较重的球员可能倾向于拥有更长的职业生涯。如果是这样的话，将我们的线性形式拟合到具有许多年长、体重较重的球员的数据可能会误导地暗示大多数个体球员随着年龄增长体重增加。当然，他们会坚持认为增加的体重全都是肌肉。:-)）
 
-Note again that the **plot** function noticed that we supplied it with
-two arguments instead of one, and thus drew a two-dimensional scatter
-plot.  For instance, in **taout** we see that for age group 25, the mean
-weight was 200.2427, so there is a dot in the graph for the point
-(25,200.2427).
+再次注意，**plot** 函数注意到我们提供给它的是两个参数而不是一个，因此绘制了一个二维散点图。例如，在 **taout** 中，我们看到 25 岁的平均体重是 200.2427，因此图表中有一个点，坐标为 (25,200.2427)。
 
-> ❄️  Your Turn
+> ❄️ 轮到你了
 >
-> There are lots of little experiments you can do on this
-> dataset.  For instance, use **tapply** to find the mean weight for
-> each position; is the stereotype of the "beefy" catcher accurate, i.e.
-> is the mean weight for that position higher than for the others?
-> Another suggestion:  Plot the number of players at each age group, to
-> visualize the ages at which the bulk of the players fall.
- 
-## <a name="linreg1"> </a> Lesson 22:  Linear Regression Analysis, I
+> 有许多小实验可以在这个数据集上进行。例如，使用 **tapply** 找到每个位置的平均体重； "肥硕" 捕手的刻板印象准确吗，即该位置的平均体重是否高于其他位置？另一个建议：绘制每个年龄组的球员数量，以可视化大多数球员所在的年龄。
 
-Looking at the picture in the last lesson, it seems we could draw a
-straight line through that cloud of points that fits the points pretty
-well.  Here is where linear regression analysis comes in. 
 
-We of course cannot go into the details of statistical methodology here,
-but it will be helpful to at least get a good definition set:
+## 第22课: 线性回归分析，I
 
-> As mentioned, we treat the data as a sample from the (conceptual)
-> population of all players, past, present and future.  Accordingly,
-> there is a population mean weight for each age group.  It is assumed
-> that those population means, when plotted against age, lie on some
-> straight line.
+在上一课的图片中，看起来我们可以通过这些点的云绘制一条穿过它们的直线，这条直线相当拟合这些点。这就是线性回归分析的作用所在。
 
-In other words, our model is 
+当然，我们在这里不能详细讨论统计方法，但至少了解一个好的定义集将会有所帮助：
 
-mean weight = &beta;<sub>0</sub> + &beta;<sub>1</sub> height
+> 如前所述，我们将数据视为所有球员（过去、现在和将来的）的（概念上的）总体样本。因此，每个年龄组都有一个总体平均体重。假定这些总体均值，当以年龄为横坐标绘制时，位于某条直线上。
 
-where &beta;<sub>0</sub> and &beta;<sub>1</sub> are the 
-intercept and slope of the population regression line.
+换句话说，我们的模型是
 
-So, we need to use the data to estimate the slope and intercept of that
-straight line, which R's **lm** ("linear model") function does for us.
-We'll use the original dataset, since the one with rounded ages was just
-to guide our intuition.
+平均体重 = &beta;<sub>0</sub> + &beta;<sub>1</sub> 身高
+
+其中 &beta;<sub>0</sub> 和 &beta;<sub>1</sub> 是总体回归线的截距和斜率。
+
+因此，我们需要使用数据来估计那条直线的斜率和截距，R 的 **lm**（"线性模型"）函数可以为我们完成这项工作。我们将使用原始数据集，因为带有舍入年龄的数据集只是用来指导我们的直觉。
 
 ``` r
 > lm(Weight ~ Age,data=mlb)
@@ -2450,13 +2294,10 @@ Coefficients:
 (Intercept)          Age  
    181.4366       0.6936  
 ```
-Here the call instructed R to estimate the regression line of weight
-against age, based on the **mlb** data.
 
-So the estimated slope and intercept are 0.6936 and 181.4366,
-respectively.  (Remember, these are just sample estimates.  We don't
-know the population values.) R has a provision by which we can draw the
-line, superimposed on our scatter plot:
+这里的调用指示 R 估计了基于 **mlb** 数据的体重与年龄的回归线。
+
+因此，估计的斜率和截距分别为 0.6936 和 181.4366。（请记住，这些只是样本估计值。我们不知道总体值。）R 有一种方式可以通过它绘制直线，在我们的散点图上叠加：
 
 ``` r
 > abline(181.4366,0.6936)
@@ -2464,32 +2305,25 @@ line, superimposed on our scatter plot:
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/Add_abline.png)
 
-> ❄️  Your Turn
+> ❄️  你来试试
 >
-> In the **mtcars** data, fit a linear model of the
-> regression of MPG against weight; what is the estimated
-> effect of 100 pounds of extra weight?
+> 在 **mtcars** 数据中，拟合一个回归模型，将 MPG 对 weight 进行回归；额外增加 100 磅重量的估计效果是什么？
 
-## <a name="s3"> </a> Lesson 23:  S3 classes
+## 第23课: S3 类
 
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> Remember, the point of computers is to alleviate us of work.  We should
-> avoid doing what the computer could do.  For instance,
-> consider the graph in the last lesson: We had typed
-> 
+> 记住，计算机的目的是减轻我们的工作负担。我们应该避免做计算机可以完成的事情。例如，考虑上一课的图表：我们曾经键入了
+>
 > ``` r
 > > abline(181.4366,0.6936)
 > ```
-> 
-> but we really shouldn't have to type those numbers in by hand -- and we
-> don't have to.  Here's why:
+>
+> 但我们实际上不应该手动键入这些数字，而且我们也不必这样做。这是为什么：
 
-As mentioned earlier, R is an *object-oriented language*. Everthing is
-an *object*, and every object has a *class*.  One of the most common
-class structures is called 'S3'.  
+如前所述，R 是一种*面向对象的语言*。一切都是*对象*，每个对象都有一个*类*。其中一种最常见的类结构称为'S3'。
 
-When we call **lm**, the latter returns an S3 object of 'lm' class:
+当我们调用 **lm** 时，它会返回一个 'lm' 类的 S3 对象：
 
 ``` r
 > lmout <- lm(Weight ~ Age,data=mlb)
@@ -2497,8 +2331,7 @@ When we call **lm**, the latter returns an S3 object of 'lm' class:
 [1] "lm"
 ```
 
-A handy way to take a quick glance at the contents of an object is
-via the **str** function:
+快速查看对象内容的一个方便方法是通过 **str** 函数：
 
 ``` r
 > str(lmout)
@@ -2510,53 +2343,34 @@ List of 12
  - attr(*, "class")= chr "lm"
 ```
 
-Our use of ... here is to indicate that we've omitted a lot of the
-output.  But a couple of things stand out even in this excerpt:
+这里我们使用 ... 表示我们省略了很多输出内容。但是即使在这个摘录中，有几点值得注意：
 
-1. Our **lmout** object here is an R list (which is the nature of S3
-   objects).  That R list here has 12 elements.
+1. 这里我们的 **lmout** 对象是一个 R 列表（这是 S3 对象的性质）。该 R 列表有 12 个元素。
 
-2. But it has an extra *attribute*, which is the class name, in this
-   case **'lm'**.  (So the designers of R simply chose to name the class
-after the function, which is not always the case.)
+2. 但它有一个额外的 *属性*，即类名，在本例中是 **'lm'**。（因此，R 的设计者简单地选择以函数命名类，这并不总是如此。）
 
-3. The first of the elements of this R list is named 'coefficients', and it
-   is a vector containing the slope and intercept.
+3. 这个 R 列表的第一个元素被命名为 'coefficients'，它是一个包含斜率和截距的向量。
 
-So, we don't have to type the slope and intercept in by hand after all.
+因此，我们不必手动键入斜率和截距。
 
 ``` r
 > cfs <- lmout$coefficients
 > abline(a = cfs[1], b = cfs[2])
 ```
 
-By the way, **abline** is actually a *generic* function, like **print**
-and **plot**.  That is, it works on various kinds of object classes.
-One such class is 'lm'!  So if we want to be clever, we can add our line
-to the graph using this approach:
+顺便说一句，**abline** 实际上是一个*通用*函数，就像 **print** 和 **plot** 一样。也就是说，它适用于各种类型的对象类。其中一种类就是 'lm'！因此，如果我们想聪明一点，我们可以使用这种方法将我们的直线添加到图表中：
 
 ``` r
 > abline(lmout)
 ```
 
-The internal code for **abline** recognizes that **lmout** is of 'lm'
-class, and thus knows it can find the coefficients in the **coefficients**
-element of the **lmout** list.  Saves us a lot of work!
+**abline** 的内部代码会识别 **lmout** 是 'lm' 类，因此知道它可以在 **lmout** 列表的 **coefficients** 元素中找到系数。这样就节省了很多工作！
 
-Now, what about our original question -- do baseball players gain weight
-as they age?  The answer appears to be yes; for each additional year of
-age, the estimated mean age increases by about 0.7 pound.  That's about
-7 pounds in 10 years, rather remarkable.
+现在，关于我们最初的问题 -- 随着年龄增长，棒球运动员会增加体重吗？答案似乎是肯定的；每增加一岁，估计的平均体重增加约 0.7 磅。这在 10 年内约为 7 磅，相当显著。
 
-Again, this is only an estimate -- 181.437 and 0.694 are estimates of
-the unknown population values &beta;<sub>0</sub> and &beta;<sub>1</sub>.
--- generated from sample data.  We can get an idea of the accuracy of
-this estimate by calculating a *confidence interval*, but we'll leave
-that for statistics courses.
+再次强调，这只是一个估计 -- 181.437 和 0.694 是未知总体值 &beta;<sub>0</sub> 和 &beta;<sub>1</sub> 的估计值，是从样本数据中生成的。通过计算*置信区间*，我们可以对这个估计的准确性有所了解，但我们将把它留给统计课程。
 
-But we can do more right now.  One might ask, Shouldn't we also account
-for a player's height, not just his age?  After all, taller people tend
-to be heavier.  Yes, we should do this:
+但是我们现在可以做更多的事情。有人可能会问，我们不应该考虑球员的身高吗，而不仅仅是他的年龄吗？毕竟，个子高的人往往体重更重。是的，我们应该这样做：
 
 ``` r
 > lmo <- lm(Weight ~ Height + Age, data=mlb)
@@ -2570,43 +2384,25 @@ Coefficients:
   -187.6382       4.9236       0.9115  
 ```
 
-Here we instruct R to find the estimated regression function of weight,
-using both height and age as predictors.  The '+' doesn't mean addition; it
-is simply a delimiter between the predictors height and age in our regression
-specification.
+在这里，我们指示 R 查找使用身高和年龄作为预测因子的体重的估计回归函数。'+' 并不表示加法；它只是我们回归规范中的预测因子身高和年龄之间的分隔符。
 
-So the new model is 
+因此，新模型是
 
-mean weight = &beta;<sub>0</sub> + &beta;<sub>1</sub> height  + &beta;<sub>2</sub> age
+平均体重 = &beta;<sub>0</sub> + &beta;<sub>1</sub> 身高 + &beta;<sub>2</sub> 年龄
 
+这表示：
 
-This says:
+    估计的平均体重 = -187.6382 + 4.9236 身高 + 0.9115 年龄
 
-    estimated mean weight = -187.6382 + 4.9236 height + 0.9115 age
+因此，在这种更精细的分析下，情况更加悲观；球员平均每年增加约 0.9 磅。顺便说一下，身高额外增加一英寸平均相当于额外增加约 4.9 磅体重；更高的球员确实更重，正如我们所推测的那样。
 
-So, under this more refined analysis, things are even more pessimistic;
-players on average gain about 0.9 pounds per year.  And by the way, an
-extra inch of height corresponds on average to about 4.9 pounds of extra
-weight; taller players are indeed heavier, as we surmized.
+<span style="color:red">警告：</span>
+虽然这不是一个专门的统计教程，但应该注意一个重要的观点。回归分析有两个目标，描述和预测。我们上面的分析旨在前者 -- 我们想要*描述*职业棒球运动员健康问题的性质。正如我们所见，当另一个预测因子添加到模型中时，一个系数可能会发生相当大的变化，甚至可以改变符号（"辛普森悖论"）。例如，假设较矮的球员往往拥有更长的职业生涯。如果我们在模型中*不*包含身高，那么这种省略可能会使年龄系数偏向下方。因此，在描述设置中解释系数时必须非常小心。对于预测来说，这不是那么大的问题。
 
-<span style="color:red">Warning:</span>
-Though this is not a statistics tutorial *per se*, an important point
-should be noted.  Regression analysis has two goals, Description and
-Prediction.  Our above analysis was aimed at the former -- we want to
-*describe* the nature of fitness issues in pro baseball players. As we
-saw, a coefficient can change quite a lot when another predictor is
-added to the model, and in fact can even change sign ("Simpson's
-Paradox").  Suppose for instance the shorter players tend to have longer
-careers.  If we do *not* include height in our model, that omission
-might bias the age coefficient downward.  Thus great care must be taken
-in interpreting coefficients in the Description setting.  For
-Prediction, it is not as much of an issue.
-
-> ❄️  Your Turn
+> ❄️  你的回合
 >
-> In the **mtcars** data, fit a linear model of the
-> regression of MPG against weight and horsepower; what is the estimated
-> effect of 100 pounds of extra weight, for fixed horsepower?
+> 在 **mtcars** 数据中，拟合一个关于汽车油耗（MPG）对车重和马力的线性模型；对于固定的马力，额外增加 100 磅的重量的估计效果是什么？
+
 
 ## <a name="less15"> </a> Lesson 24:  Baseball Player Analysis (cont'd.)
 
