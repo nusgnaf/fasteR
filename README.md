@@ -1555,19 +1555,17 @@ R的 **sample** 函数就像其名称所暗示的那样。在这里，它随机�
 >
 > 尝试在同一张图上绘制多个类似的曲线，用其他数据。
 
-## <a name="less10"> </a> Lesson 16:  Writing Your Own Functions
+## <a name="less10"> </a> 第16课：编写你自己的函数
 
-We've seen a number of R's built-in functions so far, but here comes the
-best part -- you can write your *own* functions.
+到目前为止，我们已经见过了许多 R 中的内置函数，但最好的部分是——你可以编写*自己的*函数。
 
-Recall a line we had earlier:
+回想一下我们之前的一行代码：
 
 ``` r
 > sum(Nile > 1200)
 ```
 
-This gave us the count of the elements in the **Nile** data larger than 1200.  
-Now, say we want the mean of those elements:
+这给了我们 **Nile** 数据中大于1200的元素的计数。现在，假设我们想要这些元素的平均值：
 
 ``` r
 > gt1200 <- which(Nile > 1200)
@@ -1576,15 +1574,14 @@ Now, say we want the mean of those elements:
 [1] 1250
 ```
 
-As before, we could instead write a more compact version,
+和之前一样，我们也可以写一个更紧凑的版本：
 
 ``` r
 > mean(Nile[Nile > 1200])
 [1] 1250
 ```
 
-But it's best to do it step by step at first.  Let's see how those steps
-work.  Writing the code with line numbers for reference, the code is
+但最好是先一步一步来。让我们看看这些步骤是如何工作的。带有行号用于参考的代码是：
 
 ``` r
 1  gt1200Indices <- which(Nile > 1200)
@@ -1592,59 +1589,46 @@ work.  Writing the code with line numbers for reference, the code is
 3  mean(nileSubsetGT1200)
 ```
 
-Let's review how this works:  
+让我们回顾一下这是如何工作的：
 
-* In line 1, we find the indices in **Nile** for the elements larger than 1200.
+* 在第1行，我们找到了 **Nile** 中大于1200的元素的索引。
+* 在第2行，我们提取了由这些元素组成的 **Nile** 子集。
+* 在第3行，我们计算了所需的平均值。
 
-* In line 2, we extract the subset of **Nile** consisting of those
-  elements.
+但是，我们可能经常需要做这种事情，对许多数据集进行操作等。那么我们有：
 
-* In line 3, we compute the desired mean.
-
-But we may wish to do this kind thing often, on many datasets etc.  Then
-we have:
-
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> If we have an operation we will use a lot, we should consider writing a
-> function for it.
+> 如果我们有一个经常使用的操作，我们应该考虑为它编写一个函数。
 >
-> Say we want to do the above again, but with 1350 instead of 1200.  Or,
-> with the **tg$len** vector from our ToothGrowth example, with 10.2 as
-> our lower bound.  We *could* keep typing the same pattern as above,
-> but if we're going to do this a lot, it's better to write a function
-> for it:
+> 假设我们想再次进行上述操作，但将1200改为1350。或者，使用我们的 **ToothGrowth** 示例中的 **tg$len** 向量，并将10.2作为我们的下界。我们*可以*继续键入与上述相同的模式，但如果我们经常这样做，最好编写一个函数：
 > 
-> Here is our function:
+> 下面是我们的函数：
 > 
 > ``` r
 > > mgd <- function(x,d) mean(x[x > d])
 > ```
 > 
-> Here I've used a compact form for convenience.  (Otherwise I'd
-> need to use *blocks* to be covered in a later lesson.)  I named it 'mgd'
-> for "mean of elements greater than d," but any name is fine.
+> 这里我使用了一种紧凑的形式方便起见。（否则我需要使用*块*，这将在以后的课程中介绍。）我将其命名为 'mgd'，表示"大于 d 的元素的平均值"，但任何名称都可以。
 > 
-> Let's try it out, then explain:
+> 让我们试一试，然后解释一下：
 > 
 > ``` r
-> > mgd(Nile,1200)
+> > mgd(Nile, 1200)
 > [1] 1250
-> > mgd(tg$len,10.2)
+> > mgd(tg$len, 10.2)
 > [1] 21.58125
 > ```
 > 
-> This saved me typing.  In the second call, I would have had to type
+> 这节省了我键入的时间。在第二次调用中，我将不得不键入
 > 
 > ``` r
 > mean(tg$len[tg$len > 10.2])
 > ```
 > 
-> considerably longer.  But even more importantly, I'd have to think about
-> the operation each time I used it; by making a function out of it, I've
-> got it ready to go, all debugged, whenever I need it.
+> 要长得多。但更重要的是，每次使用时都要考虑操作；通过将其制作成一个函数，我已经准备好在需要时随时使用了。
 
-So, how does all this work?  Again, look at the code:
+那么，这一切是如何运作的呢？再次看一下代码：
 
 ``` r
 > mgd <- function(x,d) mean(x[x > d])
@@ -1652,93 +1636,67 @@ So, how does all this work?  Again, look at the code:
 [1] "function"
 ```
 
-There is a lot going on here.  Bear with me for a moment, as I bring in
-a little of the "theory" of R:
- 
-Odd to say, but there is a built-in function in R itself named
-'function'!  We've already seen several built-in R functions, e.g.
-**mean**, **sum** and **plot**.  Well, here is another,
-**function**.  We're calling it here.  And its job is to build a
-function. Yes, as I like to say, to my students' amusement,
+这里发生了很多事情。请稍等片刻，让我稍微介绍一下 R 的"理论"：
 
-> "The function of the function named **function** is to build functions!
-> And the class of object returned by **function** is 'function'!"
+说出来有点奇怪，但实际上 R 本身内置了一个名为'function'的函数！我们已经见过几个内置的 R 函数，例如 **mean**、**sum** 和 **plot**。嗯，这里有另一个，**function**。我们在这里调用它。它的作用是构建一个函数。是的，正如我喜欢对我的学生们说的那样，
 
-So, in the line
+> "名为 **function** 的函数的功能是构建函数！而 **function** 返回的对象的类是 'function'！"
+
+所以，在这一行中
 
 ``` r
 > mgd <- function(x,d) mean(x[x > d])
 ```
 
-we are telling R, "R, I want to write my own function.  I'd like to name
-it 'mgd'; it will have arguments 'x' and 'd', and it will do 'mean(x[x >
-d])'. Please build the function for me. Thanks in advance, R!"
+我们告诉 R，“R，我想要写一个我自己的函数。我想将它命名为 'mgd'；它将有参数 'x' 和 'd'，并且它将执行 'mean(x[x > d])'。请为我构建这个函数。提前谢谢，R！”
 
-Here we called **function** to build and return a 'function' object, and
-then assigned that returned object to **mgd**.  We can then call the
-latter, as we saw above, repeated here for convenience:
+在这里，我们调用 **function** 来构建并返回一个 'function' 对象，然后将该返回的对象赋给了 **mgd**。然后我们可以调用后者，就像我们之前看到的那样，为了方便起见，在这里重复一次：
 
 ``` r
-> mgd(Nile,1200)
+> mgd(Nile, 1200)
 [1] 1250
 ```
 
-In executing
+在执行
 
 ``` r
 > mgd <- function(x,d) mean(x[x > d])
 ```
 
-
-***x*** and ***d*** are known as *formal* arguments, meaning
-that they are just placeholders.  For example, in 
+***x*** 和 ***d*** 被称为*形式*参数，这意味着它们只是占位符。例如，在
 
 ``` r
-> mgd(Nile,1200)
+> mgd(Nile, 1200)
 ```
 
-we said, "R, please execute **mgd** with **Nile** playing the role of
-***x***, and 1200 playing the role of ***d***."  Here **Nile** and 1200 are
-known as the *actual* arguments.
+我们说：“R，请使用 **Nile** 扮演 ***x*** 的角色，使用 1200 扮演 ***d*** 的角色执行 **mgd**。” 这里的 **Nile** 和 1200 被称为*实际*参数。
 
-As with variables, we can pretty much name functions and their arguments
-as we please.
+与变量一样，我们可以随心所欲地命名函数及其参数。
 
-As you have seen with R's built-in functions, a function will typically
-have a return value.  In our case here, we could arrange that by writing
+正如您已经看到的那样，与 R 的内置函数一样，函数通常会有一个返回值。在我们的例子中，我们可以通过编写
 
 ``` r
 > mgd <- function(x,d) return(mean(x[x > d]))
 ```
 
-a bit more complicated than the above version.  But the call to
-**return** is not needed here, because in any function, R will return the
-last value computed, in this case the requested mean.
+这比上面的版本复杂一些。但是在这里调用 **return** 是不需要的，因为在任何函数中，R 都会返回最后计算的值，这种情况下就是请求的平均值。
 
-And we can save the function for later use.  One way to do this is to
-call R's **save** function, which can be used to save any R object:
+我们可以将函数保存起来以便以后使用。其中一种方法是调用 R 的 **save** 函数，它可以用来保存任何 R 对象：
 
 ``` r
-> save(mgd,file='mean_greater_than_d')
+> save(mgd, file='mean_greater_than_d')
 ```
 
-The function has now been saved in the indicated file, which will be in
-whatever folder R is running in right now.  We can leave R, and say,
-come back tomorrow.  If we then start R from that same folder, we then
-run
+该函数现在已经保存在指定的文件中，该文件将位于当前 R 正在运行的文件夹中。我们可以离开 R，然后明天再回来。如果我们从同一个文件夹开始 R，然后运行
 
 ``` r
 > load('mean_greater_than_d')
 ```
 
-and then **mgd** will be restored, ready for us to use again.
-(Typically this is not the way people save code, but this is
-the subject of a later lesson.)
+然后 **mgd** 就会被恢复，可以随时使用了。
+（通常这不是人们保存代码的方式，但这是以后课程的主题。）
 
-Let's write another function, this one to find the range of a vector,
-i.e. the difference between the minimal and maximal values.  (Actually,
-there is already such a function in R, unsurprisingly named 'range', but
-just as an example, let's write our own.)
+让我们再写一个函数，这个函数用来找出向量的范围，即最大值和最小值之间的差异。（实际上，R 中已经有一个名为 'range' 的函数，意料之中地命名为 'range'，但仅作为示例，让我们编写我们自己的。）
 
 ``` r
 > rng <- function(y) max(y) - min(y)
@@ -1746,27 +1704,15 @@ just as an example, let's write our own.)
 [1] 914
 ```
 
-Here we made use of the built-in R functions **max** and **min**.
+在这里，我们利用了内置的 R 函数 **max** 和 **min**。
 
-Again, the last item computed in **rng** is the subtraction, so it will
-be automatically returned, just what we want.  I chose to name the
-argument **y**, but it could be anything.  
+同样，**rng** 中计算的最后一项是减法，因此它将自动返回，这正是我们想要的。我选择将参数命名为 **y**，但它可以是任何东西。
 
-> ❄️  Your Turn
+> ❄️  该你了
 >
-> Try your hand at writing some simple functions along
-> the lines seen here.  You might start by writing a function **cgd**,
-> like **mgd** above, but returning the count of the number of
-> elements in **x** that are greater than **d**.  Then may try writing a
-> function **n0(x)**, that returns the number of 0s in the vector
-> ***x***.  (Hint:  Make use of R's **==** and **sum**.) Another
-> suggestion would be a function **hld(x,d)**, which draws a histogram
-> for those elements in the vector ***x*** that are less than ***d***.
-> Write at least 4 or 5 functions; the more you write, the easier it
-> will be in later lessons.
+> 尝试写一些简单的函数，沿着这里看到的路线。你可以从编写一个类似于上面的 **mgd** 的函数 **cgd** 开始，但返回 **x** 中大于 **d** 的元素的数量。然后可以尝试编写一个函数 **n0(x)**，返回向量 ***x*** 中的 0 的数量。（提示：利用 R 的 **==** 和 **sum**。）另一个建议是编写一个函数 **hld(x,d)**，它绘制向量 ***x*** 中小于 ***d*** 的元素的直方图。至少写 4 或 5 个函数；你写得越多，后面的课程就会越容易。
 
-Functions are R objects, just as are vectors, lists and so on.  Thus, we
-can print them by just typing their names!
+函数是 R 对象，就像向量、列表等一样。因此，我们只需键入它们的名称就可以打印它们！
 
 ``` r
 > mgd <- function(x,d) mean(x[x > d])
@@ -1774,7 +1720,7 @@ can print them by just typing their names!
 function(x,d) mean(x[x > d])
 ```
 
-For that matter, we can assign them, e.g.
+事实上，我们可以将它们赋值，例如
 
 ``` r
 > crazynamedfunction <- mgd
