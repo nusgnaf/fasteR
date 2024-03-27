@@ -2404,17 +2404,11 @@ Coefficients:
 > 在 **mtcars** 数据中，拟合一个关于汽车油耗（MPG）对车重和马力的线性模型；对于固定的马力，额外增加 100 磅的重量的估计效果是什么？
 
 
-## <a name="less15"> </a> Lesson 24:  Baseball Player Analysis (cont'd.)
+## 第24课: 棒球运动员分析（续）
 
-This lesson will be a little longer and more detail-oriented.  But it
-will give you more practice on a number of earlier topics, and will also
-bring in some new R functions for you.  Spending extra time on
-this lesson will pay substantial dividends.
+本课程将会稍微长一些，更注重细节。但它将让你在许多早期主题上获得更多练习，也会为你带来一些新的 R 函数。在这节课上花费额外的时间将会带来可观的回报。
 
-We might wonder whether the regression lines differ much among player
-positions.  (A more statistical approach would be to include
-*interaction terms* in the model.) Let's first see what positions are
-tabulated:
+我们可能想知道球员位置之间的回归线是否有很大的差异。（一个更统计的方法是在模型中包含*交互项*。）让我们首先看看哪些位置被列出：
 
 ``` r
 > table(mlb$PosCategory)
@@ -2422,34 +2416,23 @@ tabulated:
         76        210        194        535 
 ```
 
-Let's fit the regression lines separately for each position type. 
+让我们分别为每种位置类型拟合回归线。
 
-There are various ways to do this, involving avoidance of loops to
-various degrees.  But we'll keep it simple, which will be clearer.
+有各种各样的方法可以做到这一点，涉及到不同程度的避免循环。但我们将保持简单，这会更清晰。
 
-First, let's split the data by position.  You might at first think this
-is easily done using the **split** function, but that doesn't work,
-since that function is for splitting vectors.  Here we wish to split a
-data frame.
+首先，让我们按位置拆分数据。你可能首先认为可以使用 **split** 函数轻松实现这一点，但这不起作用，因为该函数用于拆分向量。在这里，我们希望拆分一个数据框。
 
-So what can be done instead?  We need to think creatively here.  One
-solution is this:
+那么可以做些什么呢？我们需要在这里进行创造性的思考。一个解决方案是这样的：
 
-We need to determine the row numbers of the catchers, the row numbers of
-the infielders and so on.  So we can take all the row numbers,
-**1:nrow(mlb)**, and apply **split** to that vector!
+我们需要确定捕手的行号、内野手的行号等等。所以我们可以取所有的行号，**1:nrow(mlb)**，并对该向量应用 **split**！
 
 ``` r
 > rownums <- split(1:nrow(mlb),mlb$PosCategory)
 ```
 
-There are 1015 rows in **mlb**, so this says, "Take the row numbers
-1:1015, and split them according to the **PosCategory** column of **mlb**."
-The resulting piles of row numbers will be the row numbers for catchers,
-then the row numbers for infielders and so on.
+**mlb** 有 1015 行，所以这句话的意思是：“取 1:1015 的行号，并根据 **mlb** 的 **PosCategory** 列进行拆分。” 按照这种方式，得到的行号堆就是捕手的行号，然后是内野手的行号，以此类推。
 
-As usual, following an intricate operation like this, we should glance
-at the result:
+和往常一样，在进行了类似复杂操作之后，我们应该查看一下结果：
 
 ``` r
 > str(rownums)
@@ -2460,63 +2443,42 @@ List of 4
  $ Pitcher   : int [1:535] 17 18 19 20 21 22 23 24 25 26 ...
 ```
 
-So the output is an R list; no surprise there, as we knew beforehand 
-that **split** produces an R list.  Also not surprisingly, the elements
-of the list are named "Catcher" etc.  So for example, the third
-outfielder is in row 12 of the data frame.
+所以输出是一个 R 列表；这并不奇怪，因为我们事先知道 **split** 会产生一个 R 列表。同样并不奇怪，列表的元素被命名为 "Catcher" 等等。因此，例如，第三个外场手在数据框的第 12 行。
 
-> 📘 Pro Tip
->
-> The idea here, using **split** on **1:nrow(mlb)**, was a bit of a trick.
-> Actually, it is a common ploy for experienced R coders, but you might
-> ask, "How could a novice come up with this idea?"  
->
-> The answer, as noted several times already here, is that programming
-> is a creative process.  This was a creative solution.
->
-> Creativity may not come quickly!  Of course, there are many forums on
-> the Web at which you can ask questions, e.g. Stack Overflow, but
-> *resist the temptation to immediately go that route*.  Don't give up!
-> The more you think about a problem, the more skilled you will get,
-> even if you sometimes come up empty-handed.  
 
-Now, remember, a nice thing about R lists is that we can reference their
-elements in various ways.  The first element above, for instance, is any
-of **rownums$Catcher**, **rownums[['Catcher']]** and **rownums[[1]]**,
-This versatility is great, as for example we can use the latter two
-forms to write loops.
+> 📘 专业提示
+>
+> 这里的想法，使用 **split** 在 **1:nrow(mlb)** 上，有点把戏。实际上，对于经验丰富的 R 程序员来说，这是一个常见的策略，但你可能会问，“一个新手怎么会想到这个主意呢？”  
+>
+> 答案就像在这里已经多次指出的那样，编程是一个创造性的过程。这是一个创造性的解决方案。
+>
+> 创造力可能不会很快产生！当然，网络上有许多论坛可以提问，例如 Stack Overflow，但*抵制立即这样做的诱惑*。不要放弃！你对问题的思考越多，你的技能将会越来越熟练，即使有时你会一无所获。
 
-And a loop is exactly what we need here.  (One can also do this with
-*functional programming*, which we will cover in a later lesson.) We
-want to call **lm** four times, once for each position.  We could do
-this, say, with a loop beginning with
+现在，记住，R 列表的一个好处是我们可以以不同的方式引用它们的元素。例如，上面的第一个元素可以是 **rownums$Catcher**、**rownums[['Catcher']]** 或 **rownums[[1]]** 中的任何一个，这种多样性很棒，因为我们可以使用后两种形式来编写循环。
+
+这里正是我们需要循环的地方。（也可以使用*函数式编程*来实现，我们将在后面的课程中介绍。）我们想要为每个位置调用 **lm** 四次，每次一种位置。我们可以这样做，比如说，使用以以下方式开始的循环：
 
 ``` r
 for (i in 1:4)
 ```
 
-to iterate through the four position types, but it will be clearer if we
-use the names:
+来遍历这四种位置类型，但如果我们使用名称会更清晰：
 
 ``` r
 for (pos in c('Catcher','Infielder','Outfielder','Pitcher'))
 ```
 
-Recall 'for' loops are of the form
+回想一下 'for' 循环的形式
 
 ``` r
 for (variable in vector)...
 ```
 
-Instead of having a numeric vector, e.g. the 1:4 above, we now have a
-character vector, which each element of the vector being a character
-string, i.e. 'Catcher', 'Infielder' etc., but the principles are the same.
+现在我们不再有一个数字向量，例如上面的 1:4，而是有一个字符向量，其中向量的每个元素都是一个字符字符串，即 'Catcher'、'Infielder' 等等，但原则是相同的。
 
-We could have **lm** and **print** calls in the body of the loop.
-But let's be a little fancier, building up a data frame with the output.
-We'll start with an empty frame, and keep adding rows to it.
+我们可以在循环的主体中有 **lm** 和 **print** 的调用。但让我们再高级一点，用输出构建一个数据框。我们将从一个空框架开始，并不断添加行。
 
-Our code is
+我们的代码是
 
 ``` r
 posNames <- c('Catcher','Infielder','Outfielder','Pitcher')
@@ -2529,7 +2491,7 @@ for (pos in posNames) {
 }
 ```
 
-Here is the output:
+这是输出结果：
 
 ``` r
 > m
@@ -2540,43 +2502,21 @@ Here is the output:
 4          185.5994          0.6543904
 ```
 
-Some key things to note here.  
+这里需要注意的一些关键点。
 
-*  The overall strategy is to start with an empty data frame, then keep
-   adding rows to it, one row of regression coefficients per player position.
+* 整体策略是从一个空的数据框开始，然后不断向其添加行，每个球员位置都有一行回归系数。
 
-*  In order to add rows to **m**, we used R's **rbind** ("row bind")
-   function.  The expression **rbind(m,newrow)** forms a new data frame,
-   by tacking **newrow** onto **m** and returning the result.  Here we
-   reassign the result back to **m**, also a common operation.  (Note
-   carefully: The **rbind** operation did not change **m**; it merely
-   created a new data frame.  To update **m**, we needed to assign that
-   new data frame to **m**.) By the way, there is also a **cbind**
-   function for columns.
-   
-*  In the call to **lm**, we used **mlb[rownums[[pos]],]** instead of
-   **mlb** as previously, since here we wanted to fit a regression line
-   on each position subgroup.  So, we restricted attention to only those
-   rows of **mlb** for which the position was equal to the current value
-   of **pos**.
+* 为了将行添加到 **m** 中，我们使用了 R 的 **rbind**（"行绑定"）函数。表达式 **rbind(m,newrow)** 形成一个新的数据框，通过将 **newrow** 添加到 **m** 并返回结果。这里我们将结果重新赋值给 **m**，这也是一个常见的操作。（请仔细注意：**rbind** 操作并没有改变 **m**；它只是创建了一个新的数据框。要更新 **m**，我们需要将该新的数据框分配给 **m**。）顺便说一句，还有一个 **cbind** 函数用于列。
 
-So, what happens is:  **m** is initially an empty data frame.  Then the
-loop, for its first iteration, sets **pos** to 'Catcher'.  Then a
-regression line will be fit to the rows of **mlb** that are for
-catchers.  That fit is returned to us from **lm**, and we extract the
-coefficients, assigning them to **lmo**.  (Once again, the name is
-arbitrary; I chose this one to symbolize "lm output.")  We extract the
-coefficients and tack them on at the end of **m**.
+* 在对 **lm** 的调用中，我们使用了 **mlb[rownums[[pos]],]**，而不是之前的 **mlb**，因为这里我们想要在每个位置子组上拟合一条回归线。因此，我们只关注 **mlb** 中位置等于当前 **pos** 值的那些行。
 
-> 📘 Pro Tip
+所以，发生的事情是：**m** 最初是一个空的数据框。然后，循环，对于第一次迭代，将 **pos** 设置为 'Catcher'。然后将为 **mlb** 中为捕手的行拟合一条回归线。这个拟合结果从 **lm** 返回给我们，我们提取系数，将它们附加到 **m** 的末尾。
+
+> 📘 专业提示
 >
-> This is a very common *design
-> pattern* in R (and most other languages), to build up a data frame (or
-> similar structure) row by row in a loop.
+> 这是 R（以及大多数其他语言）中非常常见的*设计模式*，在循环中逐行构建数据框（或类似结构）。
 
-Nice output, with the two columns aligned.  But those column names are
-awful, and the row labels should be nicer than 1,2,3,4.  We can fix
-these things:
+输出很好，两列对齐了。但是这些列名太糟糕了，行标签应该比 1、2、3、4 更友好。我们可以修复这些问题：
 
 ``` r
 > row.names(m) <- posNames
@@ -2589,26 +2529,17 @@ Outfielder  176.2884 0.7883343
 Pitcher     185.5994 0.6543904
 ```
 
-What happened here?  We earlier saw the built-in **row.names** function,
-so that setting row names was easy.  But what about the column names?
-Recall that a data frame is actually an R list, consisting of several
-vectors of the same length, which form the columns.  So, **names(m)** is
-the names of the columns.
+这里发生了什么？我们之前看到了内置的 **row.names** 函数，所以设置行名很容易。但是列名呢？回想一下，数据框实际上是一个 R 列表，由几个相同长度的向量组成，它们形成了列。因此，**names(m)** 就是列的名称。
 
-So with a little finessing here, we got some nicely-formatted output.
-Moreover, we now have our results in a data frame for further use.  For
-instance, we may wish to plot the four lines on the same graph, and we
-would use rows of the data frame as input.
+所以通过在这里稍微调整一下，我们得到了一些格式很好的输出。此外，我们现在已经将结果存储在了一个数据框中，以供进一步使用。例如，我们可能希望在同一图上绘制这四条线，我们将使用数据框的行作为输入。
 
-A little more finessing is possible.  Look at the line
+还可以再精细一点。看看这一行
 
 ``` r
 posNames <- c('Catcher','Infielder','Outfielder','Pitcher')
 ```
 
-We're using a computer!  We shouldn't have to type out these names by
-hand, as I did in this line.  In fact, we already have them in one of
-our R objects, **rownums**; recall our earlier check:
+我们正在使用计算机！我们不应该手动输入这些名称，就像我在这一行中所做的那样。实际上，我们已经在我们的一个 R 对象 **rownums** 中拥有了它们；回想一下我们之前的检查：
 
 ``` r
 > str(rownums)
@@ -2619,71 +2550,46 @@ List of 4
  $ Pitcher   : int [1:535] 17 18 19 20 21 22 23 24 25 26 ...
 ```
 
-The elements of the R list **rownums** are the names of the positions!
-So, the better way to set **posNames** is
+R 列表 **rownums** 的元素就是位置的名称！因此，更好的设置 **posNames** 的方法是
 
 ``` r
 posNames <- names(rownums)
 ```
 
-> 📘 Pro Tip
->
-> Again, the reader may be thinking,
-> "How in the world would I have been able to realize this?"  Again, the
-> answer is that as you acquire more experience in coding, you will be
-> more and more able to come up with creative insights like this.  Patience!
+> 📘 专业提示
 
-Finally, what about those numerical results?  There is substantial
-variation in those estimated slopes, but again, they are only estimates.
-The question of whether there is substantial variation at the population
-level is one of statistical inference, to be discussed in a later
-lesson.
+> 再次，读者可能会想，“我怎么能意识到这一点呢？”答案是，随着你在编程中积累更多经验，你将越来越能够像这样提出创造性的见解。耐心！
 
-## <a name="cran"> </a> Lesson 25:  R Packages, CRAN, Etc.
 
-One of the great things about R is that are tens of thousands of
-packages that were developed by users and then contributed to
-the [CRAN repository](https://cran.r-project.org).  As of December 2020,
-there were nearly 17,000 packages there.  If you need to do some special
-operation in R, say spatial data analysis, it may well be in there. 
-You might take the [CRAN Task Views](https://cran.r-project.org/web/views/) 
-as your starting point, or simply use Google, e.g. plugging in the search 
-term "CRAN spatial data." 
-Other good sources of public R packages are
-[Bioconductor](https://www.bioconductor.org/) and useRs' personal GitHub
-pages.  
+最后，那些数值结果呢？这些估计的斜率存在相当大的变化，但同样，它们只是估计值。关于在总体水平上是否存在相当大的变化的问题是统计推断的一个问题，将在以后的课程中讨论。
 
-Below, we'll introduce one of the most popular user-contributed
-packages, **ggplot2**.  But first, how does one install and load
-packages?
 
-First, one needs a place to put the packages.  UseRs often designate a
-special folder/directory for their packages (both those they download
-and ones they write themselves).  I use 'R' in my home directory for
-that purpose, but if you don't specify a folder, your package installer
-will choose one for you.  It won't matter as long as you are consistent.
-I'll assume you don't specify a package folder.
+## <a name="cran"> </a> 第25课：R包、CRAN等
 
-To install, say, **ggplot2**, you can type at the R prompt,
+R的一个优点是有成千上万的包是由用户开发并贡献到[CRAN代码仓库](https://cran.r-project.org)的。 截至2020年12月，那里有近17000个包。 如果你需要在R中执行一些特殊操作，比如空间数据分析，很可能会在那里找到。 你可以以[CRAN任务视图](https://cran.r-project.org/web/views/)为起点，或者简单地使用谷歌搜索，比如输入搜索词 "CRAN 空间数据"。 其他公开R包的好来源还包括[Bioconductor](https://www.bioconductor.org/)和用户个人的GitHub页面。
+
+下面，我们将介绍一个最受欢迎的用户贡献包，**ggplot2**。 但首先，如何安装和加载包呢？
+
+首先，你需要一个放置包的地方。 用户通常会为他们的包（无论是下载的还是自己编写的）指定一个特殊的文件夹/目录。 我在我的主目录中使用'R'来做这个用途，但如果你没有指定一个文件夹，你的包安装程序会为你选择一个。 只要你保持一致，这并不重要。 我会假设你没有指定一个包文件夹。
+
+要安装，比如说，**ggplot2**，你可以在R提示符下输入：
 
 ``` r
 > install.packages('ggplot2')
 ```
 
-Or in RStudio, choose Tools | Install Packages...
+或在RStudio中，选择工具 | 安装包...
 
-When you want to use one of your installed packages, you need to tell R
-to load it, e.g. by typing at the R prompt,
+当你想要使用你安装的包之一时，你需要告诉R加载它，比如在R提示符下输入：
 
 ``` r
 > library(ggplot2)
 ```
 
-In RStudio, click the Packages button and select the one you want; there
-may be a delay while R makes a list of all your packages.
+在RStudio中，点击包按钮，然后选择你想要的包；可能会有一个延迟，因为R正在列出所有你的包。
 
-Later, you'll write your own R packages.  We won't cover that here, but
-there are many good tutorials for this on the Web.
+稍后，你会编写自己的R包。 我们不会在这里涵盖这个内容，但是网络上有很多好的教程。
+
 
 ## <a name="advanced"> </a> Lesson 26:  A Pause, Before Going on to Advanced Topics
 
