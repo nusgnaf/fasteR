@@ -1175,52 +1175,43 @@ R具有用于缺失值的特殊代码，NA，用于这种情况。与其删除0�
 > 
 > 现在，再次查看我们之前绘制的尼罗河流量直方图。低端的数字似乎存在间隙，并且其余的数字。这些对应于哪些年份？找出数据的均值，不包括这些情况。
 
-## <a name="less6"> </a> Lesson 11:  The R List Class
+## <a name="less6"> </a> 第11课：R列表类
 
-We saw earlier how handy the **tapply** function can be.  Let's look at
-a related one, **split**.  The general call form of the latter is
-
-``` r
-split(what to split, what criterion to use for splitting) 
-```
-
-This looks similar to the form for **tapply** that we saw earlier,
+我们之前已经看到了 **tapply** 函数的方便之处。让我们再来看一个相关的函数 **split**。后者的一般调用形式是
 
 ``` r
-tapply(what to split, what criterion to use for splitting, 
-   what to do with the resulting grouped data)
+split(要分割的对象, 用于分割的条件) 
 ```
 
-But this is no surprise, because the internal code for **tapply**
-actually calls **split**.  (You can check this via **edit(tapply)**.)
+这看起来类似于我们之前看到的 **tapply** 的形式，
 
+``` r
+tapply(要分割的对象, 用于分割的条件, 
+   对结果进行操作的方法)
+```
 
-Earlier we mentioned the built-in dataset **mtcars**, a data frame.
-Consider **mtcars$mpg**, the column containing the miles-per-gallon
-data.  Again, to save typing and avoid clutter in our code, let's make a
-copy first:
+但这并不奇怪，因为 **tapply** 的内部代码实际上调用了 **split**。（您可以通过 **edit(tapply)** 来检查这一点。）
+
+之前我们提到了内置数据集 **mtcars**，一个数据框。考虑 **mtcars$mpg**，包含每加仑英里数的列。同样，为了节省输入并避免在代码中混乱，让我们先复制一份：
 
 ``` r
 > mtmpg <- mtcars$mpg
 ```
 
-Suppose we wish to split the original vector into three vectors, 
-one for 4-cylinder cars, one for 6 and one for 8.  We *could* do
+假设我们希望将原始向量分割成三个向量，一个用于4缸汽车，一个用于6缸汽车，一个用于8缸汽车。我们*可以*这样做：
 
 ``` r
 > mt4 <- mtmpg[mtcars$cyl == 4]
 ```
 
-and so on for **mt6** and **mt8**.
+然后依此类推，得到 **mt6** 和 **mt8**。
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> In order to keep up, make sure you understand how that
-> line of code works, with the TRUEs and FALSEs etc.  First print out the
-> value of **mtcars$cyl == 4**, and go from there.
+> 为了跟上进度，请确保理解那行代码是如何工作的，其中包含 TRUE 和 FALSE 等。首先打印出 **mtcars$cyl == 4** 的值，然后继续。
 
 
-But there is a cleaner way:
+但是有一种更清晰的方法：
 
 ``` r
 > mtl <- split(mtmpg,mtcars$cyl)
@@ -2591,269 +2582,195 @@ R的一个优点是有成千上万的包是由用户开发并贡献到[CRAN代�
 稍后，你会编写自己的R包。 我们不会在这里涵盖这个内容，但是网络上有很多好的教程。
 
 
-## <a name="advanced"> </a> Lesson 26:  A Pause, Before Going on to Advanced Topics
+## <a name="advanced"> </a> 第26课：深入学习前的暂停
 
-At this point, you have a pretty good grounding in R.  You are capable
-of doing lots of things in R.  It may be all you need, but even if not,
-you know enough to ask a question online if you get stuck on something.
+到目前为止，你已经对R有了相当扎实的基础。你能够在R中做很多事情。这可能已经满足你的需求了，但即使不是，你也知道足够的知识，在遇到问题时可以在线上提问。
 
-The remaining topics are more advanced, and lessons will be somewhat
-longer and more detailed that the previous ones.  But you are still
-strongly encouraged to go through them, as they will not only cover new
-topics but also give you deeper insight into the earlier material.
+剩下的话题更加深入，课程会比之前的更长，更详细。但是我强烈建议你继续学习，因为它们不仅涵盖了新的主题，还会让你对之前的内容有更深入的理解。
 
-## <a name="gg2first"> </a> Lesson 27:  The ggplot2 Graphics Package
+## <a name="gg2first"> </a> 第27课：ggplot2 绘图包
 
-Now, on to **ggplot2**.
+现在，让我们开始学习 **ggplot2**。
 
-The **ggplot2** package was written by Hadley Wickham, who later became
-Chief Scientist at RStudio.  It's highly complex, with well over 400
-functions, and rather abstract, but quite powerful.  We will touch on it
-at various points in this tutorial, while staying with base-R graphics
-when it is easier to go that route.
+**ggplot2** 包是由Hadley Wickham编写的，他后来成为了RStudio的首席科学家。这个包非常复杂，拥有400多个函数，而且相当抽象，但非常强大。在本教程中，我们会在适当的时候涉及到它，但在更容易使用基本R绘图时，我们会继续使用基本R绘图。
 
-Now to build up to using **ggplot2**, let's do a bit more with base-R
-graphics first, continuing with our weight/age investigation of the
-ballplayers.  To begin, let's do a scatter plot of weight against age,
-color-coded by position.  We could type
+现在，在使用 **ggplot2** 之前，让我们先用基本R绘图再做一些准备工作，继续我们对球员体重/年龄的调查。首先，让我们绘制一个体重与年龄的散点图，按职位进行颜色编码。我们可以输入：
 
 ``` r
-> plot(mlb$Age,mlb$Weight,col=mlb$PosCategory)
+> plot(mlb$Age, mlb$Weight, col = mlb$PosCategory)
 ```
 
-but to save some typing, let's use R's **with** function (we'll change
-the point size while we are at it):
+但为了节省一些输入，让我们使用R的 **with** 函数（顺便改变一下点的大小）：
 
 ``` r
-> with(mlb,plot(Age,Weight,col=PosCategory,cex=0.6))
+> with(mlb, plot(Age, Weight, col = PosCategory, cex = 0.6))
 ```
 
-By writing **with**, we tell R to take Age, Weight and PosCategory in
-the context of **mlb**.
+通过使用 **with**，我们告诉R在 **mlb** 的上下文中使用 Age、Weight 和 PosCategory。
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/WtAgePosBase.png)
 
-Here is how we can do it in **ggplot2**:
+现在我们来看看如何使用 **ggplot2**：
 
-First, I make an empty plot, based on the data frame **mlb**:
+首先，我创建一个基于数据框 **mlb** 的空白图：
 
 ``` r
 > p <- ggplot(mlb)
 ```
 
-Nothing will appear on the screen.  The package displays only when you
-"print" the plot:
+屏幕上不会显示任何内容。这个包只有在你“打印”出图形时才会显示：
 
 ``` r
 > p
 ```
 
-This will just display an empty plot.  (Try it.)  By the way, recall
-that any expression you type, even 1 + 1, will be evaluated and printed
-to the screen.  Here the plot (albeit) empty is printed to the screen.
+这只会显示一个空白图。 （试试看。）顺便提一句，回想一下，你键入的任何表达式，甚至是 1 + 1，都将被计算并显示在屏幕上。这里的图形（尽管是空的）被打印到了屏幕上。
 
-Now let's do something useful:
+现在让我们做点有用的事情：
 
 ``` r
-> p + geom_point(aes(x = Age, y = Weight, col = PosCategory),cex=0.6)
+> p + geom_point(aes(x = Age, y = Weight, col = PosCategory), cex = 0.6)
 ```
 
 ![alt text](https://raw.githubusercontent.com/matloff/fasteR/master/inst/images/WtAgePosGG.png)
 
-What happened here?  Quite a bit, actually, so let's take this slowly.
+这里发生了什么？实际上有很多事情，所以让我们慢慢来。
 
-* We took our existing (blank) plot, **p**, and by writing the'+' sign,
-directed **ggplot2** to add to the plot **p**.  
+* 我们拿到了我们现有的（空白的）图，**p**，通过写 '+' 符号，告诉 **ggplot2** 在图 **p** 上添加内容。
 
-* Now, WHAT do we want added?  We are saying, "**ggplot2**, please add
-  to the plot **p** whatever **geom_point** returns."  
+* 现在，我们想要添加什么呢？我们是在说，“**ggplot2**，请在图 **p** 中添加 **geom_point** 返回的内容。”
 
-* Note that **geom_point** is a **ggplot2** function.  Its task is to
-  produce scatter plots.
+* 注意，**geom_point** 是一个 **ggplot2** 函数。它的任务是生成散点图。
 
-* Here are the details on the arguments to **geom_point**: 
+* 关于 **geom_point** 参数的详细信息如下：
+  
+    * 我们想要绘制体重与身高。我们不需要指定这两个变量来自哪个数据框，因为我们已经说明了图 **p** 是为数据框 **mlb** 准备的。
 
-    * We want to plot weight against height.  We do not need to specify what
-      data frame these two variables are from, as we already stated that
-the plot **p** is for the data frame **mlb**.  
+    * 我们还指定了颜色编码将根据球员的职位来进行，同样来自 **mlb**。
 
-    * We are also specifying that the color coding will be according to
-      the player position, again from **mlb**.
+* 当R计算整个表达式 **p + geom_point(aes(x = Age, y = Weight, col = PosCategory), cex = 0.6)** 时，结果将是另一个 **ggplot2** 图形对象。由于我们在 '>' 提示符处键入了该表达式，它随后被打印到屏幕上，如上所示。
 
-* When R evaluates that entire expression, **p + geom_point(aes(x = Age,
-  y = Weight, col = PosCategory),cex=0.6)**, the result will be another
-**ggplot2** graph object. Since we typed that expression at the '>'
-prompt, it was then printed to the screen as seen above.
+* 还有一个谜团留下来了：函数 **aes**（“aesthetic”）做什么？为什么表达式 **cex=0.6** 不是 **aes** 的参数？不幸的是，这些问题没有简单的答案，在我们解释所有内容的罕见例外情况下，我们只能将其留作必须完成的事情。
 
-* There is one mystery left, though:  What does the function **aes**
-  ('aesthetic") do?  And why is the expression **cex=0.6** NOT an
-argument to **aes**?  Unfortunately, there are no easy answers to
-these questions, and in a rare exception to our rule of explaining all,
-we will just have to leave this as something that must be done.
+有一件好事是，我们自动得到了一个图例打印在图的右边，这样我们就知道哪种颜色对应哪种职位。在基本R图形中，我们也可以做到这一点，但需要在 **plot** 中设置一个参数。
 
-One nice thing is that we automatically got a legend printed to the
-right of the graph, so we know which color corresponds to which
-position.  We can do this in base-R graphics too, but need to set an
-argument for it in **plot**.
 
-## <a name="appfam"> </a> Lesson 28:  Should You Use Functional Programming?
+## <a name="appfam"> </a> 第28课：你应该使用函数式编程吗？
 
-Earlier in this tutorial, we've found R's **tapply** function to be
-quite handy.  There are several others in this family, notably
-**apply**, **lapply** and **sapply**.  In addition, there are other
-related functions, such as **do.call** and **Reduce**.  And there are
-a number of counterparts in the Tidyverse **purrr** package.
-All of these go under the aegis of *functional programming* (FP).
+在本教程的前面部分，我们发现R的 **tapply** 函数非常方便。在这个函数家族中还有其他几个函数，特别是 **apply**、**lapply** 和 **sapply**。此外，还有其他相关的函数，如 **do.call** 和 **Reduce**。在Tidyverse **purrr** 包中还有一些相应的函数。所有这些都属于 *函数式编程*（FP）的范畴。
 
-To many, FP is intended as a higher-level replacement for loops, and
-some members of the R community view that as desirable, even a must.  I
-personally take a more moderate point of view, but before discussing the
-controversy, let's see how FP works as a loop-replacement.
+对许多人来说，FP 旨在作为循环的高级替代方案，而且R社区的一些成员认为这是值得的，甚至是必须的。我个人持有一个更加中庸的观点，但在讨论争议之前，让我们看看FP作为循环替代的工作原理。
 
-As a simple example, say we have a nonnegative integer vector **x**, and
-want code that counts doubles each element that is greater than 9.
-Of course, this is something we should not use a loop with in the first
-place.  We should take advantage of R's vectorization capabilities:
+举一个简单的例子，假设我们有一个非负整数向量 **x**，并且希望编写代码来对大于9的每个元素进行双倍计数。当然，在这种情况下，我们首先不应该使用循环。我们应该利用R的向量化功能：
 
 ``` r
-x <- ifelse(x > 9,2*x,x)
-
+x <- ifelse(x > 9, 2 * x, x)
 ```
 
-But let's ignore vectorization, for the sake of illustrating the issues,
-and write up a loop version:
+但是为了说明问题，让我们忽略向量化，编写一个循环版本：
 
 ``` r
 for (i in 1:5) if (x[i] > 9) x[i] <- 2 * x[i]
 ```
 
-Now, how would we replace this loop by a call to R's **sapply** function?
-The latter has the call form
+现在，我们如何通过调用R的 **sapply** 函数来替换这个循环呢？后者的调用形式为
 
 ``` r
-sapply(X,FUN)
+sapply(X, FUN)
 ```
 
-where **X** is an R factor and **FUN** is a function.  We will assume
-here that **FUN** returns a number, not a vector or other R object.  The
-action of the function is to apply **FUN** on each element of **X**,
-producing a new vector.  (It of course can be reassigned to the old
-one.)
+其中 **X** 是一个R因子，**FUN** 是一个函数。我们在这里假设 **FUN** 返回一个数字，而不是向量或其他R对象。函数的作用是在 **X** 的每个元素上应用 **FUN**，生成一个新的向量。（当然也可以重新分配给旧的向量。）
 
-The key is defining **FUN**:
+关键是定义 **FUN**：
 
 ``` r
-doubleIt <- function(z) if(z > 9) return(2*z) else return(z)
-sapply(x,doubleIt)
+doubleIt <- function(z) if (z > 9) return(2 * z) else return(z)
+sapply(x, doubleIt)
 ```
 
-Let's check:
+我们来检查一下：
 
 ``` r
-> x <- c(5,12,13,8,88)
-> x <- sapply(x,doubleIt)
+> x <- c(5, 12, 13, 8, 88)
+> x <- sapply(x, doubleIt)
 > x
 [1]   5  24  26   8 176
 ```
 
-Or, we can use what is called an *anonymous* function:
+或者，我们可以使用所谓的*匿名*函数：
 
 ``` r
-> x <- c(5,12,13,8,88)
-> x <- sapply(x,function(z) if(z > 9) return(2*z) else return(z))
+> x <- c(5, 12, 13, 8, 88)
+> x <- sapply(x, function(z) if (z > 9) return(2 * z) else return(z))
 > x
 [1]   5  24  26   8 176
 ```
 
-Instead of defining the function separately, we define it right there in
-the second argument of **sapply**.  
- 
-Now let's consider something more elaborate.  Recall our earlier
-baseball player example, in which we wanted to fit separate regression
-lines to each of the four player position categories.  We used a loop,
-which for convenience I'll duplicate here:
+我们不需要单独定义函数，而是直接在 **sapply** 的第二个参数中定义它。
+
+现在让我们考虑一些更复杂的事情。回想一下我们之前的棒球球员例子，我们想要对每个四个球员位置类别分别拟合回归线。我们使用了一个循环，为了方便起见，我在这里复制一下：
 
 ``` r
-rownums <- split(1:nrow(mlb),mlb$PosCategory)
-posNames <- c('Catcher','Infielder','Outfielder','Pitcher')
+rownums <- split(1:nrow(mlb), mlb$PosCategory)
+posNames <- c('Catcher', 'Infielder', 'Outfielder', 'Pitcher')
 m <- data.frame()
 for (pos in posNames) {
-  lmo <- lm(Weight ~ Age, data = mlb[rownums[[pos]],])
+  lmo <- lm(Weight ~ Age, data = mlb[rownums[[pos]], ])
   newrow <- lmo$coefficients
-  m <- rbind(m,newrow)
+  m <- rbind(m, newrow)
 }
 ```
 
-How might we do this in FP?  We've seen the **tapply** function a couple
-of times already.  Now let's turn to **lapply** ("list apply").  The
-call form is
+我们如何在FP中完成这个任务呢？我们已经几次看到了 **tapply** 函数。现在让我们转向 **lapply**（“列表应用”）。其调用形式为
 
 ``` r
-lapply(VectorOrList,FUN)
+lapply(VectorOrList, FUN)
 ```
 
-This first argument must be a vector or list, and the second argument
-must be the name of a one-argument function.  This calls
-**FUN** on each element of **VetorcOrList**, placing the
-return values in a new list.
+第一个参数必须是一个向量或列表，第二个参数必须是一个一参数函数的名称。这会在 **VectorOrList** 的每个元素上调用 **FUN**，将返回值放入一个新的列表中。
 
-How might we use that here?  Well, **lapply**, as the name implies, is
-aimed at working on lists.  Do we have any?  Why yes, **rownums** is a
-list!
+我们如何在这里使用它呢？好吧，正如其名称所暗示的，**lapply** 是用于操作列表的。我们有吗？是的，**rownums** 就是一个列表！
 
-And indeed, we do want to take some action on each element of that list:
-We want to fit a linear regression model to the rows in that element.
-It is natural, then, to take for **FUN** the following function:
+事实上，我们确实希望对该列表的每个元素执行一些操作：我们想要为该元素中的行拟合一个线性回归模型。因此，自然而然地，我们将以下函数作为 **FUN**：
 
 ``` r
-zlm <- function(rws) lm(Weight ~ Age, data=mlb[rws,])$coefficients
+zlm <- function(rws) lm(Weight ~ Age, data = mlb[rws, ]) $ coefficients
 ```
 
-Here **rws** is a set of row numbers, e.g. those for the pitchers.  This
-function calls **lm** on those rows, i.e. on the data **mlb[rws,]**,
-then extracts the regression coefficients.
+这里 **rws** 是一组行号，例如投手的行号。此函数调用 **lm** 对这些行进行拟合，即在数据 **mlb[rws, ]** 上，然后提取回归系数。
 
-The code then is
+那么代码就是
 
 ``` r
-> zlm <- function(rws) lm(Weight ~ Age, data=mlb[rws,])$coefficients
-> w <- lapply(rownums,zlm)
+> zlm <- function(rws) lm(Weight ~ Age, data = mlb[rws, ]) $ coefficients
+> w <- lapply(rownums, zlm)
 ```
 
-The call to **lapply** then says, run **zlm** on each set of rows we see
-in **rownums**, placing the coefficient vectors in an output list.
-Specifically: Recall that the first element of **rownums** was
-**rownums[['catcher']]**.  So, first **lapply** will make the call
+然后对 **lapply** 的调用表示，运行 **zlm** 在我们在 **rownums** 中看到的每组行上，将系数向量放入一个输出列表中。
+具体来说：回忆一下 **rownums** 的第一个元素是 **rownums[['catcher']]**。所以，首先 **lapply** 将调用
 
 ``` r
 zlm(rownums[['Catcher']])
 ```
 
-which will fit the desired regression model on the catcher data.  Then
-**lapply** will do
+这将对捕手数据拟合所需的回归模型。然后 **lapply** 将执行
 
 ``` r
 zlm(rownums[['Infielder']])
 ```
 
-and so on.  The outputs of the four **lm** calls will be returned in an
-R list, which we have assigned to **w** above.  Let's check the first
-one:
+等等。四个 **lm** 调用的输出将以一个R列表的形式返回，我们将其分配给了上面的 **w**。我们来检查第一个：
 
-``` r
+```r
 > w[[1]]
 (Intercept)         Age 
 180.8280290   0.7949252 
-``` 
-jibing with **m[1,]** in our data-frame/loop appraoch above.
+```
+与我们在上面的数据框/循环方法中的 **m[1,]** 相符。
 
-Well, then, what did we accomplish -- if anything -- by using **lapply**
-here rather than our earlier approach using a loop?  Certainly the
-**lapply** version did make for more compact code, just 2 lines.  But we
-had to think a harder to come up with the idea.  Also, printing it
-out is less compact:
+那么，通过在这里使用 **lapply** 而不是我们之前使用的循环方法，我们实现了什么 -- 如果有的话？当然，**lapply** 版本确实使得代码更加紧凑，只有2行。但我们必须更加努力地思考来提出这个想法。此外，打印输出也不那么紧凑：
 
-``` r
+```r
 > w
 $Catcher
 (Intercept)         Age 
@@ -2872,52 +2789,34 @@ $Pitcher
 185.5993689   0.6543904 
 ```
 
-(Actually, we can use **sapply** here instead of **lapply**, with a
-nicer printing.)
+（实际上，我们可以在这里使用 **sapply** 替代 **lapply**，输出更加美观。）
 
-So, should beginning R coders use FP?  Actually, even I, with decades of
-coding experience, take a moderate approach.  The criterion for
-loop-based (LB) code vs.  FP should be to ask these questions:
+那么，初学者应该使用FP吗？实际上，即使是我，拥有几十年的编码经验，也采取了一个中庸的方法。对于基于循环（LB）的代码与 FP，判断标准应该是问自己以下问题：
 
-* Would FP code be easier to write than LB in this case?
+* 在这种情况下，使用FP代码是否比使用LB更容易编写？
+* 在这种情况下，使用FP代码是否比使用LB更容易调试？
+* 在这种情况下，使用FP代码是否更容易阅读 -- 无论是其他人还是自己6个月后 -- 与使用LB相比？
 
-* Would FP code be easier to debug than LB in this case?
+对于我们在本教程中使用 **tapply** 的代码，我认为上面的问题的答案肯定是肯定的。但对于上面的 **lapply** 示例，我会说答案是否定的 -- *特别是对于初学者*，但即使对于我自己也是如此。
 
-* Would FP code be easier to read -- either by others, or by myself 6
-  months from now -- than LB in this case?
+初学者正在学习函数。FP 的定义是基于编写函数，因此使得 FP 更加抽象和困难。我当然不同意某些人的教条观点，认为从不应该编写循环。
 
-For the code in this tutorial in which we've used **tapply**, I believe
-the answers to the above questions are definitely Yes.  But for the
-**lapply** example above, I would say the answer is No -- *especially
-for beginning coders*, but even for myself.  
+我的建议是根据具体情况进行判断。
 
-Beginners are in the process of learning functions.  FP by definition is
-based on writing functions, thus making FP a more abstract and difficult
-process.  And I certainly disagree with the doctrinnaire view of some
-that one should never write loops.
+现在，让我们转向 **apply** 家族中的另一个核心函数。毫不奇怪，它的名称是 **apply**！它通常用于 **matrix** 对象（类似于数据框，但内容都是相同类型的，例如都是数值），可以用于行或列，但也可以用于数据框。
 
-My recommendation is to take things on a case-by-case basis.
+调用形式为
 
-Now, let's turn to another central function in the **apply** family.
-Not surprisingly, it's named **apply**!  It is usually used on
-**matrix** objects (like data frames, but with the contents being all of
-the same type, e.g. all numerical), on either rows or columnṡ, but can
-be used on data frames too.
-
-The call form is
-
-``` r
-apply(d,rc,g)
+```r
+apply(d, rc, g)
 ```
 
-Here R will apply the function **g** to each row (**rc** = 1) or column
-(**rc** = 2) of the data **d**.  If the function **g** returns a number,
-then **apply** will return a vector.
+在这里，R将会将函数 **g** 应用于数据 **d** 的每一行（**rc** = 1）或列（**rc** = 2）。如果函数 **g** 返回一个数字，则 **apply** 将返回一个向量。
 
-Let's find the max values for the variables in the **pima** data:
+让我们找到 **pima** 数据中变量的最大值：
 
-``` r
-> apply(pima,2,max)
+```r
+> apply(pima, 2, max)
  pregnant   glucose diastolic   triceps   insulin       bmi  diabetes
 age 
     17.00    199.00    122.00     99.00    846.00     67.10      2.42
@@ -2926,32 +2825,21 @@ age
      1.00 
 ```
 
-Note that to use the  **apply** family, you can either use a built-in R
-function, e.g. **max** here, or one you write yourself, such as **zlm**
-above.
+请注意，要使用 **apply** 家族，您可以使用内置的 R 函数，例如这里的 **max**，或者您自己编写的函数，例如上面的 **zlm**。
 
-The R **apply** family includes other functions as well,  They are quite
-useful, but don't use them solely for the sake of avoiding writing a loop.
-More compact code may not be easier.
+R 的 **apply** 家族还包括其他函数。它们非常有用，但不要仅仅为了避免编写循环而使用它们。更紧凑的代码可能不一定更容易理解。
 
-## <a name="txt"> </a> Lesson 29:  Simple Text Processing, I
+## <a name="txt"> </a> 第29课：简单文本处理，I
 
-These days, text processing is big in the Data Science field, e.g. in
-Natural Language Processing applications.  In this lesson, we'll do a
-simple yet practical example, in order to illustrate some key functions
-in base-R.  (R has many packages for advanced text work, such as **tm**.)
+如今，在数据科学领域，文本处理非常重要，例如在自然语言处理应用中。在本课程中，我们将进行一个简单但实用的示例，以便说明基础R中的一些关键函数。（R 有许多用于高级文本处理的包，例如 **tm**。）
 
-Our example will cover reading in a file of text, and compiling a word
-count, i.e. calculating the number of times each word appears.  This
-kind of task is at the core of many text classification algorithms.
+我们的示例将涵盖读取文本文件，并编制一个词频统计，即计算每个单词出现的次数。这种任务是许多文本分类算法的核心。
 
-The file is
-[here](https://raw.githubusercontent.com/matloff/fasteR/master/data/aboutR.txt).
-It's basically the About section of the [R Project home
-page](https://www.r-project.org/).  Here are the first few lines:
+该文件是
+[这里](https://raw.githubusercontent.com/matloff/fasteR/master/data/aboutR.txt)。
+它基本上是[R项目主页](https://www.r-project.org/)的 About 部分。以下是前几行：
 
 ```
-
 What is R?
 
 Introduction to R
@@ -2959,27 +2847,22 @@ Introduction to R
    R is a language and environment for statistical computing and graphics.
 ```
 
-Now, how can we read the file?  For instance, **read.table** won't work,
-as it expects the same number of nonblank fields on each line.  As you
-can see above, our file has a variable number of such fields per line.
+现在，我们如何读取文件呢？例如，**read.table** 不起作用，因为它期望每行有相同数量的非空字段。正如您上面所看到的，我们的文件每行具有可变数量的字段。
 
-Instead, we read the lines of the file via a function named, not
-surprisingly, **readLines**:
+相反，我们通过一个名为 **readLines** 的函数读取文件的行：
 
-``` r
+```r
 > abt <- readLines('https://raw.githubusercontent.com/matloff/fasteR/master/data/aboutR.txt')
 ```
 
-So, what exactly is in **abt** now?  Let's turn to our usual inspection
-tool, **str**.
+那么，现在 **abt** 中究竟是什么？让我们转向我们通常的检查工具 **str**。
 
-``` r
+```r
 > str(abt)
  chr [1:70] "" "What is R?" "" "Introduction to R" "" ...
 ```
 
-So, **abt** is a vector of 70 elements, of type character.  Each element
-of this vector is one line from the file:
+所以，**abt** 是一个由70个元素组成的字符向量。这个向量的每个元素是文件中的一行：
 
 ```
 > head(abt)
@@ -2988,133 +2871,97 @@ of this vector is one line from the file:
 [3] ""                                                                          
 [4] "Introduction to R"                                                         
 [5] ""                                                                          
-[6] "   R is a language and environment for statistical computing and graphics."
+[6] "   R is a language and environment
 ```
 
-The first line in the file was empty, so **abt[1]** is "", and so on.
+文件中的第一行为空，因此 **abt[1]** 为空字符串（""），以此类推。
 
-Recall, our goal here is to tabulate the various words in the file.  We
-won't be tabulating each individual line, so let's just make one long
-line out of **abt**.
+请记住，我们在这里的目标是将文件中的各种单词制成表格。我们不会对每一行进行制表，所以让我们将 **abt** 变成一个长长的行。
 
-The main R function for concatening strings is **paste**.  For
-instance, 
+主要的 R 函数用于连接字符串是 **paste**。例如，
 
 ``` r
 > paste('abc','987')
 [1] "abc 987"
 ```
 
-It can also be applied on an element-by-element basis in a vector, but
-as noted, we want to create one long vector.  The **collapse** argument
-does that for us:
+它也可以应用于向量的逐个元素，但是正如所述，我们希望创建一个长向量。**collapse** 参数为我们完成了这项任务：
 
 ``` r
-abt1 <- paste(abt,collapse=' ') 
-
+abt1 <- paste(abt, collapse=' ')
 ```
 
-This says, "Take all the 70 strings in **abt**, and collapse them into one
-big string, with a single space separating each of the original
-strings."  So, it joined the elements of **abt** into one long string,
-**abt1**, with successive elements of **abt** being separated by a
-blank (in addition to whatever blanks were in the original strings).
+这表示：“将 **abt** 中的所有 70 个字符串合并为一个大字符串，原始字符串的每个元素之间用单个空格分隔。” 因此，它将 **abt** 的元素连接成一个长字符串 **abt1**，其中 **abt** 的连续元素之间用一个空格分隔（除了原始字符串中存在的空格）。
 
 ``` r
 > str(abt1)
  chr " What is R?  Introduction to R     R is a language and environment for statistical computing and graphics.    I"| __truncated__
 ```
 
-So, **abt1** is now a single character string.  We can inspect parts of
-it with the **substr** function,, e.g.
+因此，**abt1** 现在是一个单一的字符字符串。我们可以使用 **substr** 函数检查它的部分内容，例如，
 
 ``` r
 > substr(abt1,288,336)
 [1] "nd colleagues. R can be considered as a    differ"
 ```
 
-tells us the 288th through 336th characters in **abt1**.  How many
-characters are in **abt1** in all?
+告诉我们 **abt1** 中第 288 到第 336 个字符。**abt1** 中总共有多少个字符？
 
 ``` r
 > nchar(abt1)
 [1] 3461
 ```
 
-We now need to break **abt1** down into individual words.  We can do so using
-**strsplit**:
+现在，我们需要将 **abt1** 拆分为单个单词。我们可以使用 **strsplit** 来完成：
 
 ``` r
-> y <- strsplit(abt1,' ')
+> y <- strsplit(abt1, ' ')
 > str(y)
 List of 1
 ```
 
-That second argument, ' ', means we want the blank character to be our
-splitting delimiter.  In some other setting, we may wish to use, say, a
-comma as the splitting delimiter, or whatever.
+第二个参数 ' ' 表示我们希望使用空格字符作为拆分定界符。在其他情况下，我们可能希望使用逗号作为拆分定界符，或者其他字符。
 
-Now let's look at **y**.  Keeping in mind that that object is an R list, 
-we can use double brackets to inspect the first element of **y** (which
-is the *only* element of **y**, as we saw above that **y** is a "list of
-1").
+现在让我们来看看 **y**。请记住，该对象是一个 R 列表，我们可以使用双括号检查 **y** 的第一个元素（正如我们之前看到的，**y** 是一个 "1 个列表"）。
 
 ``` r
 > str(y[[1]])
  chr [1:722] "" "What" "is" "R?" "" "Introduction" "to" "R" "" "" "" "" "R" ..
 ```
 
-So, **y[[1]]** is a character vector of length 722.  There is one
-element for each word in the original text, though some of the "words"
-are actually empty.  We see here that the first word in the text,
-**y[[1]][1]**, was empty, the second word, **y[[1]][2]**, was 'What',
-the third was 'is' and so on.
+因此，**y[[1]]** 是一个长度为 722 的字符向量。原始文本中的每个单词都有一个元素，尽管一些 "单词" 实际上是空的。我们在这里看到，文本中的第一个单词 **y[[1]][1]** 是空的，第二个单词 **y[[1]][2]** 是 'What'，第三个是 'is'，依此类推。
 
-> 📘 **ALWAYS KEEP IN MIND**
+> 📘 **始终牢记**
 >  
-> When one gets to this level of R (or for that matter, *any* language)
-, it is crucial to pay close attention
-> to the class and size of all R objects. 
+> 当涉及到 R（或任何其他语言）的这个级别时，仔细注意所有 R 对象的类别和大小至关重要。
 > 
-> Here we have:
+> 在这里，我们有：
 >
-> * **abt** is a character vector of length 70 (70 lines in the text)
-> * **abt1** is a character vector of length 1 (entire text in 1 long string)
-> * **y** is an R list of length 1
-> * **y[[1]]** is a character vector of length 722 (722 words in text)
-> * **y[[1]][1]**, **y[[1]][2]** etc. are strings (1st word, 2nd word...)
+> * **abt** 是长度为 70 的字符向量（文本中有 70 行）
+> * **abt1** 是长度为 1 的字符向量（整个文本为 1 个长字符串）
+> * **y** 是长度为 1 的 R 列表
+> * **y[[1]]** 是长度为 722 的字符向量（文本中有 722 个单词）
+> * **y[[1]][1]**、**y[[1]][2]** 等是字符串（第一个单词、第二个单词...）
 >
-> Subtle differences between object types can make big
-> differences in actions.  
+> 对象类型之间的微妙差异可能在行动中产生重大差异。
 >
-> *Dealing with this is not rocket science, just something that
-> requires patience.*  You the reader should take some time at this point to
-> ensure that you understand the above accounting for the various
-> variables.
+> *处理这些并不是什么难事，只是需要耐心。* 作为读者，您现在应该花一些时间确保您理解了上述各种变量的情况。
 
-Now, why does the R list **y** have length only 1?  The answer is that
-only string was fed into **strsplit**.  Recall what we did:
+现在，为什么 R 列表 **y** 的长度仅为 1？答案是因为只有一个字符串输入到了 **strsplit** 中。回想一下我们做了什么：
 
 ``` r
-> y <- strsplit(abt1,' ')
-
+> y <- strsplit(abt1, ' ')
 ```
 
-If **abt1** had consisted of, say, 5 strings rather than just 1, **y**
-would have been an R list of 5 elements.
+如果 **abt1** 由 5 个字符串而不是只有 1 个字符串组成，那么 **y** 就会成为一个包含 5 个元素的 R 列表。
 
+在原始输入的某些地方，我们有几个连续的空白。当有多个连续的空白时，**strsplit** 函数将多余的空白视为 "单词"。（这对于 Python 程序员来说可能有些令人惊讶。）
 
-At some places in the original input, we had several consecutive blanks.
-When there is more than one consecutive blank, the **strsplit** function
-treats the excess blanks as "words."  (This comes as quite a surprise to
-Python programmers.)
-
-So, how to get rid of the blank "words"?
+那么，如何去掉空白的 "单词"？
 
 ``` r
-> y1 <- y[[1]]  # easier to read, less cluttered
-> allWords <- y1[y1 != '']  # != means "not equal to"
-> allWords
+> y1 <- y[[1]]  # 更易读，更简洁
+> allWords <- y1[y1 != '']  # '!=' 表示 "不等于"
 > allWords
   [1] "What"                      "is"
   [3] "R?"                        "Introduction"
@@ -3122,38 +2969,25 @@ So, how to get rid of the blank "words"?
 ...
 ```
 
-The expression 
+表达式
 
 ``` r
 y1[y1 != '']
 ```
 
-may look a little mysterious, but actually it works in the same way as
-we've seen before in extracting subsets of vectors, data frames and so
-on:
+可能看起来有些神秘，但实际上它的工作方式与我们之前在提取向量、数据框等的子集中看到的工作方式相同：
 
-1. As noted, **!=** means not equal, so **!= ''** means "not an empty word."
-   (Warning: This will cause some double negatives below.  Again, just
-   be patient (the supreme trait of any programmer).
+1. 正如注释中所指出的，**!=** 表示不等于，因此 **!= ''** 表示 "不是空单词"。（警告：这将在下面导致一些双重否定。再次强调，只需耐心等待（这是任何程序员的至高无上的品质）。
 
-2. Remember, each element of **y1** is a "word," 722 of them.  We saw
-   above that the first word is '', i.e. an empty string, the 
-   second is "What" and so on.  The expression **y1 != ''** produces 
-   722 TRUEs and FALSEs, the first one being FALSE (no, the first word
-   was not nonempty), the second one being TRUE (yes, the second word was 
-   nonempty), etc.
+2. 请记住，**y1** 的每个元素都是一个 "单词"，共有 722 个单词。我们之前看到的第一个单词是 ''，即空字符串，第二个是 "What"，依此类推。表达式 **y1 != ''** 产生了 722 个 TRUE 和 FALSE，第一个是 FALSE（不，第一个单词不是非空的），第二个是 TRUE（是的，第二个单词是非空的），依此类推。
 
-3. As we saw before, a vector (**y1** here) evaluated
-   at indices taking on TRUE and FALSE values will retain the 
-   vector elements corresponding to the TRUEs.  In other words, the
-   expression **y1[y1 != '']** consists of the nonempty words.
+3. 正如我们之前看到的，对取值为 TRUE 和 FALSE 的索引进行评估将保留对应于 TRUE 的向量元素。换句话说，表达式 **y1[y1 != '']** 包含了非空单词。
 
-So, **allWords** is just what we need---the original file contents broken down
-into individual words, with no empty words.
+因此，**allWords** 正是我们所需要的——将原始文件内容拆分为单个单词，没有空单词。
 
-A couple of other points:
+另外还有一些要点：
 
-* '!' means "not" in R, e.g.
+* '!' 在 R 中表示 "非"，例如，
 
 ``` r
 > 3 < 8
@@ -3162,26 +2996,19 @@ A couple of other points:
 [1] FALSE
 ```
 
-* Material following '#' is a `comment`, a note the programmer inserts
-to explain the code, for clarity and future maintainability, to
-aid him/herself and/or others who read the code.  (In many cases,
-comments are here to benefit you, the reader.)
+* '#' 后面的内容是 `注释`，是程序员插入的注释，用于解释代码，提高清晰度和未来可维护性，以帮助自己和/或其他阅读代码的人。（在许多情况下，注释是为了使您——读者受益。）
 
-We'll continue with this example in the next lesson, but first, time for
-a **Your Turn** session.
+我们将在下一课继续这个示例，但首先，进行 **Your Turn** 会话。
 
-> ❄️  Your Turn
+> ❄️  轮到你了
 >
-> Write code to determine which line in 
-> **abt** is longest, in terms of the number of characters.
+> 编写代码确定 **abt** 中哪一行是最长的，即字符数最多的。
 
-## <a name="txt1"> </a> Lesson 30:  Simple Text Processing, II
+## <a name="txt1"> </a> 第 30 课：简单文本处理，II
 
-Now, let's complete our goal of producing a word count for the original
-text, i.e. which words appeared in the text and how many times did each
-one appear?
+现在，让我们完成我们的目标，生成原始文本的单词计数，即文本中出现的单词以及每个单词出现的次数是多少？
 
-As usual, it is a must to inspect the result, say the first 25 elements:
+像往常一样，检查结果是必不可少的，比如前 25 个元素：
 
 ``` r
 > head(allWords,25)
@@ -3196,12 +3023,10 @@ As usual, it is a must to inspect the result, say the first 25 elements:
 [25] "similar"     
 ```
 
-Good, all the words seem to be there, and the "" are NOT there, just as
-desired.  But how to get the word counts?  Why, it's our old friend,
-**tapply**!
+很好，所有单词似乎都在那里，"" 也不在那里，正如所期望的那样。但是如何获得单词计数呢？嗯，这是我们的老朋友 **tapply**！
 
 ``` r
-> q <- tapply(allWords,allWords,length)
+> q <- tapply(allWords, allWords, length)
 > head(q,25)
             ;            …) “environment”      (easily)     (formerly 
             1             1             1             1             1 
@@ -3215,96 +3040,67 @@ desired.  But how to get the word counts?  Why, it's our old friend,
             2            27             4             1             1 
 ```
 
-We got rid of the blank words, but the report here is still a little
-rough, for example treating ';' as a "word."  But overall, it's doing
-what we want, showing for instance that the word "analysis" occurs 2
-times in the original text.
+我们已经去掉了空白单词，但是这里的报告仍然有些粗糙，例如将 ';' 视为 "单词"。但总体上，它正在做我们想要的事情，例如显示原始文本中单词 "analysis" 出现了 2 次。
 
-Now, how did this call to **tapply** work here?  Actually, this is
-really the same pattern we saw with **tapply** before, with the
-**length** function as our third argument.  It may look a little odd
-that the first two arguments are identical, but it makes sense:
+现在，为什么这里调用 **tapply** 呢？实际上，这与我们之前看到的 **tapply** 是相同的模式，第三个参数是 **length** 函数。可能看起来有点奇怪的是，前两个参数是相同的，但这是有道理的：
 
-1.  The first argument says we want to split up the **allWords** vector into 
-    piles. 
+1. 第一个参数表示我们要将 **allWords** 向量拆分成堆。
 
-2.  The second argument says we want the *definition* of the piles to
-    also be based on **allWords**.  In other words, we want a separate
-    pile for each distinct word.
+2. 第二个参数表示我们希望 *堆* 的 *定义* 也基于 **allWords**。换句话说，我们希望每个不同的单词都有一个单独的堆。
 
-3.  Each entity that we are informally calling a "pile" above is an R
-    vector:
+3. 我们非正式地称之为 "堆" 的每个实体都是一个 R 向量：
 
 ``` r
     > str(allWords)
    chr [1:515] "What" "is" "R?" "Introduction" "to" "R" "R" "is" "a" ...
 ```
 
-Applying the **length** function to each vector gives us the count
-in each pile, exactly what we needed.
+对每个向量应用 **length** 函数给出了每个堆中的计数，正是我们所需要的。
 
-
-> 📘 Pro Tip
+> 📘 专业提示
 >
-> In coding, certain patterns do arise often, such as the
-> **tapply(x,x,length)** trick we saw here.  In fact,
-> there are even coding books with "design patterns" in their titles.
-> Take note when you see the same pattern a lot, as it may come in handy.
+> 在编码中，某些模式确实经常出现，例如我们在这里看到的 **tapply(x, x, length)** 技巧。事实上，甚至有一些标题中带有 "设计模式" 的编码书籍。当您经常看到相同的模式时，请注意，因为它可能会派上用场。
 
-We're not fully done yet.  For instance, we have a punctuation problem,
-where periods, commas and so on are considered parts of words, such as
-the period in **allWords[17]** seen above, 'graphics.'  We also probably
-should change capital letters to lower case, so that 'What' and 'what'
-are not counted as two different words.
+我们还没有完全完成。例如，我们存在标点符号问题，其中句点、逗号等被视为单词的一部分，比如在上面看到的 **allWords[17]** 中的句点 'graphics.'。我们也可能需要将大写字母改为小写，这样 'What' 和 'what' 不会被视为两个不同的单词。
 
-For major usage, we should consider using one of the advanced R packages
-in text processing.  For instance, the **tm** package has a
-**removePunctuation** function.  But let's see how we can do this with
-the basics.
+对于主要的用法，我们应考虑使用文本处理中的一种高级 R 包。例如，**tm** 包具有一个 **removePunctuation** 函数。但让我们看看如何使用基础知识来完成这个任务。
 
-We'll use R's **gsub** function.  Its call form, as we'll use it, is
+我们将使用 R 的 **gsub** 函数。我们将使用的调用形式如下：
 
 ``` r
-gsub(string_to_change,replacement,input_vector,fixed=TRUE)
+gsub(string_to_change, replacement, input_vector, fixed=TRUE)
 ```
 
-E.g.
+例如，
 
 ``` r
 > a <- c('abc','de.')
-> gsub('.','',a,fixed=TRUE)  # replace '.' by empty string
+> gsub('.','',a,fixed=TRUE)  # 将 '.' 替换为空字符串
 [1] "abc" "de" 
 ```
 
-(The **fixed** argument is complex, and pops up in all the R string
-manipulation packages.  This again is something you should use for now,
-and look into when you become more skilled at R.)
+（**fixed** 参数很复杂，并出现在所有 R 字符串操作包中。这是你现在应该使用的东西，并且在你熟练掌握 R 后可以深入研究。）
 
-So, to remove all periods in **allWords**, we can do:
+因此，要删除 **allWords** 中的所有句点，我们可以这样做：
 
 ``` r
 > awNoPers <- gsub('.','',allWords,fixed=TRUE) 
-> awNoPers[17]  # check that it worked
+> awNoPers[17]  # 检查是否生效
 [1] "graphics"
 ```
 
-We could continue to fine-tune the output in this manner.
+我们可以继续以这种方式微调输出。
 
-## <a name="linreg2"> </a> Lesson 31:  Linear Regression Analysis, II
+## <a name="linreg2"> </a> 第 31 课：线性回归分析，II
 
-Continuing our look at linear regression analysis using R, let's look at
-the famous [bike sharing
-data](ttps://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset).
-(See the latter site for the documentation; e.g. temperature has been
-scaled, rather than measured in degrees.)
-It's in a **.zip** file, so it will need a little extra preprocessing:
+继续我们对使用 R 进行线性回归分析的探讨，让我们看看著名的[自行车共享数据](ttps://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset)。（参见后一网站以获取文档；例如，温度已经被缩放，而不是用度数来测量。）它在一个 **.zip** 文件中，所以需要一些额外的预处理：
 
 ``` r
-# fetch from Web, and store the downloaded data to the file 'bike.sip'
+# 从网络获取，并将下载的数据存储到文件 'bike.sip'
 > download.file('https://archive.ics.uci.edu/ml/machine-learning-databases/00275/Bike-Sharing-Dataset.zip','bike.zip')
-> unzip('bike.zip')  # out come the files 'day.csv' and 'hour.csv'
+> unzip('bike.zip')  # 出来的文件是 'day.csv' 和 'hour.csv'
 > day <- read.csv('day.csv',header=TRUE)
-> head(day)  # always take a look around!
+> head(day)  # 总是先四处看看！
   instant     dteday season yr mnth holiday weekday workingday weathersit
 1       1 2011-01-01      1  0    1       0       6          0          2
 2       2 2011-01-02      1  0    1       0       0          0          2
@@ -3321,21 +3117,11 @@ It's in a **.zip** file, so it will need a little extra preprocessing:
 6 0.204348 0.233209 0.518261 0.0895652     88       1518 1606
 ```
 
-By the way, the weather variables have been rescaled to the interval
-[0,1].  A value of 0.28, for instance, means 28% of the way from the
-minimum to the maximum value of this variable.
+顺便提一下，天气变量已经被重新缩放到区间 [0,1]。例如，0.28 的值意味着该变量的值在最小值和最大值之间的 28%。
 
-One new concept here is the presence of *indicator* variables, more
-informally known as *dummy variables*.  These are variables taking only
-the values 0 and 1, with a 1 "indicating" that some trait is present.
-For instance, the **holiday** variable is either 1 or 0, depending on
-whether that day was a holiday (which might affect the demand for bikes
-that day).
+这里的一个新概念是*指示器*变量，更不正式地称为*虚拟变量*。这些是只取值 0 和 1 的变量，其中 1 "指示" 某个特征的存在。例如，**holiday** 变量要么是 1 要么是 0，取决于那一天是否是假日（这可能会影响到当天的自行车需求）。
 
-Those who manage this bike sharing service may wish to predict future
-demand for bikes, say the next day, to aid in their planning.  As an
-example, let's try to predict the number of casual riders from some
-weather variables and the dummy variable **workingday**.
+管理这个自行车共享服务的人可能希望预测未来的自行车需求，比如下一天，以帮助他们的规划。例如，让我们尝试根据一些天气变量和虚拟变量 **workingday** 来预测休闲骑行者的数量。
 
 ``` r
 > day1 <- day[,c(8,10,12:14)]
@@ -3356,39 +3142,23 @@ Coefficients:
  
 ```
 
-The expression "casual ~ ." means, "regress **casual** against all the
-other variables in this dataset.
+表达式 "casual ~ ." 的意思是，“对数据集中的所有其他变量进行 **casual** 的回归。
 
-These numbers make sense.  The negative coefficient for **workingday**
-says that, all else equal, there tend to be fewer casual riders on a
-work day. 
+这些数字是有意义的。**workingday** 的负系数表示，其他条件相同，工作日通常会有较少的休闲骑行者。
 
-By the way, we probably should expect fewer riders on very
-cold or very hot days, so we may wish to add a quadratic term to the
-model, say by doing
+顺便说一下，我们可能应该预期在非常寒冷或非常炎热的天气里骑行者较少，所以我们可能希望给模型添加一个二次项，比如通过执行
 
 ``` r
-day1$temp2 <- temp^2  # the caret symbol means exponentiation, 
-                      # i.e. 2nd power here
+day1$temp2 <- temp^2  # 尖角符号表示指数运算，即这里是 2 次幂
 ```
 
-This would add the indicated column to **day1**.  But we will not pursue
-this for now.
+这将在 **day1** 中添加指定的列。但我们现在不会追求这个。
 
-One of the very important features of R is *generic functions*.  These
-are functions that take on different roles for objects of different
-classes.  One such example is the **plot** function we saw earlier.
+R 的一个非常重要的特性是*通用函数*。这些函数对不同类别的对象扮演不同的角色。**plot** 函数就是一个例子。
 
-Try typing "plot(lmout)" at the R prompt.  You will be shown several
-plots desribing the fitted regression model.  What happened was that the
-function **plot** is just a placeholder.  When we type "plot(lmout)" R
-says, "Hmm, what kind of object is **lmout**?  Oh, it's of class
-**'lm'**.  So I'm going to transfer (*dispatch*) this call to one
-involving a special plot function for that class, **plot.lm**."  This is
-in contrast to our previous calls to **plot**, which were invoked on
-vectors; those calls were dispatched to **plot.default**.
+在 R 提示符下输入 "plot(lmout)"。你将会看到几个描述拟合回归模型的图形。发生的事情是，函数 **plot** 只是一个占位符。当我们输入 "plot(lmout)" 时，R 会说，“嗯，**lmout** 是什么类型的对象呢？哦，它是 **'lm'** 类型。所以我要将此调用传递（*dispatch*）给一个涉及该类别的特殊绘图函数 **plot.lm**。” 这与我们之前对**plot**的调用形成对比，那些调用是在向量上调用的；那些调用被传递给 **plot.default**。
 
-Another generic function is **summary**:
+另一个通用函数是 **summary**：
 
 ``` r
 > summary(Nile)
@@ -3408,24 +3178,11 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 ...
 ```
 
-In the first case, the call to **summary**, invoked on a vector, was
-dispatched to **summary.default**, while in the second the transfer was
-to **summary.lm**.  In both cases, whoever it was in the R development
-team who wrote these functions decided what summary information should
-be printed out automatically.
+在第一个情况中，对向量调用的 **summary** 被传递到 **summary.default**，而在第二个情况中，转移是到 **summary.lm**。在这两种情况下，R 开发团队中编写这些函数的人决定了应该自动打印出哪些摘要信息。
 
-Again, the purpose of this tutorial is to present R, not statistics.
-The interested reader should consult a statistics book regarding
-*p-values* and *confidence intervals.*  The former are show in the last
-column of the above summary.  An approximate 95% confidence interval
-for, say, the population coefficient of humidity is -812.74 plus or
-minus 1.96 times the *standard error*, 112.98.  Note carefully that
-p-values have long been considered to be poor methodology; see 
-the [ASA statement](https://amstat.tandfonline.com/doi/full/10.1080/00031305.2016.1154108).
+再次强调，本教程的目的是介绍 R，而不是统计学。感兴趣的读者应参考统计学书籍，了解 *p 值* 和 *置信区间*。前者显示在上述摘要的最后一列中。例如，湿度的总体系数的大约 95% 的置信区间为 -812.74 加减 1.96 倍的 *标准误差*，即 112.98。请注意，长期以来，p 值一直被认为是糟糕的方法论；参见 [ASA 声明](https://amstat.tandfonline.com/doi/full/10.1080/00031305.2016.1154108)。
 
-Another important generic function is **predict**.  Say we want to
-predict **casual** for a work day in which **temp**, **hum** and
-**windspeed** are 0.26, 0.55, 0.18, respectively.
+另一个重要的通用函数是 **predict**。假设我们想要预测在 **temp**、**hum** 和 **windspeed** 分别为 0.26、0.55 和 0.18 的工作日中的 **casual**。
 
 ``` r
 > newCase <- data.frame(workingday=1, temp=0.26, hum=0.55, windspeed=0.18)
@@ -3434,15 +3191,11 @@ predict **casual** for a work day in which **temp**, **hum** and
 162.6296 
 ```
 
-The **predict** function, which here is **predict.lm**, assumes that the
-new cases to be predicted are supplied as a data frame, with the same
-column names as with the original data.
+**predict** 函数，这里是 **predict.lm**，假定要预测的新案例被提供为一个数据框，其列名与原始数据相同。
 
-## <a name="dates"> </a> Lesson 32:  Work with the R Date Class
+## <a name="dates"> </a> 第32课：使用 R 日期类
 
-In the bike sharing data, dates were included, in **day$dteday**.  As
-noted, some of those were holidays, indicated in the **holiday** column.
-Let's see how many holidays there were:
+在自行车共享数据中，日期被包括在 **day$dteday** 中。正如我们注意到的，其中一些是假期，在 **holiday** 列中指示。让我们看看有多少个假期：
 
 ``` r
 > hds <- day$dteday[day$holiday == 1]
@@ -3453,18 +3206,16 @@ Let's see how many holidays there were:
 [19] 2012-11-12 2012-11-22 2012-12-25
 ```
 
-Once again, let's review how the above code works.  The expression "[day$holiday == 1]" yields a bunch of TRUEs and FALSEs.  Using them as indices in the vecotr **day$dteday** gives us exactly the dates that are holidays. 
+再次回顾以上代码的工作方式。表达式 "[day$holiday == 1]" 产生了一堆 TRUE 和 FALSE。将它们作为索引用于向量 **day$dteday**，就会得到确切的假期日期。
 
-We see above that there were 21 holidays during the time period of the
-data.  But we can do more.  First, what kind of object is **hds** above?
+我们在上面看到，在数据时间段内有 21 个假期。但我们可以做得更多。首先，**hds** 是什么类型的对象？
 
 ``` r
 > class(hds)
 [1] "factor"
 ```
 
-Fine, but R has a special class for date data, not surprisingly called
-**'Date'**.  Let's convert to that class:
+好的，但 R 有一个专门的日期数据类，不出所料被称为 **'Date'**。让我们转换为该类：
 
 ``` r
 > hd <- as.Date(hds)
@@ -3478,8 +3229,7 @@ Fine, but R has a special class for date data, not surprisingly called
 [21] "2012-12-25"
 ```
 
-Though it prints out just as before, there are extra properties now, and
-even bettery, in POSIX form:
+虽然它打印出来的方式与以前一样，但现在有了额外的属性，而且更好的是，它是 POSIX 形式的：
 
 ``` r
 > hp <- as.POSIXlt(hd)
@@ -3490,91 +3240,56 @@ even bettery, in POSIX form:
 [13] "2012-02-20 UTC" "2012-04-16 UTC" "2012-05-28 UTC" "2012-07-04 UTC"
 [17] "2012-09-03 UTC" "2012-10-08 UTC" "2012-11-12 UTC" "2012-11-22 UTC"
 [21] "2012-12-25 UTC"
-> hp[16]$wday  # what day of the week was July 4, 2012?
+> hp[16]$wday  # 2012 年 7 月 4 日是星期几？
 [1] 3
-# ah, Wednesday (code 3)
+# 啊，星期三（代码 3）
 ```
 
-(The UTC parts are the times of day, which we had not supplied.)
+（UTC 部分是一天中的时间，我们没有提供。）
 
-There are many operations that can be done on R dates.  The above is
-just a little sample.
+R 日期可以进行许多操作。以上只是一个小样本。
 
-## <a name="style"> </a> Lesson 33:  Tips on R Coding Style and Strategy
+## <a name="style"> </a> 第33课：有关 R 编码风格和策略的提示
 
-Programming is a creative activity, and thus different programmers will
-have different coding styles.  Some people feel so strongly that they
-will publish there own particular style guides, such as 
-[this one](https://google.github.io/styleguide/Rguide.xml) 
-by the R community at Google.  Mine is
-[here`](https://github.com/matloff/R-Style-Guide).
+编程是一种创造性活动，因此不同的程序员会有不同的编码风格。有些人感觉非常强烈，以至于会发布自己特定的风格指南，比如 R 社区在 Google 的[这个](https://google.github.io/styleguide/Rguide.xml)。我的风格指南在[这里](https://github.com/matloff/R-Style-Guide)。
 
-Needless to say, style is a matter of personal taste.  But:
+毋庸置疑，风格是个人品味的问题。但是：
 
-**Style IS important for any code you intend to use again, for two reasons:**
+**对于任何你打算再次使用的代码来说，风格都是重要的，原因有两点：**
 
-1. You will quickly forget how your code works.
+1. 你会很快忘记自己的代码是如何工作的。
+2. 如果你与他人分享你的代码，你需要让他们清楚地了解它的工作原理。
 
-2.  If you share your code with others, you need to make its workings
-    clear to them.
+**同样重要的是策略，即你处理编码项目的方式。**
 
-**Equally important is strategy, the way you approach a coding project.**
+没有编写代码的魔法公式。正如之前提到的，我不能*教*你如何编写代码。我只能向你展示各种组成部分是如何工作的——循环、变量、函数、if/else 等等——然后你必须创造性地将它们组合起来，编写出实现目标的代码。这就像解决一个大谜题，就像许多大谜题一样，你可能需要花一段时间思考问题，一点一点地获取见解，直到最终完成。然而，就像编码风格一样，我们都同意存在一些策略。
 
-There is no magic formula on how to write code.  As noted earlier, I
-cannot *teach* yow how to code.  I can only show you how the
-ingredients work -- loops, variables, functions, if/else etc. -- and you
-must creatively put them together into code that achieves goals.  It's
-like solving a big puzzle, and like many big puzzles, you may need to
-ponder the problem for quite a while, gaining insights here and there
-until it's finally done.  Yet, as with coding style, there are strategies
-that we all agree on.
+因此，尽管个体差异很大，但有一些共同的方面是每个人都同意的，我们将在这节课中讨论这些方面。
 
-So in spite of great individual variation, there are common aspects that
-everyone agrees with, which we'll discuss in this lesson.
+**注释你的代码：**
 
-**Comment your code:**
+在任何计算机科学学生的编程课程中，这都是绝对重要的。如果一个学生提交的编程作业几乎没有或没有注释，那么他将得到不及格分数。如果注释对于计算机科学专业的学生来说是需要的，他们可能是强大的程序员，那么对于不是专业程序员的 R 用户来说，注释就更加重要了。
 
-In any programming course for Computer Science students, this
-is absolutely central.  If a student turns in a programming assignment
-with few or no comments, it will get a failing grade.  If comments are
-needed for clarity and readability for CS students, who are presumably
-strong programmers, then R users who are not expert programmers need
-comments even more.
+一所顶尖大学计算机科学系的[风格指南](https://www.cs.utah.edu/~germain/PPS/Topics/commenting.html)表达得很好：
 
-A [style
-guide](https://www.cs.utah.edu/~germain/PPS/Topics/commenting.html)
-at a top university computer science department puts it well:
+> 注释是指在计算机程序中放置人类可读描述，详细说明代码正在做什么。正确使用注释可以使代码维护变得更容易，同时帮助更快地发现错误。此外，在编写其他人将使用的函数时，注释非常重要。请记住，良好的文档代码与正确工作的代码一样重要。
 
-> Commenting involves placing Human Readable Descriptions inside of
-> computer programs detailing what the Code is doing. Proper use of
-> commenting can make code maintenance much easier, as well as helping
-> make finding bugs faster. Further, commenting is very important when
-> writing functions that other people will use. Remember, well
-> documented code is as important as correctly working code.
+（在该文档的后面部分还有关于注释的具体提示。）
 
-(Also see specific tips on commenting, later in that document.)
-
-*Don't be under the illusion that your code is self-documenting; it
-  isn't!  A typical comment might look like this:*
+*不要以为你的代码可以自我说明；它并不能！典型的注释可能如下所示：*
 
 ``` r
 w <- f(w)
-# at this point, the data frame w will consist of the original rows for
-# people over age 65 and who are homeowners
+# 在这一点上，数据框 w 将由年龄在 65 岁以上且是房主的原始行组成
 ```
 
-*At the top of each source file, insert comments giving the reader an
-overview of the contents.*
+*在每个源文件的顶部，插入注释，给读者一个内容概述。*
 
-This will typically an overview of the roles of each major function, how
-the functions interact with each other, what the main data structures
-are, and so on.
+这通常包括每个主要函数的作用概述，函数如何相互作用，主要数据结构是什么，等等。
 
-I strongly recommend that you write these comments at the top of a file
-BEFORE you start coding (and of course modifying it as you do write
-code).  This will really help you focus during the coding process.
+我强烈建议在编写代码之前（当然，随着你编写代码而修改）在文件的顶部写下这些注释。这将在编码过程中帮助你集中注意力。
 
-**Indent your code:**
+**缩进你的代码：**
 
 ``` r
 if (x < y) {
@@ -3583,7 +3298,7 @@ if (x < y) {
 }
 ```
 
-is much easier to read than
+比起
 
 ``` r
 if (x < y) {
@@ -3592,23 +3307,17 @@ z <- x + y
 }
 ```
 
-**Write your code in top-down fashion:**
+要容易得多。
 
-If you have a function **f** that is more than, say, a dozen lines long,
-break its code into calls to smaller functions, say **g** and **h**.
-Then **f** will consist of those calls, plus some "glue" lines to deal
-with the return values and so on.  Of course, it's a matter of taste as
-to break things up that way, but the point is that it makes your code
-both easier to *read* (by others, or by yourself later), and even more
-important, easier to *write*.  Breaking up the code like this makes it
-read like an outline.
+**以自顶向下的方式编写你的代码：**
 
-**Don't skimp on attending to the "corner cases":**
+如果你有一个函数 **f**，它超过了，比如，十几行长，将它的代码分解为对更小的函数调用，比如 **g** 和 **h**。然后 **f** 将由这些调用组成，再加上一些处理返回值等的 "粘合" 行。当然，如何分解问题是个人品味的问题，但关键是这使得你的代码更容易*阅读*（由其他人或者稍后的你自己），更重要的是，更容易*编写*。像这样分解代码使其读起来像一个大纲。
 
-Computer Science people talk about "corner cases," meaning special
-situations in which code may fail in spite of being generally sound.
+**不要忽视“边界情况”：**
 
-For instance, consider this code:
+计算机科学家谈论“边界情况”，指的是在特殊情况下，即使代码通常是正确的，也可能失败的情况。
+
+例如，考虑这段代码：
 
 ``` r
 > i <- 5
@@ -3616,7 +3325,7 @@ For instance, consider this code:
 [1] 1 2 3 4 5
 ```
 
-But what about the special case in which **i = 0**?
+但是当 **i = 0** 的特殊情况呢？
 
 ``` r
 > i <- 0
@@ -3624,65 +3333,46 @@ But what about the special case in which **i = 0**?
 [1] 1 0
 ```
 
-This may not be what you wanted.  You probably should insert a check,
-say
+这可能不是你想要的。你可能应该插入一个检查，比如
 
 ``` r
 if (i >= 1) i:5
 ```
 
-and maybe also code to handle the erroneous case.  This will depend on
-the situation, but the main point is to be aware of possible corner
-cases.
+也许还应该编写代码来处理错误情况。这取决于具体情况，但主要的是要意识到可能存在的边界情况。
 
-**Use a debugging tool:**
+**使用调试工具：**
 
-More on this in a later lesson!
+稍后的课程中会更详细地讨论这一点！
 
-## <a name="logit"> </a> Lesson 34: The Logistic Model
 
-In our earlier examples of regression analysis, we were predicting a
-continuous variable such as human weight.  But what if we wish to
-predict a *dichotomous* varible, i.e. one recording which of two
-outcomes occurs?
+## 第34课: 逻辑模型
 
-Consider the Pima dataset from earlier examples.  Say we are predicting
-whether someone has -- or will later develop -- diabetes.  This is coded
-in the **test** column of the dataset, 1 for having the disease, 0 for
-not.
+在我们之前的回归分析示例中，我们预测了一个连续变量，比如人的体重。但如果我们想要预测一个*二元*变量，即记录两个结果中的哪一个发生了呢？
 
-As a simple example, say we try to predict **test** from the variables
-**bim** and **age**.  A linear model would be
+考虑之前示例中的皮马数据集。假设我们要预测某人是否有糖尿病，或者以后会发展出糖尿病。这在数据集的**test**列中编码，1表示患有该疾病，0表示没有。
 
-mean test = &beta;<sub>0</sub> + &beta;<sub>1</sub> bmi + &beta;<sub>2</sub> age
+举个简单的例子，假设我们试图从变量**bmi**和**age**来预测**test**。线性模型将会是：
 
-Remember, **test** takes on the values 1 and 0.  What happens when we
-take the average of a bunch of 1s and 0s?  The answer is that we get the
-proportion of 1s.  For instance, the mean of the numbers 1,0,1,1 is 3/4,
-which is exactly the proportion of 1s in that data.
+平均测试 = &beta;<sub>0</sub> + &beta;<sub>1</sub> bmi + &beta;<sub>2</sub> age
 
-In statististical terms, what the above equation is doing is expressing
-the probability of a 1 -- i.e. the probability of having diabetes --
-in terms of Body Mass Index and age.
+请记住，**test**取值为1和0。当我们对一堆1和0取平均值时会发生什么？答案是我们得到1的比例。例如，数字1、0、1、1的平均值为3/4，这恰好是该数据中1的比例。
 
-Not a bad model, but one troubling point is that the right-hand side
-could evaluate to a number less than 0 or greater than 1, which would be
-impossible for a probability.  In order to deal with that problem, we
-might use a *logistic* model, as follows.
+在统计学术语中，上述方程表达了1的概率 -- 即患有糖尿病的概率 -- 与体重指数和年龄的关系。
 
-Define the logistic function to be 
+这是一个不错的模型，但一个令人不安的地方是右边的结果可能小于0或大于1，这对于概率来说是不可能的。为了解决这个问题，我们可以使用*逻辑*模型，如下所示。
+
+定义逻辑函数为：
 
 l(t) = 1 / (1 + e<sup>-t</sup>)
 
-We then modify the above equation to
+然后我们修改上述方程为
 
-probability of diabetes = l(&beta;<sub>0</sub> + &beta;<sub>1</sub> bmi + &beta;<sub>2</sub> age)
+糖尿病的概率 = l(&beta;<sub>0</sub> + &beta;<sub>1</sub> bmi + &beta;<sub>2</sub> age)
 
-As before, the statistical details are beyond the scope of this
-R tutorial, but here is how you estimate the coefficients
-&beta;<sub>i</sub> using R:
+与以前一样，统计细节超出了本R教程的范围，但是下面是如何使用R来估计系数&beta;<sub>i</sub>的方法：
 
-``` r
+```r
 > glout <- glm(test ~ bmi + age, data=pima, family=binomial)
 > summary(glout)
 ...
@@ -3694,11 +3384,9 @@ age          0.04561    0.00694   6.571 4.98e-11 ***
 ...
 ```
 
-Let's explore those estimated &beta;<sub>i</sub> a bit.  Consider 
-women with about average BMI, say 32, and compare 30-year-olds to those
-of age 40.  
+让我们稍微探讨一下这些估计的&beta;<sub>i</sub>。考虑一下大约平均BMI的女性，比如32岁，并将30岁的人与40岁的人进行比较。
 
-``` r
+```r
 > l <- function(t) 1 / (1 + exp(-t))
 > l(-5.40378 + 32*0.09825 + 30*0.04561)
 [1] 0.2908045
@@ -3706,150 +3394,118 @@ of age 40.
 [1] 0.3928424
 ```
 
-So, the risk of diabetes increases substantial over that 10-year period,
-but this population and BMI level.
+因此，这10年期间糖尿病的风险在这个人群和BMI水平上显着增加。
 
-## <a name="fd"> </a> Lesson 35:  Files and Folders/Directories
+## 第35课: 文件和文件夹/目录
 
-Note:  On Unix-family systems such as Linux, the Windows term *folder*
-is said to be a *directory*.  You will frequently see this in Mac
-discussions as well.  (The Mac OS is a Unix-family system.)  We will
-typically use the term *directory* here, as that is what R uses.
+注意：在Unix系列系统（如Linux）中，Windows术语*文件夹*被称为*目录*。您在Mac讨论中也经常会看到这一点。（Mac OS是Unix系列系统。）我们通常在这里使用术语*目录*，因为R就是这样使用的。
 
-In assembling a dataset for my **regtools** package, I needed to collect
-the records of several of my course offerings.  I started in a directory
-that had one subdirectory for each offering.  In turn, there was a file
-named **Results**.  As an intermediate step, wanted to find all such
-files, placing the text for each one in an R list **gFiles**.  Only some
-specific columns of each file will be retained.  (The discussion here is
-a slightly adapted version.)
+在为我的**regtools**包组装数据集时，我需要收集几门课程的记录。我从一个包含每门课程子目录的目录开始。依次，每个子目录中有一个名为**Results**的文件。作为中间步骤，我想找到所有这些文件，将每个文件的文本放入一个R列表**gFiles**中。只保留每个文件的特定列。（这里讨论的是稍微调整过的版本。）
 
-The chief R functions I used were:
+我使用的主要R函数有：
 
-* **list.dirs:**  Returns a character vector with the names of all the
-  directories (i.e. subdirectories) within the current directory.
+* **list.dirs:** 返回一个字符向量，其中包含当前目录中所有子目录的名称。
 
-* **dir:**  Returns a character vector with the names of all files
-  within the current directory.
+* **dir:** 返回一个字符向量，其中包含当前目录中所有文件的名称。
 
-* **%in%:**  Determines whether a specified object is an element in a
-  specified vector. 
+* **%in%:** 确定指定对象是否是指定向量中的元素。
 
-* **setwd:**  Changes to the specified directory.
+* **setwd:** 更改到指定的目录。
 
-Here is the code:
+以下是代码：
 
-``` r
+```r
 getData <- function() {
 
-   currDir <- getwd()  # leave a trail of bread crumbs
+   currDir <- getwd()  # 留下一串面包屑
 
    dirs <- list.dirs(recursive=FALSE)
    numCourseOfferings <- 0
-   # create empty R list, into which we'll store our course records
+   # 创建一个空的R列表，我们将在其中存储我们的课程记录
    resultsFiles <- list()
    for (d in dirs) {
-      setwd(d)  # descend into d directory
-      # check if there is a Results file there
+      setwd(d)  # 进入d目录
+      # 检查是否存在一个Results文件
       fls <- dir()
-      if (!('Results' %in% fls)) {  # not there, skip this dir
+      if (!('Results' %in% fls)) {  # 没有，跳过此目录
          setwd(currDir)
          next
       }
-      # ah, there is such a file; increment our count
+      # 啊，这里有这样一个文件；增加我们的计数
       numCourseOfferings <- numCourseOfferings + 1
-      # open it
+      # 打开它
       resultsLines <- readLines('Results')
-      # delete the comment lines; look at 1st character in each line
+      # 删除注释行；查看每行的第一个字符
       resultsLines <- delComments(resultsLines)
       resultsFiles[[numCourseOfferings]] <- extractCols(resultsLines)
       setwd(currDir)
    }
-   resultsFiles  # return all the grades records
+   resultsFiles  # 返回所有的成绩记录
 }
 ```
 
-Before we go into the details, note the following:
+在我们深入细节之前，注意以下几点：
 
-* The code is written in a top-down manner.  Much of the work of
-**getData** is offloaded to other functions (code not shown),
-**delComments** and **extractCols**.
 
-* There are lots of comments!
+* 代码是以自顶向下的方式编写的。大部分**getData**的工作被分派给其他函数（未显示的代码），即**delComments**和**extractCols**。
 
-Now, consider the line
+* 有很多注释！
 
-``` r
+现在，考虑下面的代码行
+
+```r
    dirs <- list.dirs(recursive=FALSE)
 ```
 
-As mentioned, **list.dirs** will determine all the subdirectories
-within the current directory.  But what about subdirectories of
-subdirectories, and subdirectories of subdirectories of subdirectories,
-and so on?  Setting **recursive** to FALSE means we want only
-first-level subdirectories.
+如上所述，**list.dirs**将确定当前目录中的所有子目录。但是子目录的子目录呢？以及子目录的子目录的子目录呢？依此类推？将**recursive**设置为FALSE意味着我们只想要第一级子目录。
 
-So, the line
+所以，代码行
 
-``` r
+```r
    for (d in dirs) {
 ```
 
-will then have us process each (first-level) directory, one by one.
+将逐个处理每个（第一级）目录。
 
-When we enter one of those subdirectories, the line
+当我们进入其中一个子目录时，代码行
 
-``` r
+```r
       fls <- dir()
 ```
 
-will determine all the files there, storing the result as a character
-vector **fls**.
+将确定其中的所有文件，并将结果存储为字符向量**fls**。
 
-Then, as the comment notes, the lines
+然后，正如注释所述，下面的代码行
 
-``` r
-      if (!('Results' %in% fls)) {  # not there, skip this dir
+```r
+      if (!('Results' %in% fls)) {  # 没有，跳过此目录
          setwd(currDir)
          next
       }
 ```
 
-will, in the event that there is no **Results** file in this
-subdirectory, skip this subdirectory.  The R keyword **next** says, "Go
-to the next iteration of this loop," which here means to process the
-next subdirectory.  Note that to prepare for that, we need to move back
-to the original directory:
+将在这个子目录中没有**Results**文件的情况下跳过此子目录。R关键字**next**表示“转到循环的下一个迭代”，这里意味着处理下一个子目录。注意，为了准备这个，我们需要回到原始目录：
 
-``` r
+```r
          setwd(currDir)
 ```
 
-On the other hand, if this subdirectory *does* contain a file named
-**Results**, the remaining code increments our count of such files,
-reads in the found file, and assigns its contents as a new element of
-our **resultsFiles** list.
+另一方面，如果这个子目录*包含*名为**Results**的文件，剩下的代码将增加这样的文件的计数，读取找到的文件，并将其内容分配为我们的**resultsFiles**列表的新元素。
 
-## <a name="whl"> </a> Lesson 36:  R 'while' Loops
+## 第36课: R的'while'循环
 
-We've seen R **for** loops in previous lessons, but there's another kind
-of loop, **while**.  It keeps iterating until some specified condition
-is met.  We don't know how many iterations will be needed, unlike the
-**for** case, with a fixed number of iterations.
+我们在之前的课程中已经见过R的**for**循环，但还有另一种循环，**while**。它会一直迭代直到满足某个指定条件。与**for**循环不同，我们不知道需要多少次迭代。
 
-As our example, consider r's built-in dataset **AirPassengers**, which
-consists of number of air travelers in thousands, in monthly data from
-January 1949.  As usual, let's glance at it first:
+作为例子，考虑r的内置数据集**AirPassengers**，它包含了从1949年1月开始的月度数据中的几千名空乘旅客数量。和往常一样，让我们先看一下：
 
-``` r
-> airpass <- AirPassengers  # less typing below
+```r
+> airpass <- AirPassengers  # 下面输入较少
 > str(airpass)
- Time-Series [1:144] from 1949 to 1961: 112 118 132 129 121 135 148 148 136 119 ...
+ 时间序列 [1:144] 从1949年到1961年：112 118 132 129 121 135 148 148 136 119 ...
 ```
 
-Suppose we wish to know when the cumulative number of passengers first
-exceeded 10 million.  A crude way would be to use R's **cumsum**
-("cumulative sums") function:
+假设我们想知道累计旅客人数首次超过1000万的时间。一种简单的方法是使用R的**cumsum**（“累计求和”）函数：
+
 
 ``` r
 > cumsum(airpass)
@@ -3867,48 +3523,36 @@ exceeded 10 million.  A crude way would be to use R's **cumsum**
 [133] 35066 35457 35876 36337 36809 37344 37966 38572 39080 39541 39931 40363
 ```
 
-We see that that occurred in the 60th month.  But though this approach
-would be convenient, it also would be wasteful:  We are calculating *all*
-the cumulative sums, even though we don't need them all.  In a really
-long vector, this could be slow.  Here is a less wasteful way:
+我们看到这发生在第60个月。但尽管这种方法会很方便，但也会很浪费：我们正在计算*所有*累积和，尽管我们并不需要它们全部。在一个非常长的向量中，这可能会很慢。这里是一个更节约的方法：
 
-``` r
+```r
 tot <- 0
 i <- 1
-while (i <= length(airpass) && tot < 10000) {  ## && means 'and'
+while (i <= length(airpass) && tot < 10000) {  ## && 表示 'and'
     i <- i + 1
     tot <- tot + airpass[i]
 }
-i  # prints 60
+i  # 输出 60
 ```
 
-So, the **while** loop keeps iterating until we get the desired
-cumulative total.
+因此，**while**循环会一直迭代，直到我们得到所需的累积总和。
 
-Key points here:
+关键点在于：
 
-* The **<=** operator means "less than or equal to."  There is also
-  **>=** for "greater than or equal to."
+* **<=** 运算符表示“小于或等于”。还有**>=**表示“大于或等于”。
 
-* The **&&** operator stands for "and".  It is slightly different from 
-  the **&** operator, which involves vector operands.
+* **&&** 运算符代表“且”。它与**&**运算符略有不同，后者涉及向量操作数。
 
-* The condition within the 'while' says that (a) we are not yet at the
-  end of the **airpass** vector, AND (b) our total is still less than 10000.
+* 在'while'内的条件表示：（a）我们还没有到达**airpass**向量的末尾，且（b）我们的总和仍然小于10000。
 
-* Note the need for the condition **i <= length(airpass)**.  It's
-  possible that **tot** will never exceed 10000 (not true here, but we
-wouldn't know that *a priori*), so we need that condition so that the
-loop doesn't iterate forever!
+* 注意条件 **i <= length(airpass)** 的必要性。可能**tot**永远不会超过10000（在这里不成立，但我们无法*事先*知道），因此我们需要这个条件，以防止循环永远迭代！
 
-There's more, though.  The **cumsum** function is vectorized, so using
-it, though seemingly wasteful, may actually be faster than the loop
+不过，还有更多。**cumsum**函数是向量化的，因此使用它，尽管看起来有些浪费，实际上可能比循环更快。
 
-## <a name="forMore"> </a> To Learn More 
+## <a name="forMore"> </a> 进一步学习
 
-These are books and other resources that I myself consult a lot (yes, I
-do consult my own books; can't keep it all in my head :-) ), plus others
-I recommend.
+这些是我经常参考的书籍和其他资源（是的，我确实会查阅我自己的书籍；不可能把所有东西都记在脑子里 :-) ），以及我推荐的其他资源。
+
 
 **Nonprogramming Coverage of R**
 
@@ -4008,93 +3652,56 @@ I also would recommend various Web tutorials:
 * Hadley Wickham, 
 [the Tidyverse](https://www.tidyverse.org) 
 
-## <a name="thanks"> Thanks </a>
+## <a name="thanks"> 感谢 </a>
 
-author is grateful to Kyle Butts for some format improvements in July
-2022.
+作者对Kyle Butts在2022年7月对格式的一些改进表示感谢。
 
-This tutorial has also benefited from feedback from (in alphabetical order)
-Clay Ford, Reese Goding, Ira Sharenow, and Aaron Wichman, as well as
-numerous anonymous suggestions.
+本教程还受益于（按字母顺序排列）Clay Ford、Reese Goding、Ira Sharenow和Aaron Wichman的反馈，以及许多匿名建议。
 
-## <a name="ide"> Installing and Using IDEs </a>
+## <a name="ide"> 安装和使用集成开发环境（IDE） </a>
 
-An *interactive development environment* (IDE) is a software tool that
-enables editing, saving and running your code, as well as related
-actions such as installing packages.
+集成开发环境（IDE）是一种软件工具，它使编辑、保存和运行您的代码以及相关操作（如安装包）成为可能。
 
-The real "power users" tend to use either Emacs Speaks Statistics (ESS),
-a plugin for the Emacs editor, or Nvim-r,, a plugin for the vim editor.
-However, since this tutorial is aimed at those with little or no prior
-coding background, we will not cover them.  Instead, we introduce 
-RStudio.  Here are some pros and cons:
+真正的“高级用户”倾向于使用Emacs Speaks Statistics (ESS)，这是Emacs编辑器的插件，或者Nvim-r，这是vim编辑器的插件。然而，由于本教程面向的是那些没有或几乎没有编码背景的人，我们将不涉及它们。相反，我们介绍RStudio。以下是一些优缺点：
 
-* RStudio is very highly popular, especially in the US and Australia/New
-  Zealand.  Indeed, for many users, RStudio *is* R.  
+* RStudio非常受欢迎，特别是在美国和澳大利亚/新西兰。实际上，对于许多用户来说，RStudio *就是* R。
 
-* Lots of help available on the Web, and in R User Groups that have been
-  established in many major cities.  Has numerous features, keyboard
-shortcuts etc.  
+* 在网络上和已经在许多主要城市建立的R用户组中都可以获得很多帮助。具有众多功能、键盘快捷键等。
 
-* That however also has a downside, since as noted earlier, the
-  compexity of RStudio can be "overwhelming."
+* 然而，这也有一个缺点，因为如前所述，RStudio的复杂性可能会令人“不知所措”。
 
-In light of that last point, we recommend that you NOT try to learn
-RStudio to any degree of complexity at the outset.  Just learn how to
-create, load, run, and save files of R code, the simple stuff, which
-should be easy.  Leave the advanced features for later.
+考虑到最后一点，我们建议您在一开始不要试图学习RStudio到任何复杂程度。只需学习如何创建、加载、运行和保存R代码文件，即简单的内容，这应该很容易。把高级功能留给以后再说。
 
-### Installation
+### 安装
 
-There are many tutorials on the Web for installing RStudio.   
-[This one](https://techvidvan.com/tutorials/install-r/) is pretty good, 
-for all major platforms.
+在Web上有很多关于安装RStudio的教程。[这个](https://techvidvan.com/tutorials/install-r/)对于所有主要平台都很好。
 
-### Startup
+### 启动
 
-If your screen has an RStudio icon, click it.  Otherwise type 'rstudio'
-into a terminal window.
+如果您的屏幕上有一个RStudio图标，请点击它。否则，在终端窗口中键入'r studio'。
 
-### Basic actions:
+### 基本操作：
 
-Again, there is a lot more one can do than the following, but we'll
-stick to the absolute basics.
+同样，除了下面介绍的绝对基础操作外，还有很多其他操作。
 
-Note the pane in the lower-left portion of the RStudio screen.  By
-default, that is the Console pane, containing the usual R '>' prompt.
-You can use it just as we have throughout this tutorial.  Note too that
-this is where your R output will appear.
+注意RStudio屏幕左下部分的窗格。默认情况下，这是控制台窗格，包含常规的R '>'提示符。您可以像在本教程中一样使用它。还要注意，这是您的R输出将出现的地方。
 
-Everything here involves files, where we store our R code (*scripts*).
+这里的一切都涉及文件，我们在其中存储我们的R代码（*脚本*）。
 
-**creating a new code file:**  File | New File | R Script will create an
-empty window pane, ready to be filled with code.  Start typing!
+**创建新的代码文件：** 文件 | 新建文件 | R脚本将创建一个空的窗格，准备填入代码。开始输入吧！
 
-**saving a code file:** File | Save will save the contents of the pane.
-If it's a new file, you'll be asked to give the file a name.  Make sure
-to note what folder the file will be in, so you know where to read it
-from later.
+**保存代码文件：** 文件 | 保存将保存窗格的内容。如果是一个新文件，您将被要求给文件命名。确保注意文件将存储在哪个文件夹中，以便稍后知道从哪里读取它。
 
-**running code:** To run the code in your current window, choose Code |
-Run Region | Run All.
+**运行代码：** 要运行当前窗口中的代码，请选择代码 | 运行区域 | 运行所有。
 
-**exiting RStudio:**
+**退出RStudio：**
 
-File | Quit Session...
+文件 | 退出会话...
 
+## 许可
 
-## LICENSING
-
-The document is covered by a 
-[Creative Commons](http://creativecommons.org/licenses/by-nd/3.0/us/) license,
-Creative Commons Attribution-No Derivative Works 3.0 United States 
-![alt text](http://i.creativecommons.org/l/by-nd/3.0/us/88x31.png).  I have
-written the document to be *used*, so readers, teachers and so on are
-very welcome and encouraged to copy it verbatim.  Copyright is retained
-by N. Matloff in all non-U.S. jurisdictions, but permission to use these
-materials in teaching is still granted, provided the authorship and
-licensing information here is displayed.  I would appreciate being
-notified if you use this book for teaching, just so that I know the
-materials are being put to use, but this is not required.  information
-displayed.  No warranties are given or implied for this material.
-
+该文档受
+[创作共用](http://creativecommons.org/licenses/by-nd/3.0/us/) 许可的保护，
+创作共用署名-禁止演绎3.0美国
+![alt text](http://i.creativecommons.org/l/by-nd/3.0/us/88x31.png)。我已经
+撰写了这个文档以供*使用*，因此读者、教师等非常欢迎和鼓励直接复制它。在所有非美国司法管辖区，版权归N. Matloff所有，但只要显示了这里的作者和许可信息，仍然允许在教学中使用这些材料。我会很高兴知道您是否使用这本书进行教学，这样我就知道材料正在被使用，但这并不是必须的。信息显示。对于这些材料，不提供或暗示任何保修。
